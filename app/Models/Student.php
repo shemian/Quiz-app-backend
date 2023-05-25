@@ -13,14 +13,13 @@ class Student extends Model
     use HasUuids, HasFactory;
 
     protected $fillable = [
+        'user_id',
         'guardian_id',
         'account_number',
-        'name',
         'Date_of_birth',
         'school_name',
         'county',
         'username',
-        'pin'
     ];
 
     public function guardians(): BelongsTo

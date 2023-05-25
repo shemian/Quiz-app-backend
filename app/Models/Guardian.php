@@ -12,10 +12,8 @@ class Guardian extends Model
     use HasUuids, HasFactory;
 
     protected $fillable  =[
-        'name',
-        'email',
+        'user_id',
         'phone_number',
-        'password'
     ];
 
     public function students(): HasMany
