@@ -28,9 +28,9 @@ Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-Route::prefix('/admin')->middleware(['auth', 'isAdmin'])->group(function(){
-    Route::get('/', [AdminController::class, 'index'])->name('admin.dashboard');
-});
+// Route::prefix('/admin')->middleware(['auth', 'isAdmin'])->group(function(){
+    Route::get('/admin', [AdminController::class, 'index'])->name('admin.dashboard');
+// });
 
 Route::prefix('parent')->middleware([ 'isParent'])->group(function(){
     Route::get('/', [GuardianController::class, 'index'])->name('parent.dashboard');
@@ -46,3 +46,11 @@ Route::prefix('student')->middleware(['auth'])->group(function(){
     Route::get('/dashboard', [StudentController::class, 'index']);
 });
 
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

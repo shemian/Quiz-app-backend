@@ -13,8 +13,12 @@
     <link rel="dns-prefetch" href="//fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet">
 
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
     <!-- Scripts -->
-    @vite(['resources/sass/app.scss', 'resources/js/app.js'])
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha384-jkE8vFqzG/6vv0c+9r6j0+tnZN4u/nXYD4CyxQZl3J7Xru2M5y2YMv+0g4haK28K" crossorigin="anonymous"></script>
+
 </head>
 <body>
     <div id="app">
