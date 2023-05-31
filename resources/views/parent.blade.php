@@ -232,8 +232,8 @@
                                         <img src="assets/images/users/avatar-1.jpg" alt="user-image" class="rounded-circle">
                                     </span>
                                     <span>
-                                        <span class="account-user-name">Ian Shem</span>
-                                        <span class="account-position">Guardian</span>
+                                        <span class="account-user-name"> {{ Auth::user()->name }}</span>
+                                        <span class="account-position"> {{ Auth::user()->role }}</span>
                                     </span>
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-end dropdown-menu-animated topbar-dropdown-menu profile-dropdown">
@@ -267,10 +267,15 @@
                                     </a>
 
                                     <!-- item-->
-                                    <a href="javascript:void(0);" class="dropdown-item notify-item">
-                                        <i class="mdi mdi-logout me-1"></i>
-                                        <span>Logout</span>
+                                    <a class="dropdown-item notify-item" href="{{ route('logout') }}"
+                                       onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();">
+                                        {{ __('Logout') }}
                                     </a>
+
+                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                        @csrf
+                                    </form>
                                 </div>
                             </li>
 
