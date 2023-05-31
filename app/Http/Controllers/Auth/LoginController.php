@@ -21,11 +21,13 @@ class LoginController extends Controller
 
     protected function authenticated(Request $request, $user)
     {
-        if ($user->role === 'parent') {
+        if ($user->role === 2) {
             return redirect()->route('parent.dashboard');
-        } elseif ($user->role === 'teacher') {
+        } elseif ($user->role === 1) {
             return redirect()->route('teacher.dashboard');
-        } else {
+        } elseif ($user->role === 0) {
+            return redirect()->route('admin.dashboard');
+        }else {
             return redirect()->route('home');
         }
     }
