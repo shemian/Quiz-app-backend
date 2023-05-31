@@ -34,6 +34,13 @@
             </li>
 
             <li class="side-nav-item">
+                <a href="{{ route('get_teachers') }}" class="side-nav-link">
+                    <i class="uil-users-alt"></i>
+                    <span> Teachers </span>
+                </a>
+            </li>
+
+            <li class="side-nav-item">
                 <a href="" class="side-nav-link">
                     <i class="uil-user"></i>
                     <span> Students </span>

@@ -28,11 +28,12 @@ Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-// Route::prefix('/admin')->middleware(['auth', 'isAdmin'])->group(function(){
-    Route::get('/admin', [AdminController::class, 'index'])->name('admin.dashboard');
-// });
+Route::prefix('/admin')->middleware(['isAdmin'])->group(function(){
+    Route::get('/', [AdminController::class, 'index'])->name('admin.dashboard');
+    Route::get('/teachers', [AdminController::class, 'get_teachers'])->name('get_teachers');
+});
 
-Route::prefix('parent')->middleware([ 'isParent'])->group(function(){
+Route::prefix('parent')->middleware(['isParent'])->group(function(){
     Route::get('/', [GuardianController::class, 'index'])->name('parent.dashboard');
 });
 

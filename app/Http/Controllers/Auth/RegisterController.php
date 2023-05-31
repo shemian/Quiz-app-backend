@@ -27,7 +27,6 @@ class RegisterController extends Controller
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
-            'role' => ['nullable'],
             
         ]);
     }
@@ -38,15 +37,15 @@ class RegisterController extends Controller
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
-            'role' => 2,
+            'role' => 'parent',
         ]);
     }
 
     protected function registered(Request $request, $user)
     {
-        if ($user->role === 2) {
+        if ($user->role === 'parent') {
             return redirect()->route('parent.dashboard');
-        } elseif ($user->role === 1) {
+        } elseif ($user->role === 'teacher') {
             return redirect()->route('teacher.dashboard');
         } else {
             return redirect()->route('home');

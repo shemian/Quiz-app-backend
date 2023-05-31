@@ -7,6 +7,12 @@
         <meta content="A fully featured admin theme which can be used to build CRM, CMS, etc." name="description">
         <meta content="Coderthemes" name="author">
         <link rel="shortcut icon" href="{{ asset('assets/images/favicon.ico') }}">
+
+
+        <link rel="stylesheet" href="{{ asset('assets/css/vendor/dataTables.bootstrap5.css') }}" type="text/css">
+        <link rel="stylesheet" href="{{ asset('assets/css/vendor/responsive.bootstrap5.css') }}" type="text/css">
+        <link rel="stylesheet" href="{{ asset('assets/css/vendor/buttons.bootstrap5.css') }}" type="text/css">
+        <link rel="stylesheet" href="{{ asset('assets/css/vendor/select.bootstrap5.css') }}" type="text/css">
        
         <link rel="stylesheet" href="{{ asset('assets/css/icons.min.css') }}" type="text/css">
         <link rel="stylesheet" href="{{ asset('assets/css/app.min.css') }}" type="text/css" id="light-style">
@@ -64,7 +70,19 @@
         <!-- end demo js-->
         
     
-        
+        <!-- third party js -->
+        <script src="{{ asset('assets/js/vendor/jquery.dataTables.min.js') }}"></script>
+        <script src="{{ asset('assets/js/vendor/dataTables.bootstrap5.js') }}"></script>
+        <script src="{{ asset('assets/js/vendor/dataTables.responsive.min.js') }}"></script>
+        <script src="{{ asset('assets/js/vendor/responsive.bootstrap5.min.js') }}"></script>
+        <script src="{{ asset('assets/js/vendor/dataTables.buttons.min.js') }}"></script>
+        <script src="{{ asset('assets/js/vendor/buttons.bootstrap5.min.js') }}"></script>
+        <script src="{{ asset('assets/js/vendor/buttons.html5.min.js') }}"></script>
+        <script src="{{ asset('assets/js/vendor/buttons.flash.min.js') }}"></script>
+        <script src="{{ asset('assets/js/vendor/buttons.print.min.js') }}"></script>
+        <script src="{{ asset('assets/js/vendor/dataTables.keyTable.min.js') }}"></script>
+        <script src="{{ asset('assets/js/vendor/dataTables.select.min.js') }}"></script>
+        <script src="{{ asset('assets/js/pages/demo.datatable-init.js') }}"></script>
         
     </body>
 </html>
