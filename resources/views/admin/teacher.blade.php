@@ -2,6 +2,9 @@
 
 @section('content')
 
+
+
+
 <div class="container-fluid">                    <!-- start page title -->
     <div class="row">
         <div class="col-12">
@@ -38,7 +41,7 @@
                             <label for="name" class="col-md-4 col-form-label text-md-end">{{ __('Name') }}</label>
 
                             <div class="col-md-6">
-                                <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus>
+                                <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name"  required >
 
                                 @error('name')
                                     <span class="invalid-feedback" role="alert">
@@ -48,25 +51,12 @@
                             </div>
                         </div>
 
-                        <div class="row mb-3">
-                            <label for="Phone Number" class="col-md-4 col-form-label text-md-end">{{ __('Phone Number') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="phone_number" type="phone_number" class="form-control @error('phone_number') is-invalid @enderror" name="phone_number"  required autocomplete="phone_number">
-
-                                @error('email')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>
 
                         <div class="row mb-3">
                             <label for="email" class="col-md-4 col-form-label text-md-end">{{ __('Email Address') }}</label>
 
                             <div class="col-md-6">
-                                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email"  required autocomplete="email">
+                                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email"  required >
 
                                 @error('email')
                                     <span class="invalid-feedback" role="alert">
@@ -107,34 +97,17 @@
                     
                     <div class="tab-content">
                         <div class="tab-pane show active" id="basic-datatable-preview">
-                            <table id="basic-datatable" class="table dt-responsive nowrap w-100">
+                            <table id="teacher-table" class="table dt-responsive nowrap w-100">
                                 <thead>
                                     <tr>
                                         <th>Name</th>
-                                        <th>Position</th>
-                                        <th>Office</th>
-                                        <th>Age</th>
-                                        <th>Start date</th>
-                                        <th>Salary</th>
+                                        <th>Email</th>
+                                        <th>Role</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td>Michael Bruce</td>
-                                        <td>Javascript Developer</td>
-                                        <td>Singapore</td>
-                                        <td>29</td>
-                                        <td>2011/06/27</td>
-                                        <td>$183,000</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Donna Snider</td>
-                                        <td>Customer Support</td>
-                                        <td>New York</td>
-                                        <td>27</td>
-                                        <td>2011/01/25</td>
-                                        <td>$112,000</td>
-                                    </tr>
+                                    
+                                  
                                 </tbody>
                             </table>                                           
                         </div> <!-- end preview-->
@@ -147,3 +120,39 @@
 </div> <!-- container -->
 
 @endsection
+
+@section('scripts')
+
+<script type="text/javascript">
+  $(function () {
+
+    var table = $('#teacher-table').DataTable({
+        processing: true,
+        serverSide: true,
+        // scrollX: true,
+        buttons: [
+            'copy', 'csv', 'excel', 'pdf', 'print'
+        ], //not working
+        
+        ajax: {
+            "url" : "/admin/getTeachers",
+            "type" : "GET",
+            error: function(thrownError){
+            console.log(thrownError);// to debug error on dataTables 
+        }
+        },
+        
+        columns: [
+            {data: 'id', name: 'id'},
+            {data: 'name', name: 'name'},
+            {data: 'email', name: 'email'},
+        ]
+        
+
+       
+    });
+
+  });
+  
+</script>
+@endsection()

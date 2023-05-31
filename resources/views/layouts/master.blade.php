@@ -18,6 +18,7 @@
         <link rel="stylesheet" href="{{ asset('assets/css/app.min.css') }}" type="text/css" id="light-style">
         <link rel="stylesheet" href="{{ asset('assets/css/app-dark.min.css') }}" type="text/css" id="dark-style">
         
+        @yield('styles')
 
     </head>
 
@@ -83,6 +84,8 @@
         <script src="{{ asset('assets/js/vendor/dataTables.keyTable.min.js') }}"></script>
         <script src="{{ asset('assets/js/vendor/dataTables.select.min.js') }}"></script>
         <script src="{{ asset('assets/js/pages/demo.datatable-init.js') }}"></script>
+
+        @yield('scripts')
         
     </body>
 </html>

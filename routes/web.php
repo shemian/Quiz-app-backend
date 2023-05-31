@@ -31,6 +31,8 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 Route::prefix('/admin')->middleware(['isAdmin'])->group(function(){
     Route::get('/', [AdminController::class, 'index'])->name('admin.dashboard');
     Route::get('/teachers', [AdminController::class, 'get_teachers'])->name('get_teachers');
+    Route::post('/teachers', [AdminController::class, 'store_teachers'])->name('store_teachers');
+    Route::get('/getTeachers', [AdminController::class, 'getTeachers'])->name('teachers.list');
 });
 
 Route::prefix('parent')->middleware(['isParent'])->group(function(){
