@@ -42,6 +42,7 @@ class AdminController extends Controller
         $password = Str::random(10);
         $newTeacher->password = $password;
         $newTeacher->save();
+        
 
         // Send email with password
         Mail::to($newTeacher->email)->send(new TeacherCreated($newTeacher, $password));

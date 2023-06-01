@@ -6,6 +6,7 @@ use App\Http\Controllers\GuardianController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\StudentController;
+use App\Http\Controllers\SubjectController;
 
 
 
@@ -44,6 +45,8 @@ Route::prefix('parent')->middleware(['isParent'])->group(function(){
 
 Route::prefix('teacher')->middleware(['auth', 'isTeacher'])->group(function(){
     Route::get('/', [TeacherController::class, 'index'])->name('teacher.dashboard');
+    Route::get('/subjects', [SubjectController::class, 'index'])->name('get_subjects');
+    Route::post('/subjects', [SubjectController::class, 'store'])->name('store_subjects');
 });
 
 
