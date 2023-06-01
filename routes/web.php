@@ -33,6 +33,8 @@ Route::prefix('/admin')->middleware(['isAdmin'])->group(function(){
     Route::get('/teachers', [AdminController::class, 'get_teachers'])->name('get_teachers');
     Route::post('/teachers', [AdminController::class, 'store_teachers'])->name('store_teachers');
     Route::get('/getTeachers', [AdminController::class, 'getTeachers'])->name('teachers.list');
+    Route::get('/teacher-profile', [AdminController::class, 'teacher_profile'])->name('teacher_profile');
+
 });
 
 Route::prefix('parent')->middleware(['isParent'])->group(function(){

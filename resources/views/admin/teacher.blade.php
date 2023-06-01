@@ -3,8 +3,6 @@
 @section('content')
 
 
-
-
 <div class="container-fluid">                    <!-- start page title -->
     <div class="row">
         <div class="col-12">
@@ -103,10 +101,20 @@
                                         <th>Name</th>
                                         <th>Email</th>
                                         <th>Role</th>
+                                        <th>Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    
+                                @foreach ($teachers as $teacher)
+                                <tr>
+                                    <td>{{ $teacher->name }}</td>
+                                    <td>{{ $teacher->email }}</td>
+                                    <td>{{ $teacher->role }}</td>
+                                    <td>
+                                        <!-- Add your action button code here -->
+                                    </td>
+                                </tr>
+                                @endforeach
                                   
                                 </tbody>
                             </table>                                           
@@ -123,36 +131,5 @@
 
 @section('scripts')
 
-<script type="text/javascript">
-  $(function () {
 
-    var table = $('#teacher-table').DataTable({
-        processing: true,
-        serverSide: true,
-        // scrollX: true,
-        buttons: [
-            'copy', 'csv', 'excel', 'pdf', 'print'
-        ], //not working
-        
-        ajax: {
-            "url" : "/admin/getTeachers",
-            "type" : "GET",
-            error: function(thrownError){
-            console.log(thrownError);// to debug error on dataTables 
-        }
-        },
-        
-        columns: [
-            {data: 'id', name: 'id'},
-            {data: 'name', name: 'name'},
-            {data: 'email', name: 'email'},
-        ]
-        
-
-       
-    });
-
-  });
-  
-</script>
 @endsection()

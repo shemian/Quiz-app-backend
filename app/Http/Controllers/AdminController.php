@@ -8,6 +8,9 @@ use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 use Datatables;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\TeacherCreated;
+
 
 
 class AdminController extends Controller
@@ -22,16 +25,10 @@ class AdminController extends Controller
 
     //Display teacher's Details
     public function get_teachers(){
-        return view ('admin.teacher');
+        $teachers = User::where('role', 2)->get();
+        return view('admin.teacher', compact('teachers'));
     }
 
-    public function getTeachers(Request $request){
-        
-        if ($request->ajax()) {
-            $getTeachers = User::all();
-            return Datatables::of($getTeachers);
-        }
-    }
 
     //store teachers details
     public function store_teachers(CreateTeacherRequest $request){
@@ -41,11 +38,19 @@ class AdminController extends Controller
         $newTeacher->name=$data['name'];
         $newTeacher->email= $data['email'];
         $newTeacher->role = 2;
-        $newTeacher->password = Str::password(10);
+        $password = Str::random(10);
+        $newTeacher->password = $password;
         $newTeacher->save();
+
+        // Send email with password
+        Mail::to($newTeacher->email)->send(new TeacherCreated($newTeacher, $password));
 
 
         return redirect()->route('get_teachers');
+    }
+
+    public function teacher_profile(){
+        return view('teacher_profile');
     }
 
     /**

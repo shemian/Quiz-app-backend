@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('Date_of_birth');
             $table->string('school_name');
             $table->string('county');
+            $table->decimal('credit', 8,2);
             $table->tinyInteger('account_status')->default(AccountStatus::INACTIVE);
             $table->string('username');
             $table->timestamps();
