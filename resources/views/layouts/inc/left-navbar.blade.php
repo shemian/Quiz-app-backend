@@ -27,7 +27,7 @@
             </li>
 
             <li class="side-nav-item">
-                <a href="" class="side-nav-link">
+                <a href="#" class="side-nav-link">
                     <i class="uil-users-alt"></i>
                     <span> Customers </span>
                 </a>
@@ -42,28 +42,28 @@
             
 
             <li class="side-nav-item">
-                <a href="" class="side-nav-link">
+                <a href="#" class="side-nav-link">
                     <i class="uil-user"></i>
                     <span> Students </span>
                 </a>
             </li>
 
             <li class="side-nav-item">
-                <a href="" class="side-nav-link">
+                <a href="#" class="side-nav-link">
                     <i class="uil-book-open"></i>
                     <span> Lessons </span>
                 </a>
             </li>
 
             <li class="side-nav-item">
-                <a href=""class="side-nav-link">
+                <a href="#"class="side-nav-link">
                     <i class="uil-comment"></i>
                     <span> SMS </span>
                 </a>
             </li>
 
             <li class="side-nav-item">
-                <a href="" class="side-nav-link">
+                <a href="#" class="side-nav-link">
                     <i class="uil-dollar-sign"></i>
                     <span> Transactions </span>
                 </a>
@@ -80,14 +80,14 @@
                 <div class="collapse" id="sidebarEmail">
                     <ul class="side-nav-second-level">
                         <li class="side-nav-item">
-                            <a href="" class="side-nav-link">
+                            <a href="#" class="side-nav-link">
                                 <i class="uil-dollar-sign"></i>
                                 <span> Transactions </span>
                             </a>
                         </li>
 
                         <li class="side-nav-item">
-                            <a href="" class="side-nav-link">
+                            <a href="#" class="side-nav-link">
                                 <i class="uil-chart-line"></i>
                                 <span> Students Report </span>
                             </a>

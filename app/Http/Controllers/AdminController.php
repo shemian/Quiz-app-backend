@@ -10,6 +10,7 @@ use Illuminate\Support\Str;
 use Datatables;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\TeacherCreated;
+use Illuminate\Support\Facades\Session;
 
 
 
@@ -45,8 +46,11 @@ class AdminController extends Controller
         // Send email with password
         Mail::to($newTeacher->email)->send(new TeacherCreated($newTeacher, $password));
 
+        // Clear form data
+    Session::flash('formData', null);
 
-        return redirect()->route('get_teachers');
+    return redirect()->route('get_teachers')->with('success', 'Teacher added successfully!');
+
     }
 
     public function teacher_profile(){

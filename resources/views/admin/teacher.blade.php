@@ -13,9 +13,26 @@
                         <li class="breadcrumb-item"><a href="javascript: void(0);">Teachers</a></li>
                     </ol>
                 </div>
+                <br>
                 <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
                     Add a Teacher
                 </button>
+
+                @if(session('success'))
+                    <div class="alert alert-success">
+                        {{ session('success') }}
+                    </div>
+                @endif
+
+                @if($errors->any())
+                    <div class="alert alert-danger">
+                        <ul>
+                            @foreach($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
             </div>
         </div>
     </div>     
@@ -32,6 +49,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
+                
                     <form method="POST" action="">
                         @csrf
 
@@ -78,58 +96,69 @@
             </div>
         </div>
     </div>
-
+    
     <div class="row">
         <div class="col-12">
             <div class="card">
                 <div class="card-body">
-                    <h4 class="header-title">Teachers</h4>
+
+                    <h4 class="header-title">Manage Teachers</h4>
+                   
 
                     <ul class="nav nav-tabs nav-bordered mb-3">
                         <li class="nav-item">
-                            <a href="#basic-datatable-preview" data-bs-toggle="tab" aria-expanded="false" class="nav-link active">
+                            <a href="#buttons-table-preview" data-bs-toggle="tab" aria-expanded="false" class="nav-link active">
                                 Preview
                             </a>
                         </li>
+                        
                     </ul> <!-- end nav-->
-                    
                     <div class="tab-content">
-                        <div class="tab-pane show active" id="basic-datatable-preview">
-                            <table id="teacher-table" class="table dt-responsive nowrap w-100">
+                        <div class="tab-pane show active" id="buttons-table-preview">
+                            <table id="datatable-buttons" class="table table-striped dt-responsive nowrap w-100">
                                 <thead>
                                     <tr>
                                         <th>Name</th>
-                                        <th>Email</th>
-                                        <th>Role</th>
-                                        <th>Action</th>
+                                        <th>Position</th>
+                                        <th>Office</th>
+                                    
                                     </tr>
                                 </thead>
-                                <tbody>
                                 @foreach ($teachers as $teacher)
                                 <tr>
                                     <td>{{ $teacher->name }}</td>
                                     <td>{{ $teacher->email }}</td>
                                     <td>{{ $teacher->role }}</td>
-                                    <td>
-                                        <!-- Add your action button code here -->
-                                    </td>
                                 </tr>
                                 @endforeach
-                                  
+                            
+                                <tbody>
+                                    
+                                    
                                 </tbody>
                             </table>                                           
                         </div> <!-- end preview-->
+                        
                     </div> <!-- end tab-content-->
+                    
                 </div> <!-- end card body-->
             </div> <!-- end card -->
         </div><!-- end col-->
-    </div>
+    </div>  
     <!-- end row-->
 </div> <!-- container -->
 
 @endsection
 
+
 @section('scripts')
-
-
-@endsection()
+    @if(Session::has('formData'))
+        <script>
+            // Restore form data from session
+            var formData = {!! json_encode(Session::get('formData')) !!};
+            Object.keys(formData).forEach(function(key) {
+                document.getElementById(key).value = formData[key];
+            });
+        </script>
+    @endif
+@endsection
