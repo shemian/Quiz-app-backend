@@ -1,7 +1,6 @@
- <!-- ========== Left Sidebar Start ========== -->
- <div class="leftside-menu">
-                 
-                 <!-- LOGO -->
+<div class="leftside-menu">
+    
+    <!-- LOGO -->
     <a href="" class="logo text-center logo-light" style="font-size: 29px; font-weight: bold;">
         Centy<span>Plus</span>   
     </a>
@@ -20,30 +19,23 @@
             <li class="side-nav-title side-nav-item">Navigation</li>
 
             <li class="side-nav-item">
-                <a href="{{ route('teacher.dashboard') }}" class="side-nav-link">
+                <a href="{{ route('parent.dashboard') }}" class="side-nav-link">
                     <i class="uil-home-alt"></i>
                     <span> Dashboard </span>
                 </a>
             </li>
 
             <li class="side-nav-item">
-                <a href="{{ route('get_subjects') }}" class="side-nav-link">
+                <a href="{{ route('get_students') }}" class="side-nav-link">
                     <i class="uil-users-alt"></i>
-                    <span> Subjects </span>
-                </a>
-            </li>
-
-            <li class="side-nav-item">
-                <a href="{{ route('get_questions') }}" class="side-nav-link">
-                    <i class="uil-users-alt"></i>
-                    <span> Questions </span>
+                    <span> Students </span>
                 </a>
             </li>
 
             <li class="side-nav-item">
                 <a href="#" class="side-nav-link">
                     <i class="uil-book-open"></i>
-                    <span> Notes </span>
+                    <span> Invoices </span>
                 </a>
             </li>
 
@@ -66,4 +58,3 @@
     <!-- Sidebar -left -->
 
 </div>
-<!-- Left Sidebar End -->

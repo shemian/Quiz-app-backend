@@ -7,7 +7,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\SubjectController;
-
+use App\Http\Controllers\QuestionController;
 
 
 /*
@@ -40,6 +40,8 @@ Route::prefix('/admin')->middleware(['isAdmin'])->group(function(){
 
 Route::prefix('parent')->middleware(['isParent'])->group(function(){
     Route::get('/', [GuardianController::class, 'index'])->name('parent.dashboard');
+    Route::get('/students', [GuardianController::class, 'createStudent'])->name('get_students');
+    Route::post('/students', [GuardianController::class, 'store'])->name('store_student');
 });
 
 
@@ -47,6 +49,8 @@ Route::prefix('teacher')->middleware(['auth', 'isTeacher'])->group(function(){
     Route::get('/', [TeacherController::class, 'index'])->name('teacher.dashboard');
     Route::get('/subjects', [SubjectController::class, 'index'])->name('get_subjects');
     Route::post('/subjects', [SubjectController::class, 'store'])->name('store_subjects');
+    Route::get('/questions', [QuestionController::class, 'index'])->name('get_questions');
+    Route::post('/questions', [QuestionController::class, 'store'])->name('store_questions');
 });
 
 

@@ -14,8 +14,8 @@ return new class extends Migration
         Schema::create('guardians', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->foreignUuid('user_id')->constrained()->cascadeOnDelete();
-            $table->string('phone_number');
-            $table->decimal('credit', 8, 2);
+            $table->string('phone_number')->nullable();
+            $table->decimal('credit', 8, 2)->nullable();
             $table->timestamp('email_verified_at')->nullable();
             $table->timestamps();
         });
