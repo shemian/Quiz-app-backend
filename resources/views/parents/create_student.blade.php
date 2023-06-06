@@ -1,4 +1,4 @@
-@extends('teachers.master')
+@extends('parents.master')
 
 @section('content')
     <div class="container-fluid">

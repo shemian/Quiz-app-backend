@@ -57,7 +57,9 @@ class RegisterController extends Controller
             return redirect()->route('parent.dashboard');
         } elseif ($user->role === 'teacher') {
             return redirect()->route('teacher.dashboard');
-        } else {
+        } elseif ($user->role === 'student') {
+            return redirect()->route('admin.dashboard');
+        }else {
             return redirect()->route('home');
         }
     }

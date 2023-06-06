@@ -26,7 +26,7 @@ class AdminController extends Controller
 
     //Display teacher's Details
     public function get_teachers(){
-        $teachers = User::where('role', 2)->get();
+        $teachers = User::where('role', 'teacher')->get();
         return view('admin.teacher', compact('teachers'));
     }
 
@@ -38,7 +38,7 @@ class AdminController extends Controller
         $newTeacher = new User();
         $newTeacher->name=$data['name'];
         $newTeacher->email= $data['email'];
-        $newTeacher->role = 2;
+        $newTeacher->role = 'teacher';
         $password = Str::random(10);
         $newTeacher->password = $password;
         $newTeacher->save();

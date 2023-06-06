@@ -13,14 +13,16 @@ return new class extends Migration
     {
         Schema::create('results', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->foreignUuid('student_id')->constrained()->cascadeOnDelete();
-            $table->foreignUuid('question_id')->constrained()->cascadeOnDelete();
+            $table->foreignUuid('student_id')->constrained('students')->cascadeOnDelete();
+            $table->foreignUuid('subject_id')->constrained('subjects')->cascadeOnDelete();
             $table->string('yes_ans');
             $table->string('no_ans');
             $table->string('result_json');
             $table->timestamps();
         });
     }
+   
+
 
     /**
      * Reverse the migrations.
