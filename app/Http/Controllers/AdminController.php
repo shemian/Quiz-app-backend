@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Requests\CreateTeacherRequest;
 use App\Models\User;
+use App\Models\Guardian;
+use App\Models\Student;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 use Datatables;
@@ -28,6 +30,16 @@ class AdminController extends Controller
     public function get_teachers(){
         $teachers = User::where('role', 'teacher')->get();
         return view('admin.teacher', compact('teachers'));
+    }
+
+    public function get_customers(){
+        $customers = Guardian::with('user')->get();
+        return view('admin.customers', compact('customers'));
+    }
+
+    public function get_students(){
+        $students = Student::with('user')->get();
+        return view('admin.students', compact('students'));
     }
 
 

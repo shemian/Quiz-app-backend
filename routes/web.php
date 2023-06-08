@@ -36,6 +36,9 @@ Route::prefix('/admin')->middleware(['isAdmin'])->group(function(){
     Route::get('/getTeachers', [AdminController::class, 'display_Teachers'])->name('teachers.list');
     Route::get('/teacher-profile', [AdminController::class, 'teacher_profile'])->name('teacher_profile');
 
+    Route::get('/customers', [AdminController::class, 'get_customers'])->name('get_customers');
+    Route::get('/view_students', [AdminController::class, 'get_students'])->name('view_students');
+
 });
 
 Route::prefix('parent')->middleware(['isParent'])->group(function(){
