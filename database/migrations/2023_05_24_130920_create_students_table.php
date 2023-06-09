@@ -13,13 +13,13 @@ return new class extends Migration
     {
         Schema::create('students', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->foreignUuid('guardian_id')->constrained()->cascadeOnDelete();
-            $table->foreignUuid('user_id')->constrained()->cascadeOnDelete();
+            $table->foreignUuid('guardian_id')->constrained('guardians')->cascadeOnDelete();
+            $table->foreignUuid('user_id')->constrained('users')->cascadeOnDelete();
             $table->string('account_number');
             $table->string('Date_of_birth');
             $table->string('school_name');
             $table->string('county');
-            $table->decimal('credit', 8,2);
+            $table->decimal('credit', 8,2)->nullable();
             $table->tinyInteger('account_status')->default(AccountStatus::INACTIVE);
             $table->string('username');
             $table->timestamps();

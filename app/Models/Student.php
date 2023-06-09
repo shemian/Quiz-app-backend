@@ -32,4 +32,14 @@ class Student extends Model
         return $this->hasOne(StudentSubscriptionPlan::class);
     }
 
+    public function results(): HasMany
+    {
+        return $this->hasMany(Result::class);
+    }
+
+    public function user()
+    {
+    return $this->belongsTo(User::class);
+    }
+
 }

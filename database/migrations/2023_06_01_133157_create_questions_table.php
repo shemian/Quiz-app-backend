@@ -15,8 +15,13 @@ return new class extends Migration
             $table->uuid('id')->primary();
             $table->foreignUuid('subject_id')->constrained()->cascadeOnDelete();
             $table->string('subtopic');
-            $table->string('answer')->nullable();
-            $table->string('options')->nullable();
+            $table->string('question');
+            $table->string('option1');
+            $table->string('option2');
+            $table->string('option3');
+            $table->string('option4');
+            $table->string('answer');
+            $table->integer('marks');
             $table->string('status')->nullable();
             $table->timestamps();
         });

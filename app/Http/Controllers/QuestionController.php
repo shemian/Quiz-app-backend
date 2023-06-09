@@ -4,6 +4,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+use App\Models\Subject;
+use App\Models\Question;
+
+
 class QuestionController extends Controller
 {
     /**
@@ -11,7 +15,9 @@ class QuestionController extends Controller
      */
     public function index()
     {
-        //
+        $subjects = Subject::all();
+        $questions = Question::with('subject')->get();
+        return view('teachers.questions', compact('subjects', 'questions'));
     }
 
     /**
@@ -19,7 +25,22 @@ class QuestionController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validatedData = $request->validate([
+            'subject_id' => 'required',
+            'subtopic' => 'required',
+            'question' => 'required',
+            'option1' => 'required',
+            'option2' => 'required',
+            'option3' => 'required',
+            'option4' => 'required',
+            'answer' => 'required',
+            'marks' => 'required|integer|min:0'
+        ]);
+
+        Question::create($validatedData);
+
+        return redirect()->route('get_questions')->with('success', 'Question created successfully.');
+        
     }
 
     /**

@@ -27,7 +27,7 @@
             </li>
 
             <li class="side-nav-item">
-                <a href="#" class="side-nav-link">
+                <a href="{{ route('get_customers') }}" class="side-nav-link">
                     <i class="uil-users-alt"></i>
                     <span> Customers </span>
                 </a>
@@ -42,7 +42,7 @@
             
 
             <li class="side-nav-item">
-                <a href="#" class="side-nav-link">
+                <a href="{{ route('view_students') }}" class="side-nav-link">
                     <i class="uil-user"></i>
                     <span> Students </span>
                 </a>
