@@ -34,7 +34,7 @@
             </li>
 
             <li class="side-nav-item">
-                <a href="#" class="side-nav-link">
+                <a href="{{ route('get_questions') }}" class="side-nav-link">
                     <i class="uil-users-alt"></i>
                     <span> Questions </span>
                 </a>
