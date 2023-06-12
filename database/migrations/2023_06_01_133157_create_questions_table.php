@@ -14,6 +14,8 @@ return new class extends Migration
         Schema::create('questions', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->foreignUuid('subject_id')->constrained()->cascadeOnDelete();
+            $table->uuid('education_system_id')->constrained('education_systems', 'id')->cascadeOnDelete();
+            $table->uuid('education_level_id')->constrained('education_levels', 'id')->cascadeOnDelete();
             $table->string('subtopic');
             $table->string('question');
             $table->string('option1');
