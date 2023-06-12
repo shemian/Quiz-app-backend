@@ -52,103 +52,107 @@ class StudentController extends Controller
     }
 
     public function submitAnswers(Request $request, $subjectId)
-    {
-        $answers = $request->input('answer');
-        $subject = Subject::findOrFail($subjectId);
-
-        // Retrieve the authenticated user
-        $user = auth()->user();
-
-        // Retrieve the corresponding student record based on the user's ID
-        $student = Student::where('user_id', $user->id)->first();
-
-        if (!$student) {
-            // Handle the case where the student record does not exist
-            return redirect()->back()->with('error', 'Student record not found.');
-        }
-
-        $correctAnswers = 0;
-        $incorrectAnswers = 0;
-        $resultDetails = [];
-
-        foreach ($answers as $questionId => $selectedAnswer) {
-            $question = Question::find($questionId);
-
-            if (!$question) {
-                // Handle the case where the question does not exist
-                continue;
-            }
-
-            $correctAnswer = $question->answer;
-            $isCorrect = $correctAnswer === $selectedAnswer;
-
-            if ($isCorrect) {
-                $correctAnswers++;
-                $resultDetails[$questionId] = 'correct';
-            } else {
-                $incorrectAnswers++;
-                $resultDetails[$questionId] = 'incorrect';
-            }
-        }
-
-        $result = Result::create([
-            'student_id' => $student->id,
-            'subject_id' => $subjectId,
-            'yes_ans' => $correctAnswers,
-            'no_ans' => $incorrectAnswers,
-            'result_json' => json_encode($resultDetails),
-        ]);
-
-        if ($result) {
-            return redirect()->route('students.view_results', ['result' => $result->id])->with('success', 'Answers submitted successfully.');
-        } else {
-            return redirect()->back()->with('error', 'Failed to submit answers. Please try again.');
-        }
-    }
-
-    public function viewResult(Result $result)
 {
-    // Retrieve the subject related to the result
-    $subject = $result->subject;
+    $answers = $request->input('answer');
+    $subject = Subject::findOrFail($subjectId);
 
-    // Retrieve the subject ID from the result
-    $subjectId = $result->subject_id;
+    // Retrieve the authenticated user
+    $user = auth()->user();
 
-    // Retrieve the questions related to the subject
-    $questions = Question::where('subject_id', $subjectId)->get();
+    // Retrieve the corresponding student record based on the user's ID
+    $student = Student::where('user_id', $user->id)->first();
 
-    // Decode the result JSON to retrieve the details of correct and incorrect answers
-    $resultDetails = json_decode($result->result_json, true);
+    if (!$student) {
+        // Handle the case where the student record does not exist
+        return redirect()->back()->with('error', 'Student record not found.');
+    }
 
-    // Create an array to store the details of correct and incorrect answers
-    $answersDetails = [
-        'correct' => [],
-        'incorrect' => [],
-    ];
+    $totalMarks = 0;
+    $marksObtained = 0;
+    $resultDetails = [];
 
-    foreach ($questions as $question) {
-        $questionId = $question->id;
+    foreach ($answers as $questionId => $selectedAnswer) {
+        $question = Question::find($questionId);
 
-        // Check if the result details array has an entry for the question ID
-        if (array_key_exists($questionId, $resultDetails)) {
-            $answerStatus = $resultDetails[$questionId];
+        if (!$question) {
+            // Handle the case where the question does not exist
+            continue;
+        }
 
-            // If the answer is correct, add the question to the correct answers details array
-            if ($answerStatus === 'correct') {
-                $answersDetails['correct'][] = $question;
-            } else {
-                // If the answer is incorrect, add the question and its correct answer to the incorrect answers details array
-                $answersDetails['incorrect'][] = [
-                    'question' => $question,
-                    'correctAnswer' => $question->answer,
-                ];
-            }
+        $correctAnswer = $question->answer;
+        $isCorrect = $correctAnswer === $selectedAnswer;
+
+        $totalMarks += $question->marks; // Accumulate the total marks
+
+        if ($isCorrect) {
+            $marksObtained += $question->marks; // Add the marks for correct answer
+            $resultDetails[$questionId] = 'correct';
+        } else {
+            $resultDetails[$questionId] = 'incorrect';
         }
     }
 
-    return view('students.view_result', compact('result', 'subject', 'answersDetails'));
+    $result = Result::create([
+        'student_id' => $student->id,
+        'subject_id' => $subjectId,
+        'yes_ans' => count(array_filter($resultDetails, fn($value) => $value === 'correct')), // Count the number of correct answers
+        'no_ans' => count(array_filter($resultDetails, fn($value) => $value === 'incorrect')), // Count the number of incorrect answers
+        'result_json' => json_encode($resultDetails),
+        'marks_obtained' => $marksObtained, // Store the marks obtained
+        'total_marks' => $totalMarks, // Store the total marks
+    ]);
+
+    if ($result) {
+        $result->update(['marks_obtained' => $marksObtained]); // Update the 'marks_obtained' attribute in the database
+        return redirect()->route('students.view_results', ['result' => $result->id])->with('success', 'Answers submitted successfully.');
+    } else {
+        return redirect()->back()->with('error', 'Failed to submit answers. Please try again.');
+    }
 }
 
+
+    public function viewResult(Result $result)
+    {
+        // Retrieve the subject related to the result
+        $subject = $result->subject;
+
+        // Retrieve the subject ID from the result
+        $subjectId = $result->subject_id;
+
+        // Retrieve the questions related to the subject
+        $questions = Question::where('subject_id', $subjectId)->get();
+
+        // Decode the result JSON to retrieve the details of correct and incorrect answers
+        $resultDetails = json_decode($result->result_json, true);
+
+        // Create an array to store the details of correct and incorrect answers
+        $answersDetails = [
+            'correct' => [],
+            'incorrect' => [],
+        ];
+
+        foreach ($questions as $question) {
+            $questionId = $question->id;
+
+            // Check if the result details array has an entry for the question ID
+            if (array_key_exists($questionId, $resultDetails)) {
+                $answerStatus = $resultDetails[$questionId];
+
+                // If the answer is correct, add the question to the correct answers details array
+                if ($answerStatus === 'correct') {
+                    $answersDetails['correct'][] = $question;
+                } else {
+                    // If the answer is incorrect, add the question and its correct answer to the incorrect answers details array
+                    $answersDetails['incorrect'][] = [
+                        'question' => $question,
+                        'correctAnswer' => $question->answer,
+                    ];
+                }
+            }
+        }
+
+        return view('students.view_result', compact('result', 'subject', 'answersDetails'));
+    }
 
     /**
      * Store a newly created resource in storage.
@@ -182,3 +186,4 @@ class StudentController extends Controller
         //
     }
 }
+

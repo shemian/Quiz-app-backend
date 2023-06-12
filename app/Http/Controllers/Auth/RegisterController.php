@@ -26,9 +26,10 @@ class RegisterController extends Controller
     {
         return Validator::make($data, [
             'name' => ['required', 'string', 'max:255'],
+            'phone_number' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
-            
+
         ]);
     }
 
@@ -40,17 +41,17 @@ class RegisterController extends Controller
             'password' => Hash::make($data['password']),
             'role' => 'parent',
         ]);
-    
+
         $guardian = new Guardian();
         $guardian->user_id = $user->id;
-        $guardian->phone_number = '09789987766';
+        $guardian->phone_number = $data['phone_number'];
         $guardian->credit = '78877';
         // Set other guardian details
         $guardian->save();
-    
+
         return $user;
     }
-    
+
     protected function registered(Request $request, $user)
     {
         if ($user->role === 'parent') {

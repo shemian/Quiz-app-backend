@@ -6,7 +6,8 @@ use Illuminate\Http\Request;
 
 use App\Models\Subject;
 use App\Models\Question;
-
+use App\Models\EducationSystem;
+use App\Models\EducationLevel;
 
 class QuestionController extends Controller
 {
@@ -16,8 +17,9 @@ class QuestionController extends Controller
     public function index()
     {
         $subjects = Subject::all();
+        $education_systems = EducationSystem::all();
         $questions = Question::with('subject')->get();
-        return view('teachers.questions', compact('subjects', 'questions'));
+        return view('teachers.questions', compact('subjects', 'questions', 'education_systems'));
     }
 
     /**
@@ -28,6 +30,8 @@ class QuestionController extends Controller
         $validatedData = $request->validate([
             'subject_id' => 'required',
             'subtopic' => 'required',
+            'education_system_id' => 'required',
+            'education_level_id' => 'required',
             'question' => 'required',
             'option1' => 'required',
             'option2' => 'required',
@@ -40,7 +44,7 @@ class QuestionController extends Controller
         Question::create($validatedData);
 
         return redirect()->route('get_questions')->with('success', 'Question created successfully.');
-        
+
     }
 
     /**

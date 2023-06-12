@@ -8,7 +8,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\SubjectController;
 use App\Http\Controllers\QuestionController;
-
+use App\Http\Controllers\EduacationSystemsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -39,12 +39,22 @@ Route::prefix('/admin')->middleware(['isAdmin'])->group(function(){
     Route::get('/customers', [AdminController::class, 'get_customers'])->name('get_customers');
     Route::get('/view_students', [AdminController::class, 'get_students'])->name('view_students');
 
+    Route::get('/education_system', [EduacationSystemsController::class, 'get_education_system'])->name('get_education_system');
+    Route::post('/education_system', [EduacationSystemsController::class, 'store_education_system'])->name('store_education_system');
+
+    Route::get('/education_level', [EduacationSystemsController::class, 'get_education_level'])->name('get_education_level');
+    Route::post('/education_level', [EduacationSystemsController::class, 'store_education_level'])->name('store_education_level');
+
+
+
 });
 
 Route::prefix('parent')->middleware(['isParent'])->group(function(){
     Route::get('/', [GuardianController::class, 'index'])->name('parent.dashboard');
     Route::get('/create_students', [GuardianController::class, 'createStudent'])->name('get_students');
     Route::post('/students', [GuardianController::class, 'store'])->name('store_student');
+    Route::post('/education-levels', [EduacationSystemsController::class, 'getEducationLevels'])->name('get_education_levels');
+
 });
 
 
@@ -54,6 +64,7 @@ Route::prefix('teacher')->middleware([ 'isTeacher'])->group(function(){
     Route::post('/subjects', [SubjectController::class, 'store'])->name('store_subjects');
     Route::get('/questions', [QuestionController::class, 'index'])->name('get_questions');
     Route::post('/questions', [QuestionController::class, 'store'])->name('store_questions');
+    Route::post('/display_education_level', [EduacationSystemsController::class, 'getEducationLevels'])->name('getEducationLevels');
 });
 
 
