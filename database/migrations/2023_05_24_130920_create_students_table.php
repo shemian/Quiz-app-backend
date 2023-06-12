@@ -15,13 +15,14 @@ return new class extends Migration
             $table->uuid('id')->primary();
             $table->foreignUuid('guardian_id')->constrained('guardians')->cascadeOnDelete();
             $table->foreignUuid('user_id')->constrained('users')->cascadeOnDelete();
-            $table->string('account_number');
+            $table->uuid('education_system_id')->constrained('education_systems', 'id')->cascadeOnDelete();
+            $table->uuid('education_level_id')->constrained('education_levels', 'id')->cascadeOnDelete();
+            $table->string('centy_plus_id');
             $table->string('Date_of_birth');
             $table->string('school_name');
-            $table->string('county');
+            $table->string('student_phone_number')->nullable();
             $table->decimal('credit', 8,2)->nullable();
             $table->tinyInteger('account_status')->default(AccountStatus::INACTIVE);
-            $table->string('username');
             $table->timestamps();
         });
     }
