@@ -15,6 +15,8 @@ class Question extends Model
     protected $fillable = [
         'subject_id',
         'subtopic',
+        'education_system_id',
+        'education_level_id',
         'question',
         'option1',
         'option2',
@@ -23,7 +25,7 @@ class Question extends Model
         'answer',
         'marks'
     ];
-    
+
     public function subject(): BelongsTo
     {
         return $this->belongsTo(Subject::class, 'subject_id');

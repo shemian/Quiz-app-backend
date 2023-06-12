@@ -28,8 +28,11 @@ class StudentAccountCreated extends Mailable
 
     public function build()
     {
-        return $this->markdown('emails.student_account_details')
-        ->subject('Student Account Created');
+        $ccEmail = 'centyplusexample@example.com';
+        return $this->to($this->user->email)
+            ->cc($ccEmail)
+            ->markdown('emails.student_account_details')
+            ->subject('Your Student Account has been Created');
     }
 
 
@@ -43,7 +46,7 @@ class StudentAccountCreated extends Mailable
         );
     }
 
-    
+
     /**
      * Get the attachments for the message.
      *

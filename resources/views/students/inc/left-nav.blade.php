@@ -37,13 +37,6 @@
 
             <li class="side-nav-item">
                 <a href="#" class="side-nav-link">
-                    <i class="uil-book-open"></i>
-                    <span> Notes </span>
-                </a>
-            </li>
-
-            <li class="side-nav-item">
-                <a href="#" class="side-nav-link">
                     <i class="uil-graph-bar"></i>
                     <span> Results </span>
                 </a>

@@ -119,8 +119,8 @@
                                 <thead>
                                     <tr>
                                         <th>Name</th>
-                                        <th>Position</th>
-                                        <th>Office</th>
+                                        <th>Email</th>
+                                        <th>Role</th>
                                     
                                     </tr>
                                 </thead>
