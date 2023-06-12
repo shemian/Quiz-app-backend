@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('yes_ans');
             $table->string('no_ans');
             $table->string('result_json');
+            $table->decimal('marks_obtained', 5, 2)->default(0);
             $table->timestamps();
         });
     }
