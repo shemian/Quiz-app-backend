@@ -63,6 +63,9 @@ Route::prefix('teacher')->middleware([ 'isTeacher'])->group(function(){
     Route::get('/subjects', [SubjectController::class, 'index'])->name('get_subjects');
     Route::post('/subjects', [SubjectController::class, 'store'])->name('store_subjects');
     Route::get('/questions', [QuestionController::class, 'index'])->name('get_questions');
+
+    Route::get('/create_question', [QuestionController::class, 'create_question'])->name('create_question');
+
     Route::post('/questions', [QuestionController::class, 'store'])->name('store_questions');
     Route::post('/display_education_level', [EduacationSystemsController::class, 'getEducationLevels'])->name('getEducationLevels');
 });

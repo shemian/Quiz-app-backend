@@ -1,15 +1,15 @@
  <!-- ========== Left Sidebar Start ========== -->
  <div class="leftside-menu">
-                 
+
                  <!-- LOGO -->
     <a href="" class="logo text-center logo-light" style="font-size: 29px; font-weight: bold;">
-        Centy<span>Plus</span>   
+        Centy<span>Plus</span>
     </a>
 
 
     <!-- LOGO -->
     <a href="" class="logo text-center logo-dark">
-        Centy<span>Plus</span> 
+        Centy<span>Plus</span>
     </a>
 
     <div class="h-100" id="leftside-menu-container" data-simplebar="">
@@ -33,11 +33,33 @@
                 </a>
             </li>
 
+
+
             <li class="side-nav-item">
-                <a href="{{ route('get_questions') }}" class="side-nav-link">
-                    <i class="uil-users-alt"></i>
+                <a data-bs-toggle="collapse" href="#sidebarEmail" aria-expanded="false" aria-controls="sidebarEmail" class="side-nav-link">
+                    <i class="uil-graph-bar"></i>
                     <span> Questions </span>
+                    <span class="menu-arrow"></span>
                 </a>
+                <div class="collapse" id="sidebarEmail">
+                    <ul class="side-nav-second-level">
+                        <li class="side-nav-item">
+                            <a href="{{ route('get_questions') }}"  class="side-nav-link">
+                                <i class="uil-dollar-sign"></i>
+                                <span> View Questions </span>
+                            </a>
+                        </li>
+
+                        <li class="side-nav-item">
+                            <a href="{{ route('create_question') }}" class="side-nav-link">
+                                <i class="uil-chart-line"></i>
+                                <span> Create Questions </span>
+                            </a>
+                        </li>
+
+
+                    </ul>
+                </div>
             </li>
 
             <li class="side-nav-item">
@@ -55,10 +77,10 @@
             </li>
 
 
-        
+
         </ul>
 
-        
+
 
         <div class="clearfix"></div>
 

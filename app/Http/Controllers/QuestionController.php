@@ -22,6 +22,12 @@ class QuestionController extends Controller
         return view('teachers.questions', compact('subjects', 'questions', 'education_systems'));
     }
 
+    public function create_question(){
+        $subjects = Subject::all();
+        $education_systems = EducationSystem::all();
+        return view('teachers.create_question',compact('subjects',  'education_systems'));
+    }
+
     /**
      * Store a newly created resource in storage.
      */

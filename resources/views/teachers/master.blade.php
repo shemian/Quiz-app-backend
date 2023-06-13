@@ -52,7 +52,6 @@
         <!-- END wrapper -->
 
         <!-- Right Sidebar -->
-        @include('teachers.inc.right-navbar')
 
         <div class="rightbar-overlay"></div>
 
