@@ -23,7 +23,10 @@ class AdminController extends Controller
      */
     public function index()
     {
-        return view ('admin.dashboard');
+        $customerCount = Guardian::count();
+        $studentCount = Student::count();
+        $teacherCount = User::where('role', 'teacher')->count();
+        return view ('admin.dashboard', compact('customerCount','studentCount','teacherCount'));
     }
 
     //Display teacher's Details
@@ -54,15 +57,17 @@ class AdminController extends Controller
         $password = Str::random(10);
         $newTeacher->password = $password;
         $newTeacher->save();
-        
+
 
         // Send email with password
-        Mail::to($newTeacher->email)->send(new TeacherCreated($newTeacher, $password));
+
+        Mail::to($newTeacher->email)->queue(new TeacherCreated($newTeacher, $password));
+
 
         // Clear form data
     Session::flash('formData', null);
 
-    return redirect()->route('get_teachers')->with('success', 'Teacher added successfully!');
+    return redirect()->route('get_teachers')->with('success', 'Teacher added successfully!, Login Credentials Sent to the Email Address');
 
     }
 
