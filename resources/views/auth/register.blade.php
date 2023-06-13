@@ -58,7 +58,7 @@
                             <label for="password" class="col-md-4 col-form-label text-md-end">{{ __('Pin') }}</label>
 
                             <div class="col-md-6">
-                                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password" placeholder="****">
+                                <input id="password" type="password" type="password" pattern="\d*" inputmode="numeric" minlength="4" maxlength="4" placeholder="Enter 4-digit PIN" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password" >
 
                                 @error('password')
                                     <span class="invalid-feedback" role="alert">
@@ -72,7 +72,7 @@
                             <label for="password-confirm" class="col-md-4 col-form-label text-md-end">{{ __('Confirm Pin') }}</label>
 
                             <div class="col-md-6">
-                                <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">
+                                <input id="password-confirm" type="password" type="password" pattern="\d*" inputmode="numeric" minlength="4" maxlength="4" placeholder="Confirm 4-digit PIN" class="form-control" name="password_confirmation" required autocomplete="new-password">
                             </div>
                         </div>
 

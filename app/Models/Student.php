@@ -18,7 +18,6 @@ class Student extends Model
         'guardian_id',
         'education_system_id',
         'education_level_id',
-        'centy_plus_id',
         'Date_of_birth',
         'school_name',
         'student_phone_number',

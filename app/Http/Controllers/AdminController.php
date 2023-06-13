@@ -49,7 +49,6 @@ class AdminController extends Controller
     //store teachers details
     public function store_teachers(CreateTeacherRequest $request){
         $data = $request->validated();
-
         $newTeacher = new User();
         $newTeacher->name=$data['name'];
         $newTeacher->email= $data['email'];
