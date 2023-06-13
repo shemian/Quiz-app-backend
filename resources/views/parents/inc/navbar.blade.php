@@ -97,7 +97,7 @@
                 </span>
                 <span>
                     <span class="account-user-name"> {{ Auth::user()->name }}</span>
-                    <span class="account-position"> {{ Auth::user()->role }}</span>
+                    <span class="account-position"> {{ Auth::user()->centy_plus_id }}</span>
                 </span>
             </a>
             <div class="dropdown-menu dropdown-menu-end dropdown-menu-animated topbar-dropdown-menu profile-dropdown">
