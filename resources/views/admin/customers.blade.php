@@ -10,45 +10,27 @@
                 <div class="page-title-right">
                     <ol class="breadcrumb m-0">
                         <li class="breadcrumb-item"><a href="javascript: void(0);">Centy Plus</a></li>
-                        <li class="breadcrumb-item"><a href="javascript: void(0);">Teachers</a></li>
+                        <li class="breadcrumb-item"><a href="javascript: void(0);">Customers</a></li>
                     </ol>
                 </div>
                 <br>
-                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-                    Add a Teacher
-                </button>
 
-                @if(session('success'))
-                    <div class="alert alert-success">
-                        {{ session('success') }}
-                    </div>
-                @endif
-
-                @if($errors->any())
-                    <div class="alert alert-danger">
-                        <ul>
-                            @foreach($errors->all() as $error)
-                                <li>{{ $error }}</li>
-                            @endforeach
-                        </ul>
-                    </div>
-                @endif
             </div>
         </div>
-    </div>     
-    <!-- end page title --> 
+    </div>
+    <!-- end page title -->
 
     <!-- Scrollable modal -->
 
- 
-    
+
+
     <div class="row">
         <div class="col-12">
             <div class="card">
                 <div class="card-body">
 
                     <h4 class="header-title">Manage Customers </h4>
-                   
+
 
                     <ul class="nav nav-tabs nav-bordered mb-3">
                         <li class="nav-item">
@@ -56,7 +38,7 @@
                                 Preview
                             </a>
                         </li>
-                        
+
                     </ul> <!-- end nav-->
                     <div class="tab-content">
                         <div class="tab-pane show active" id="buttons-table-preview">
@@ -80,25 +62,25 @@
                                     <td>{{ $customer->user->role }}</td>
                                     <td>
                                         <a href="" title="View"><i class="mdi mdi-eye"></i></a>
-                                  
-                                        
+
+
                                     </td>
                                 </tr>
                                 @endforeach
-                            
+
                                 <tbody>
-                                    
-                                    
+
+
                                 </tbody>
-                            </table>                                           
+                            </table>
                         </div> <!-- end preview-->
-                        
+
                     </div> <!-- end tab-content-->
-                    
+
                 </div> <!-- end card body-->
             </div> <!-- end card -->
         </div><!-- end col-->
-    </div>  
+    </div>
     <!-- end row-->
 </div> <!-- container -->
 
