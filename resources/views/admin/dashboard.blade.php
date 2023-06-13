@@ -4,7 +4,7 @@
 
 
 <div class="container-fluid">
-                        
+
     <!-- start page title -->
     <div class="row">
         <div class="col-12">
@@ -12,8 +12,8 @@
                 <h4 class="page-title">Dashboard</h4>
             </div>
         </div>
-    </div>     
-    <!-- end page title --> 
+    </div>
+    <!-- end page title -->
 
     <div class="row">
         <div class="col-lg-6 col-xl-3">
@@ -22,7 +22,7 @@
                     <div class="row align-items-center">
                         <div class="col-6">
                             <h5 class="text-muted fw-normal mt-0 text-truncate" title="Campaign Sent">Customers</h5>
-                            <h3 class="my-2 py-1">9,184</h3>
+                            <h3 class="my-2 py-1">{{ $customerCount }}</h3>
                             <p class="mb-0 text-muted">
                                 <span class="text-success me-2"><i class="mdi mdi-arrow-up-bold"></i> 3.27%</span>
                             </p>
@@ -43,7 +43,7 @@
                     <div class="row align-items-center">
                         <div class="col-6">
                             <h5 class="text-muted fw-normal mt-0 text-truncate" title="New Leads">Students</h5>
-                            <h3 class="my-2 py-1">3,254</h3>
+                            <h3 class="my-2 py-1">{{ $studentCount  }}</h3>
                             <p class="mb-0 text-muted">
                                 <span class="text-danger me-2"><i class="mdi mdi-arrow-down-bold"></i> 5.38%</span>
                             </p>
@@ -64,7 +64,7 @@
                     <div class="row align-items-center">
                         <div class="col-6">
                             <h5 class="text-muted fw-normal mt-0 text-truncate" title="Deals">Teachers</h5>
-                            <h3 class="my-2 py-1">861</h3>
+                            <h3 class="my-2 py-1">{{ $teacherCount  }}</h3>
                             <p class="mb-0 text-muted">
                                 <span class="text-success me-2"><i class="mdi mdi-arrow-up-bold"></i> 4.87%</span>
                             </p>
@@ -174,7 +174,7 @@
                             <a href="javascript:void(0);" class="dropdown-item">Last Month</a>
                         </div>
                     </div>
-                    
+
                     <h4 class="header-title mb-3">Revenue</h4>
 
                     <div class="chart-content-bg">
@@ -230,7 +230,6 @@
                             <thead>
                                 <tr>
                                     <th>Students</th>
-                                    <th>Points</th>
                                     <th>Centys</th>
                                     <th>Tasks</th>
                                     <th></th>
@@ -243,7 +242,6 @@
                                         <span class="text-muted font-13">Grade 2, St Martin's School</span>
                                     </td>
                                     <td>187</td>
-                                    <td>154</td>
                                     <td>49</td>
                                     <td class="table-action">
                                         <a href="javascript: void(0);" class="action-icon"> <i class="mdi mdi-eye"></i></a>
@@ -255,7 +253,6 @@
                                         <span class="text-muted font-13">Grade 4, St Martin's School</span>
                                     </td>
                                     <td>235</td>
-                                    <td>127</td>
                                     <td>83</td>
                                     <td class="table-action">
                                         <a href="javascript: void(0);" class="action-icon"> <i class="mdi mdi-eye"></i></a>
@@ -267,7 +264,6 @@
                                         <span class="text-muted font-13">Form 1, Lenana School</span>
                                     </td>
                                     <td>365</td>
-                                    <td>148</td>
                                     <td>62</td>
                                     <td class="table-action">
                                         <a href="javascript: void(0);" class="action-icon"> <i class="mdi mdi-eye"></i></a>
@@ -279,7 +275,6 @@
                                         <span class="text-muted font-13">Grade 3, Lenana School</span>
                                     </td>
                                     <td>753</td>
-                                    <td>159</td>
                                     <td>258</td>
                                     <td class="table-action">
                                         <a href="javascript: void(0);" class="action-icon"> <i class="mdi mdi-eye"></i></a>
@@ -291,7 +286,6 @@
                                         <span class="text-muted font-13">Grade 12, BareBurn School</span>
                                     </td>
                                     <td>458</td>
-                                    <td>126</td>
                                     <td>73</td>
                                     <td class="table-action">
                                         <a href="javascript: void(0);" class="action-icon"> <i class="mdi mdi-eye"></i></a>
@@ -375,17 +369,17 @@
                             <span class="font-13">austin@dayrep.com</span>
                         </div>
                     </div>
-                        
+
                 </div>
                 <!-- end card-body -->
             </div>
             <!-- end card-->
         </div>
-        <!-- end col -->  
-    
+        <!-- end col -->
+
     </div>
     <!-- end row-->
-    
-</div> 
+
+</div>
 
 @endsection
