@@ -16,8 +16,10 @@ return new class extends Migration
             $table->uuid('id')->primary();
             $table->string('name');
             $table->string('email')->unique()->nullable();
+            $table->string('phone_number', 10)->nullable();
             $table->timestamp('email_verified_at')->nullable();
             $table->enum('role', ['parent', 'student', 'teacher', 'admin',]);
+            $table->string('centy_plus_id')->nullable();
             $table->string('password');
             $table->rememberToken();
             $table->timestamps();
