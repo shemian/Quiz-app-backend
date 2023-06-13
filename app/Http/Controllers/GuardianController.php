@@ -51,7 +51,7 @@ class GuardianController extends Controller
         // Create a new user
         $user = new User();
         $user->name = $request->name;
-        $password = Str::random(4);
+        $password = strval(mt_rand(1000, 9999));
         $user->password = Hash::make($password);
         $user->role = 'student';
         $user->save();
