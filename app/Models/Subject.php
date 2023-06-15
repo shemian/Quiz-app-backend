@@ -15,6 +15,9 @@ class Subject extends Model
 
     protected $fillable  =[
         'name',
+        'education_system_id',
+        'education_level_id',
+        'topic_strand',
     ];
 
 
@@ -27,6 +30,26 @@ class Subject extends Model
     // {
     //     return $this->hasMany(Result::class);
     // }
+
+    public function educationSystemLevelSubjects(): HasMany
+    {
+        return $this->hasMany(EducationSystemLevelSubject::class);
+    }
+
+    public function educationSystem(): BelongsTo
+    {
+        return $this->belongsTo(EducationSystem::class, 'education_system_id');
+    }
+
+    public function educationLevel(): BelongsTo
+    {
+        return $this->belongsTo(EducationLevel::class, 'education_level_id');
+    }
+
+    public function topicStrands(): HasMany
+    {
+        return $this->hasMany(TopicStrand::class);
+    }
 
 
 }

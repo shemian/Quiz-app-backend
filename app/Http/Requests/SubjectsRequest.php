@@ -22,7 +22,10 @@ class SubjectsRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => ['string', 'required']
+            'name' => ['string', 'required'],
+            'education_level_id' => ['string', 'required'],
+            'education_system_id' => ['string', 'required']
+
         ];
     }
 }

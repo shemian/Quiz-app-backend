@@ -13,10 +13,8 @@ class Question extends Model
     use HasUuids, HasFactory;
 
     protected $fillable = [
-        'subject_id',
+        'education_system_level_subjects',
         'subtopic',
-        'education_system_id',
-        'education_level_id',
         'question',
         'option1',
         'option2',
@@ -34,5 +32,10 @@ class Question extends Model
     public function results(): HasMany
     {
         return $this->hasMany(Result::class);
+    }
+
+    public function EducationSystemLevelSubject(): BelongsTo
+    {
+        return $this->belongsTo(EducationSystemLevelSubject::class);
     }
 }

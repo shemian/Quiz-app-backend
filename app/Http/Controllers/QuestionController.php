@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\EducationSystemLevelSubject;
 use Illuminate\Http\Request;
 
 use App\Models\Subject;
@@ -18,8 +19,8 @@ class QuestionController extends Controller
     {
         $subjects = Subject::all();
         $education_systems = EducationSystem::all();
-        $questions = Question::with('subject')->get();
-        return view('teachers.questions', compact('subjects', 'questions', 'education_systems'));
+        $education_level_system_subjects = EducationSystemLevelSubject::with('subject', 'educationSystem', 'educationLevel')->get();
+        return view('teachers.questions', compact('subjects', 'education_level_system_subjects', 'education_systems'));
     }
 
     public function create_question(){
@@ -44,7 +45,6 @@ class QuestionController extends Controller
             'option3' => 'required',
             'option4' => 'required',
             'answer' => 'required',
-            'marks' => 'required|integer|min:0'
         ]);
 
         Question::create($validatedData);

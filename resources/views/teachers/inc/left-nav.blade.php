@@ -27,10 +27,48 @@
             </li>
 
             <li class="side-nav-item">
-                <a href="{{ route('get_subjects') }}" class="side-nav-link">
+                <a href="" class="side-nav-link">
                     <i class="uil-users-alt"></i>
                     <span> Subjects </span>
                 </a>
+            </li>
+
+            <li class="side-nav-item">
+                <a data-bs-toggle="collapse" href="#sidebarEmail" aria-expanded="false" aria-controls="sidebarEmail" class="side-nav-link">
+                    <i class="uil-graph-bar"></i>
+                    <span> Subjects </span>
+                    <span class="menu-arrow"></span>
+                </a>
+                <div class="collapse" id="sidebarEmail">
+                    <ul class="side-nav-second-level">
+                        <li class="side-nav-item">
+                            <a href="{{ route('get_subjects') }}"  class="side-nav-link">
+                                <i class="uil-dollar-sign"></i>
+                                <span> Create Subjects </span>
+                            </a>
+                        </li>
+
+                        <li class="side-nav-item">
+                            <a href="{{ isset($educationSystemId) ? route('topics_strands.index', ['educationSystemId' => $educationSystemId, 'educationLevelId' => $educationLevelId, 'subjectId' => $subjectId]) : '#' }}" class="side-nav-link">
+                                <i class="uil-chart-line"></i>
+                                <span> Create Topics/Strands </span>
+                            </a>
+                        </li>
+
+                        <li class="side-nav-item">
+                            <a href="" class="side-nav-link">
+                                <i class="uil-chart-line"></i>
+                                <span> Create SubTopics/SubStrands </span>
+                            </a>
+                        </li>
+
+
+
+
+
+
+                    </ul>
+                </div>
             </li>
 
 

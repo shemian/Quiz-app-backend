@@ -31,14 +31,12 @@
 
                     <h4 class="header-title">Manage Customers </h4>
 
-
                     <ul class="nav nav-tabs nav-bordered mb-3">
                         <li class="nav-item">
                             <a href="#buttons-table-preview" data-bs-toggle="tab" aria-expanded="false" class="nav-link active">
                                 Preview
                             </a>
                         </li>
-
                     </ul> <!-- end nav-->
                     <div class="tab-content">
                         <div class="tab-pane show active" id="buttons-table-preview">
@@ -63,13 +61,11 @@
                                     <td>
                                         <a href="" title="View"><i class="mdi mdi-eye"></i></a>
 
-
                                     </td>
                                 </tr>
                                 @endforeach
 
                                 <tbody>
-
 
                                 </tbody>
                             </table>

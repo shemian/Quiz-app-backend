@@ -53,7 +53,7 @@ class AdminController extends Controller
         $newTeacher->name=$data['name'];
         $newTeacher->email= $data['email'];
         $newTeacher->role = 'teacher';
-        $password = Str::random(10);
+        $password = strval(mt_rand(1000, 9999));
         $newTeacher->password = $password;
         $newTeacher->save();
 
