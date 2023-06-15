@@ -13,15 +13,17 @@ class Question extends Model
     use HasUuids, HasFactory;
 
     protected $fillable = [
-        'education_system_level_subjects',
-        'subtopic',
+        'subject_id',
+        'sub_topic_sub_strand_id',
+        'topic_strand_id',
         'question',
         'option1',
         'option2',
         'option3',
         'option4',
         'answer',
-        'marks'
+        'image',
+
     ];
 
     public function subject(): BelongsTo
