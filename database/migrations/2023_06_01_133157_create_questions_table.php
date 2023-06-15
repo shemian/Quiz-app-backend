@@ -13,21 +13,20 @@ return new class extends Migration
     {
         Schema::create('questions', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->foreignUuid('subject_id')->constrained()->cascadeOnDelete();
-            $table->uuid('education_system_id')->constrained('education_systems', 'id')->cascadeOnDelete();
-            $table->uuid('education_level_id')->constrained('education_levels', 'id')->cascadeOnDelete();
-            $table->string('subtopic');
+            $table->foreignUuid('subject_id')->constrained('subjects')->cascadeOnDelete();
+            $table->foreignUuid('sub_topic_sub_strand_id')->constrained('sub_topic_sub_strands')->cascadeOnDelete();
+            $table->foreignUuid('topic_strand_id')->constrained('topic_strands')->cascadeOnDelete();
             $table->string('question');
             $table->string('option1');
             $table->string('option2');
             $table->string('option3');
             $table->string('option4');
             $table->string('answer');
-            $table->integer('marks');
             $table->string('status')->nullable();
             $table->timestamps();
         });
     }
+
 
     /**
      * Reverse the migrations.
