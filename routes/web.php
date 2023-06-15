@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\SubTopicSubStrandController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TeacherController;
 use App\Http\Controllers\GuardianController;
@@ -9,6 +10,8 @@ use App\Http\Controllers\StudentController;
 use App\Http\Controllers\SubjectController;
 use App\Http\Controllers\QuestionController;
 use App\Http\Controllers\EduacationSystemsController;
+use App\Http\Controllers\EducationSystemLevelSubjectController;
+use App\Http\Controllers\TopicsAndStrandsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -65,6 +68,14 @@ Route::prefix('teacher')->middleware([ 'isTeacher'])->group(function(){
     Route::get('/questions', [QuestionController::class, 'index'])->name('get_questions');
 
     Route::get('/create_question', [QuestionController::class, 'create_question'])->name('create_question');
+    Route::post('/create_question', [EducationSystemLevelSubjectController::class, 'store'])->name('store_eduaction_system_level_subjects');
+
+
+    Route::get('/create_topics_and_strands/{educationSystemId}/{educationLevelId}/{subjectId}', [TopicsAndStrandsController::class, 'index'])->name('topics_strands.index');
+    Route::post('/create_topics_and_strands', [TopicsAndStrandsController::class, 'store'])->name('store_topics_and_strands');
+
+    Route::get('/create_subtopics/{topicStrand}', [SubTopicSubStrandController::class, 'index'])->name('createSubtopicSubStrand');
+    Route::post('/create_subtopics/{topicStrand}', [SubTopicSubStrandController::class, 'store'])->name('storeSubtopicSubStrand');
 
     Route::post('/questions', [QuestionController::class, 'store'])->name('store_questions');
     Route::post('/display_education_level', [EduacationSystemsController::class, 'getEducationLevels'])->name('getEducationLevels');
