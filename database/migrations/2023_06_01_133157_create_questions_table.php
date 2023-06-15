@@ -22,6 +22,7 @@ return new class extends Migration
             $table->string('option3');
             $table->string('option4');
             $table->string('answer');
+            $table->string('image')->nullable();
             $table->string('status')->nullable();
             $table->timestamps();
         });
