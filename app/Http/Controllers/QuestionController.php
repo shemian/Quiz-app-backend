@@ -40,18 +40,38 @@ class QuestionController extends Controller
     {
         $validatedData = $request->validate([
             'subject_id' => 'required',
-            'subtopic' => 'required',
-            'education_system_id' => 'required',
-            'education_level_id' => 'required',
+            'subtopic_id'=>'required',
+            'topic_id'=>'required',
             'question' => 'required',
             'option1' => 'required',
             'option2' => 'required',
             'option3' => 'required',
             'option4' => 'required',
             'answer' => 'required',
+            'image' => 'nullable'
         ]);
+        if ($request->hasFile('image')) {
+            $image = $request->file('image');
+            $imageName = time() . '.' . $image->getClientOriginalExtension();
+            $image->storeAs('uploads', $imageName); // Store the image file in the 'uploads' directory
 
-        Question::create($validatedData);
+            // Add the image path to the validated data
+            $validatedData['image'] = 'uploads/' . $imageName;
+        }
+
+        Question::create([
+            'subject_id' => $validatedData['subject_id'],
+            'sub_topic_sub_strand_id' => $validatedData['subtopic_id'],
+            'topic_strand_id' => $validatedData['topic_id'],
+            'question' => $validatedData['question'],
+            'option1' => $validatedData['option1'],
+            'option2' => $validatedData['option2'],
+            'option3' => $validatedData['option3'],
+            'option4' => $validatedData['option4'],
+            'answer' => $validatedData['answer'],
+            'image' => $validatedData['image'],
+
+        ]);
 
         return redirect()->route('get_questions')->with('success', 'Question created successfully.');
 
@@ -68,21 +88,14 @@ class QuestionController extends Controller
         return response()->json(['educationLevels' => $educationLevels]);
     }
 
-
     public function getSubjects(Request $request)
     {
-        $educationSystemId = $request->input('educationSystemId');
         $educationLevelId = $request->input('educationLevelId');
-
-        $subjects = EducationSystemLevelSubject::where('education_system_id', $educationSystemId)
-            ->where('education_level_id', $educationLevelId)
-            ->with('subject')
-            ->get()
-            ->pluck('subject');
+        $educationLevel = EducationLevel::with('subjects')->find($educationLevelId);
+        $subjects = $educationLevel->subjects;
 
         return response()->json(['subjects' => $subjects]);
     }
-
 
     public function getTopics(Request $request)
     {

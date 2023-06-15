@@ -31,10 +31,7 @@ class Subject extends Model
     //     return $this->hasMany(Result::class);
     // }
 
-    public function educationSystemLevelSubjects(): HasMany
-    {
-        return $this->hasMany(EducationSystemLevelSubject::class);
-    }
+
 
     public function educationSystem(): BelongsTo
     {
