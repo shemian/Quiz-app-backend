@@ -14,6 +14,8 @@ return new class extends Migration
         Schema::create('subjects', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->string('name');
+            $table->uuid('education_system_id')->constrained('education_systems', 'id')->cascadeOnDelete();
+            $table->uuid('education_level_id')->constrained('education_levels', 'id')->cascadeOnDelete();
             $table->timestamps();
         });
     }
