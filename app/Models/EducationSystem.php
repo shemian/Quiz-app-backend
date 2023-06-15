@@ -15,7 +15,7 @@ class EducationSystem extends Model
         'name',
     ];
 
-    public function EducationLevel(): HasMany
+    public function educationLevels(): HasMany
     {
         return $this->hasMany(EducationLevel::class);
     }
