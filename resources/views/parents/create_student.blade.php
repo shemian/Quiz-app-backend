@@ -202,8 +202,9 @@
 
                                             <td>
                                                 <a href="" title="View"><i class="mdi mdi-eye"></i></a>
-                                                <a href="" title="Edit"><i class="mdi mdi-book-edit-outline"></i></a>
+                                                <a href="" title="Edit"><i class="mdi mdi-trash-outline"></i></a>
                                             </td>
+
                                         </tr>
                                     @endforeach
                                     </tbody>
