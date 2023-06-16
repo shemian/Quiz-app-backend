@@ -125,106 +125,110 @@
             var questionCount = $('.question-form').length + 1;
 
             var questionForm = `
-                <div class="card">
-                    <div class="card-body">
-                        <h5 class="card-title">Question Card</h5>
-                        <hr>
-                            <div class="form-group question-form">
-                                <label for="question_${questionCount}"></label>
-                                <div class="row mb-3">
-                                    <label for="question_${questionCount}" class="col-md-4 col-form-label text-md-end">Question ${questionCount}</label>
-                                    <div class="col-md-6">
-                                        <input id="question" type="text" class="form-control @error('question') is-invalid @enderror" name="question" required>
-                                            @error('question')
-                                            <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                            </span>
-                                        @enderror
-                                        </div>
-                                    </div>
+  <div class="card">
+    <div class="card-body">
+      <h5 class="card-title">Question Card</h5>
+      <hr>
+      <div class="form-group question-form">
+        <label for="question_${questionCount}">Question ${questionCount}</label>
+        <div class="row mb-3">
+          <label for="question" class="col-md-4 col-form-label text-md-end">Question ${questionCount}</label>
+          <div class="col-md-6">
+            <input id="question_${questionCount}" type="text" class="form-control @error('questions') is-invalid @enderror" name="questions[]" required>
+            @error('questions')
+            <span class="invalid-feedback" role="alert">
+              <strong>{{ $message }}</strong>
+            </span>
+            @enderror
+            </div>
+          </div>
 
-                                <div class="row mb-3">
-                                    <label for="option1" class="col-md-4 col-form-label text-md-end">{{ __('Option 1') }}</label>
-                                    <div class="col-md-6">
-                                        <input id="option1" type="text" class="form-control @error('option1') is-invalid @enderror" name="option1" required>
-                                            @error('option1')
-                                            <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                            </span>
-                                        @enderror
-                                        </div>
-                                </div>
+          <div class="row mb-3">
+            <label for="option1" class="col-md-4 col-form-label text-md-end">{{ __('Option 1') }}</label>
+          <div class="col-md-6">
+            <input id="option1_${questionCount}" type="text" class="form-control @error('option1') is-invalid @enderror" name="option1[]" required>
+            @error('option1')
+            <span class="invalid-feedback" role="alert">
+              <strong>{{ $message }}</strong>
+            </span>
+            @enderror
+            </div>
+          </div>
 
-                                <div class="row mb-3">
-                                    <label for="option2" class="col-md-4 col-form-label text-md-end">{{ __('Option 2') }}</label>
-                                    <div class="col-md-6">
-                                        <input id="option2" type="text" class="form-control @error('option2') is-invalid @enderror" name="option2" required>
-                                            @error('option2')
-                                            <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                            </span>
-                                        @enderror
-                                    </div>
-                                </div>
+          <div class="row mb-3">
+            <label for="option2" class="col-md-4 col-form-label text-md-end">{{ __('Option 2') }}</label>
+          <div class="col-md-6">
+            <input id="option2_${questionCount}" type="text" class="form-control @error('option2') is-invalid @enderror" name="option2[]" required>
+            @error('option2')
+            <span class="invalid-feedback" role="alert">
+              <strong>{{ $message }}</strong>
+            </span>
+            @enderror
+            </div>
+          </div>
 
-                                <div class="row mb-3">
-                                    <label for="option3" class="col-md-4 col-form-label text-md-end">{{ __('Option 3') }}</label>
-                                    <div class="col-md-6">
-                                        <input id="option3" type="text" class="form-control @error('option3') is-invalid @enderror" name="option3" required>
-                                            @error('option3')
-                                            <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                            </span>
-                                        @enderror
-                                    </div>
-                                </div>
+          <div class="row mb-3">
+            <label for="option3" class="col-md-4 col-form-label text-md-end">{{ __('Option 3') }}</label>
+          <div class="col-md-6">
+            <input id="option3_${questionCount}" type="text" class="form-control @error('option3') is-invalid @enderror" name="option3[]" required>
+            @error('option3')
+            <span class="invalid-feedback" role="alert">
+              <strong>{{ $message }}</strong>
+            </span>
+            @enderror
+            </div>
+          </div>
 
-                                <div class="row mb-3">
-                                    <label for="option4" class="col-md-4 col-form-label text-md-end">{{ __('Option 4') }}</label>
-                                    <div class="col-md-6">
-                                        <input id="option4" type="text" class="form-control @error('option4') is-invalid @enderror" name="option4" required>
-                                            @error('option4')
-                                            <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                            </span>
-                                        @enderror
-                                    </div>
-                                </div>
+          <div class="row mb-3">
+            <label for="option4" class="col-md-4 col-form-label text-md-end">{{ __('Option 4') }}</label>
+          <div class="col-md-6">
+            <input id="option4_${questionCount}" type="text" class="form-control @error('option4') is-invalid @enderror" name="option4[]" required>
+            @error('option4')
+            <span class="invalid-feedback" role="alert">
+              <strong>{{ $message }}</strong>
+            </span>
+            @enderror
+            </div>
+          </div>
 
-                                <div class="row mb-3">
-                                    <label for="answer" class="col-md-4 col-form-label text-md-end">{{ __('Correct Answer') }}</label>
-                                    <div class="col-md-6">
-                                        <select id="answer" name="answer" class="form-control @error('answer') is-invalid @enderror">
-                                            <option value="">Select Correct Answer</option>
-                                            <option value="option1">Option 1</option>
-                                            <option value="option2">Option 2</option>
-                                            <option value="option3">Option 3</option>
-                                            <option value="option4">Option 4</option>
-                                        </select>
-                                        @error('answer')
-                                        <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                        </span>
-                                        @enderror
-                                    </div>
-                                </div>
+          <div class="row mb-3">
+            <label for="answer" class="col-md-4 col-form-label text-md-end">{{ __('Correct Answer') }}</label>
+          <div class="col-md-6">
+            <select id="answer_${questionCount}" name="answer[]" class="form-control @error('answer') is-invalid @enderror">
+              <option value="">Select Correct Answer</option>
+              <option value="option1">Option 1</option>
+              <option value="option2">Option 2</option>
+              <option value="option3">Option 3</option>
+              <option value="option4">Option 4</option>
+            </select>
+            @error('answer')
+            <span class="invalid-feedback" role="alert">
+              <strong>{{ $message }}</strong>
+            </span>
+            @enderror
+            </div>
+          </div>
 
-                                <div class="row mb-3">
-                                    <label for="image" class="col-md-4 col-form-label text-md-end">{{ __('Image') }}</label>
-                                    <div class="col-md-6">
-                                        <input id="image" type="file" class="form-control-file" name="image">
-                                    </div>
-                                </div>
+          <div class="row mb-3">
+            <label for="image" class="col-md-4 col-form-label text-md-end">{{ __('Image') }}</label>
+          <div class="col-md-6">
 
-                                <div>
-                                    <button type="button" class="btn btn-danger mr-2 remove-question-btn">Remove</button>
-                                </div>
-                            </div>
-                    </div>
-                </div>`;
+            <input id="image_${questionCount}" type="file" class="form-control-file" name="image">
+
+          </div>
+        </div>
+
+        <div>
+          <button type="button" class="btn btn-danger mr-2 remove-question-btn">Remove</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>`;
 
 
-        $('#question-container').append(questionForm);
+
+            $('#question-container').append(questionForm);
 
             // Update the question count
             updateQuestionCount();
