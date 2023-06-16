@@ -6,6 +6,7 @@ use App\Models\EducationSystemLevelSubject;
 use App\Models\SubTopicSubStrand;
 use App\Models\TopicStrand;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 use App\Models\Subject;
 use App\Models\Question;
@@ -21,10 +22,10 @@ class QuestionController extends Controller
      */
     public function index()
     {
-        $subjects = Subject::all();
-        $education_systems = EducationSystem::with('educationLevels')->get();
-        $education_level_system_subjects = EducationSystemLevelSubject::with('subject', 'educationSystem', 'educationLevel')->get();
-        return view('teachers.questions', compact('subjects', 'education_level_system_subjects', 'education_systems'));
+        $questions = Question::with(['subject.educationLevel', 'subject.educationSystem'])
+            ->select('id', 'subject_id', 'question', 'answer', 'created_at')
+            ->get();
+        return view('teachers.questions', compact('questions'));
     }
 
     public function create_question(){
@@ -36,46 +37,58 @@ class QuestionController extends Controller
     /**
      * Store a newly created resource in storage.
      */
+
+
     public function store(Request $request)
     {
         $validatedData = $request->validate([
             'subject_id' => 'required',
-            'subtopic_id'=>'required',
-            'topic_id'=>'required',
-            'question' => 'required',
-            'option1' => 'required',
-            'option2' => 'required',
-            'option3' => 'required',
-            'option4' => 'required',
-            'answer' => 'required',
-            'image' => 'nullable'
+            'subtopic_id' => 'required',
+            'topic_id' => 'required',
+            'questions' => 'required|array',
+            'questions.*' => 'required',
+            'option1' => 'required|array',
+            'option1.*' => 'required',
+            'option2' => 'required|array',
+            'option2.*' => 'required',
+            'option3' => 'required|array',
+            'option3.*' => 'required',
+            'option4' => 'required|array',
+            'option4.*' => 'required',
+            'answer' => 'required|array',
+            'answer.*' => 'required',
+            'image' => 'nullable|image',
         ]);
-        if ($request->hasFile('image')) {
-            $image = $request->file('image');
-            $imageName = time() . '.' . $image->getClientOriginalExtension();
-            $image->storeAs('uploads', $imageName); // Store the image file in the 'uploads' directory
 
-            // Add the image path to the validated data
-            $validatedData['image'] = 'uploads/' . $imageName;
+        $createdQuestions = [];
+
+        foreach ($validatedData['questions'] as $index => $question) {
+            $newQuestionData = [
+                'subject_id' => $validatedData['subject_id'],
+                'sub_topic_sub_strand_id' => $validatedData['subtopic_id'],
+                'topic_strand_id' => $validatedData['topic_id'],
+                'question' => $question,
+                'option1' => $validatedData['option1'][$index],
+                'option2' => $validatedData['option2'][$index],
+                'option3' => $validatedData['option3'][$index],
+                'option4' => $validatedData['option4'][$index],
+                'answer' => $validatedData['answer'][$index],
+            ];
+
+            if ($request->hasFile('image')) {
+                $image = $request->file('image');
+                $imageName = time() . '.' . $image->getClientOriginalExtension();
+                $image->storeAs('uploads', $imageName);
+                $newQuestionData['image'] = 'uploads/' . $imageName;
+            }
+
+            $newQuestion = Question::create($newQuestionData);
+            $createdQuestions[] = $newQuestion;
         }
 
-        Question::create([
-            'subject_id' => $validatedData['subject_id'],
-            'sub_topic_sub_strand_id' => $validatedData['subtopic_id'],
-            'topic_strand_id' => $validatedData['topic_id'],
-            'question' => $validatedData['question'],
-            'option1' => $validatedData['option1'],
-            'option2' => $validatedData['option2'],
-            'option3' => $validatedData['option3'],
-            'option4' => $validatedData['option4'],
-            'answer' => $validatedData['answer'],
-            'image' => $validatedData['image'],
-
-        ]);
-
-        return redirect()->route('get_questions')->with('success', 'Question created successfully.');
-
+        return redirect()->route('get_questions')->with('success', 'Questions created successfully.');
     }
+
 
     public function getEducationLevels(Request $request)
     {

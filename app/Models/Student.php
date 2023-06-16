@@ -43,12 +43,12 @@ class Student extends Model
         return $this->belongsTo(Guardian::class);
     }
 
-    public function EducationSystem(): BelongsTo
+    public function educationSystem(): BelongsTo
     {
         return $this->belongsTo(EducationSystem::class);
     }
 
-    public function EducationLevel(): BelongsTo
+    public function educationLevel(): BelongsTo
     {
         return $this->belongsTo(EducationLevel::class);
     }

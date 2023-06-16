@@ -94,6 +94,9 @@ Route::prefix('student')->middleware(['auth', 'isStudent'])->group(function(){
     Route::post('/questions/{subject}', [StudentController::class, 'submitAnswers'])->name('questions.submit');
     Route::get('/view_result/{result}', [StudentController::class, 'viewResult'])->name('students.view_results');
 
+
+
+
 });
 
 

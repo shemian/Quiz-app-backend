@@ -7,6 +7,7 @@ use App\Models\Question;
 use App\Models\Result;
 use App\Models\Subject;
 use App\Models\Student;
+use Illuminate\Support\Facades\Auth;
 
 class StudentController extends Controller
 {
@@ -20,7 +21,14 @@ class StudentController extends Controller
 
     public function getSubjects()
     {
-        $subjects = Subject::all();
+        $user = Auth::user();
+        $student = $user->student;
+
+        $subjects = Subject::with(['educationLevel', 'educationSystem'])
+            ->where('education_level_id', $student->educationLevel->id)
+            ->where('education_system_id', $student->educationSystem->id)
+            ->select('id', 'name', 'education_level_id', 'education_system_id', 'created_at')
+            ->get();
         return view('students.get_subjects', compact('subjects'));
     }
 

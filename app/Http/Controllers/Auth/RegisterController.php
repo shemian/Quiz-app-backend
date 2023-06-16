@@ -47,7 +47,7 @@ class RegisterController extends Controller
 
         $guardian = new Guardian();
         $guardian->user_id = $user->id;
-        $guardian->credit = '78877';
+        $guardian->credit = '0.00';
         $guardian->save();
         echo $user->centy_plus_id;
         return $user;
