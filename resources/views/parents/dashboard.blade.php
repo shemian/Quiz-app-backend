@@ -44,7 +44,7 @@
                         <div class="row align-items-center">
                             <div class="col-6">
                                 <h5 class="text-muted fw-normal mt-0 text-truncate" title="New Leads">Wallet Balance</h5>
-                                <h3 class="my-2 py-1">Ksh 4,000</h3>
+                                <h3 class="my-2 py-1">Ksh 0.00</h3>
                                 <p class="mb-0 text-muted">
                                     <span class="text-success me-2"><a href="" target="_blank">Deposit Funds</a></span>
                                 </p>
