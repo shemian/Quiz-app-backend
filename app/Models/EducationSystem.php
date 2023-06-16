@@ -22,7 +22,7 @@ class EducationSystem extends Model
 
     public function Students(): HasMany
     {
-        return $this->hasMany(Students::class);
+        return $this->hasMany(Student::class);
     }
 
     public function educationSystemLevelSubjects(): HasMany
