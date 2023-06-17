@@ -10,7 +10,7 @@
                 <h4 class="page-title">Dashboard</h4>
             </div>
         </div>
-    </div>     <!-- end page title --> 
+    </div>     <!-- end page title -->
 
     <div class="row">
         <div class="col-lg-6 col-xl-4">
@@ -40,7 +40,7 @@
                     <div class="row align-items-center">
                         <div class="col-6">
                             <h5 class="text-muted fw-normal mt-0 text-truncate" title="New Leads">Questions</h5>
-                            <h3 class="my-2 py-1">4000</h3>
+                            <h3 class="my-2 py-1">15</h3>
                             <p class="mb-0 text-muted">
                                 <span class="text-danger me-2"><i class="mdi mdi-arrow-down-bold"></i> 5.38%</span>
                             </p>
@@ -55,7 +55,7 @@
             </div> <!-- end card -->
         </div> <!-- end col -->
 
-        
+
 
         <div class="col-lg-6 col-xl-4">
             <div class="card">
@@ -101,9 +101,8 @@
                             <thead>
                                 <tr>
                                     <th>Subject</th>
-                                    <th>Sub Topic</th>
+                                    <th>Topic</th>
                                     <th>Class</th>
-                                    <th>Total Points</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
@@ -115,7 +114,7 @@
                                     </td>
                                     <td>Algebra</td>
                                     <td>Grade 2</td>
-                                    <td>49</td>
+
                                     <td class="table-action">
                                         <a href="javascript: void(0);" class="action-icon"> <i class="mdi mdi-eye"></i></a>
                                     </td>
@@ -127,12 +126,12 @@
                                     </td>
                                     <td>Introduction</td>
                                     <td>Grade 4</td>
-                                    <td>83</td>
+
                                     <td class="table-action">
                                         <a href="javascript: void(0);" class="action-icon"> <i class="mdi mdi-eye"></i></a>
                                     </td>
                                 </tr>
-                                
+
                                 <tr>
                                     <td>
                                         <h5 class="font-15 mb-1 fw-normal">Science</h5>
@@ -140,19 +139,7 @@
                                     </td>
                                     <td>Introduction</td>
                                     <td>Grade 4</td>
-                                    <td>83</td>
-                                    <td class="table-action">
-                                        <a href="javascript: void(0);" class="action-icon"> <i class="mdi mdi-eye"></i></a>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <h5 class="font-15 mb-1 fw-normal">Science</h5>
-                                        <span class="text-muted font-13">Grade 4</span>
-                                    </td>
-                                    <td>Introduction</td>
-                                    <td>Grade 4</td>
-                                    <td>83</td>
+
                                     <td class="table-action">
                                         <a href="javascript: void(0);" class="action-icon"> <i class="mdi mdi-eye"></i></a>
                                     </td>
@@ -164,7 +151,19 @@
                                     </td>
                                     <td>Introduction</td>
                                     <td>Grade 4</td>
-                                    <td>83</td>
+
+                                    <td class="table-action">
+                                        <a href="javascript: void(0);" class="action-icon"> <i class="mdi mdi-eye"></i></a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <h5 class="font-15 mb-1 fw-normal">Science</h5>
+                                        <span class="text-muted font-13">Grade 4</span>
+                                    </td>
+                                    <td>Introduction</td>
+                                    <td>Grade 4</td>
+
                                     <td class="table-action">
                                         <a href="javascript: void(0);" class="action-icon"> <i class="mdi mdi-eye"></i></a>
                                     </td>
@@ -176,10 +175,10 @@
                 </div> <!-- end card-body-->
             </div> <!-- end card-->
         </div>
-        <!-- end col--> 
-    
+        <!-- end col-->
+
     </div>
     <!-- end row-->
-</div> 
+</div>
 
 @endsection
