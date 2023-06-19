@@ -26,16 +26,10 @@
                 </a>
             </li>
 
-            <li class="side-nav-item">
-                <a href="" class="side-nav-link">
-                    <i class="uil-users-alt"></i>
-                    <span> Subjects </span>
-                </a>
-            </li>
 
             <li class="side-nav-item">
                 <a data-bs-toggle="collapse" href="#sidebarEmail" aria-expanded="false" aria-controls="sidebarEmail" class="side-nav-link">
-                    <i class="uil-graph-bar"></i>
+                    <i class="uil-books"></i>
                     <span> Subjects </span>
                     <span class="menu-arrow"></span>
                 </a>
@@ -43,14 +37,14 @@
                     <ul class="side-nav-second-level">
                         <li class="side-nav-item">
                             <a href="{{ route('get_subjects') }}"  class="side-nav-link">
-                                <i class="uil-dollar-sign"></i>
+                                <i class="uil-books"></i>
                                 <span> Create Subjects </span>
                             </a>
                         </li>
 
                         <li class="side-nav-item">
                             <a href="{{ isset($educationSystemId) ? route('topics_strands.index', ['educationSystemId' => $educationSystemId, 'educationLevelId' => $educationLevelId, 'subjectId' => $subjectId]) : '#' }}" class="side-nav-link">
-                                <i class="uil-chart-line"></i>
+                                <i class="uil-notebooks"></i>
                                 <span> Create Topics/Strands </span>
                             </a>
                         </li>
@@ -62,11 +56,6 @@
                             </a>
                         </li>
 
-
-
-
-
-
                     </ul>
                 </div>
             </li>
@@ -74,23 +63,23 @@
 
 
             <li class="side-nav-item">
-                <a data-bs-toggle="collapse" href="#sidebarEmail" aria-expanded="false" aria-controls="sidebarEmail" class="side-nav-link">
-                    <i class="uil-graph-bar"></i>
+                <a data-bs-toggle="collapse" href="#sidebarSubtopics" aria-expanded="false" aria-controls="sidebarEmail" class="side-nav-link">
+                    <i class="uil-file-question"></i>
                     <span> Questions </span>
                     <span class="menu-arrow"></span>
                 </a>
-                <div class="collapse" id="sidebarEmail">
+                <div class="collapse" id="sidebarSubtopics">
                     <ul class="side-nav-second-level">
                         <li class="side-nav-item">
                             <a href="{{ route('get_questions') }}"  class="side-nav-link">
-                                <i class="uil-dollar-sign"></i>
+                                <i class="uil-book"></i>
                                 <span> View Questions </span>
                             </a>
                         </li>
 
                         <li class="side-nav-item">
                             <a href="{{ route('create_question') }}" class="side-nav-link">
-                                <i class="uil-chart-line"></i>
+                                <i class="uil-book-alt"></i>
                                 <span> Create Questions </span>
                             </a>
                         </li>

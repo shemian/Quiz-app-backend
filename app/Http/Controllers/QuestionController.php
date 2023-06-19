@@ -57,7 +57,7 @@ class QuestionController extends Controller
             'option4.*' => 'required',
             'answer' => 'required|array',
             'answer.*' => 'required',
-            'image' => 'nullable|image',
+            'image' => 'nullable',
         ]);
 
         $createdQuestions = [];

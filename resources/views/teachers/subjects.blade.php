@@ -126,7 +126,7 @@
                 </div>
                 <div class="modal-body">
 
-                    <form method="POST" action="">
+                    <form method="POST">
                         @csrf
                         <div class="row mb-3">
                             <label for="education_system_id" class="col-md-4 col-form-label text-md-end">{{ __('Education System') }}</label>
@@ -217,6 +217,7 @@
                                         <th>Education Level</th>
                                         <th>Subject Name</th>
                                         <th>No Topics/Strands</th>
+                                        <th>Action</th>
 
                                     </tr>
                                 </thead>

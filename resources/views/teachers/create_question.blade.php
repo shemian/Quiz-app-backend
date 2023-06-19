@@ -77,12 +77,12 @@
                                 </select>
                             </div>
 
-                            <div class="form-group">
-                                <label for="topic">Topic</label>
-                                <select id="topic" name="topic_id" class="form-control">
-                                    <option value="">Select Topic</option>
-                                </select>
-                            </div>
+{{--                            <div class="form-group">--}}
+{{--                                <label for="topic">Topic</label>--}}
+{{--                                <select id="topic" name="topic_id" class="form-control">--}}
+{{--                                    <option value="">Select Topic</option>--}}
+{{--                                </select>--}}
+{{--                            </div>--}}
 
 
                             <div id="question-container">
@@ -109,10 +109,12 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
         $(document).ready(function () {
-            // Function to populate subtopics based on topic selection
-            function populateSubtopics() {
-                var topicId = $('#topic').val();
+            // Topic List
+            let topicList = [];
+            let selectedQuestion = 0;
 
+            // Function to populate subtopics based on topic selection
+            function populateSubtopics(questionCount, topicId) {
                 $.ajax({
                     url: '/teacher/get-subtopics',
                     type: 'GET',
@@ -124,42 +126,11 @@
                             options += '<option value="' + subtopic.id + '">' + subtopic.name + '</option>';
                         });
 
-                        $('#subtopic').html(options);
+                        $(`[id^=question_${questionCount}] #subtopic`).html(options);
                     }
                 });
             }
-            // "Add Questions" button click event handler
-            $('#addQuestionsBtn').on('click', function () {
-                var topicId = $('#topic').val();
 
-                if (topicId !== '') {
-                    populateSubtopics(topicId);
-                } else {
-                    // If no topic is selected, reset subtopic select element
-                    $('#subtopic').html('<option value="">Select Subtopic</option>');
-                }
-            });
-
-// Populate topics based on subject selection
-            $('#subject').on('change', function () {
-                var subjectId = $(this).val();
-
-                $.ajax({
-                    url: '/teacher/get-topics',
-                    type: 'GET',
-                    data: { subjectId: subjectId },
-                    success: function (data) {
-                        var options = '<option value="">Select Topic</option>';
-                        $.each(data.topics, function (key, topic) {
-                            options += '<option value="' + topic.id + '">' + topic.topic_strand + '</option>';
-                        });
-                        $('#topic').html(options);
-
-                        // Reset subtopic select element
-                        $('#subtopic').html('<option value="">Select Subtopic</option>');
-                    }
-                });
-            });
 
             // Populate education levels based on education system selection
             $('#education_system').on('change', function () {
@@ -214,27 +185,16 @@
                     type: 'GET',
                     data: {subjectId: subjectId},
                     success: function (data) {
-                        var options = '<option value="">Select Topic</option>';
-
-                        $.each(data.topics, function (key, topic) {
-                            options += '<option value="' + topic.id + '">' + topic.topic_strand + '</option>';
-                        });
-
-                        $('#topic').html(options);
-
-                        // Check if a topic is already selected
-                        var selectedTopicId = $('#topic').val();
-                        if (selectedTopicId) {
-                            populateSubtopics(selectedTopicId);
-                        }
+                        topicList = data.topics;
                     }
                 });
             });
 
             // Populate subtopics based on topic selection
-            $('#topic').on('change', function () {
+            $(document).on('change', '[id^=question] #topic', function () {
                 var topicId = $(this).val();
-                populateSubtopics(topicId);
+                var questionCount = $(this).attr("class").split(" ")[0].split("_")[1];
+                populateSubtopics(questionCount, topicId);
             });
 
             // Function to update the question count
@@ -247,12 +207,31 @@
             function addQuestionForm() {
                 var questionCount = $('.question-form').length + 1;
 
+                var options = '<option value="">Select Topic</option>';
+                $.each(topicList, function (key, topic) {
+                    options += '<option value="' + topic.id + '">' + topic.topic_strand + '</option>';
+                });
+
                 var questionForm = `
-                <div class="card">
+                <div class="card form-group question-form" id="question_${questionCount}">
                     <div class="card-body">
                         <h5 class="card-title">Question Card</h5>
                         <hr>
-                        <div class="form-group question-form">
+                        <label for="question_${questionCount}">Question ${questionCount}</label>
+                            <div class="row mb-3">
+                                <label for="topic" class="col-md-4 col-form-label text-md-end">{{ __('Topic') }}</label>
+                                <div class="col-md-6">
+                                    <select id="topic" name="topic_id" class="topicq_${questionCount} form-control">
+                                        ${options}
+                                    </select>
+                                    @error('topic')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                    @enderror
+                                 </div>
+                            </div>
+
                             <div class="row mb-3">
                                 <label for="subtopic" class="col-md-4 col-form-label text-md-end">{{ __('Subtopic') }}</label>
                                 <div class="col-md-6">
@@ -260,14 +239,14 @@
                                         <option value="">Select Subtopic</option>
                                     </select>
                                     @error('subtopic')
-                <span class="invalid-feedback" role="alert">
-                    <strong>{{ $message }}</strong>
-                                    </span>
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
                                     @enderror
-                </div>
-            </div>
+                            </div>
+                        </div>
 
-            <label for="question_${questionCount}">Question ${questionCount}</label>
+
         <div class="row mb-3">
           <label for="question" class="col-md-4 col-form-label text-md-end">Question ${questionCount}</label>
           <div class="col-md-6">
@@ -282,37 +261,37 @@
 
               <div class="row mb-3">
                 <label for="option1" class="col-md-4 col-form-label text-md-end">{{ __('Option 1') }}</label>
-          <div class="col-md-6">
-            <input id="option1_${questionCount}" type="text" class="form-control @error('option1') is-invalid @enderror" name="option1[]" required>
-            @error('option1')
-                <span class="invalid-feedback" role="alert">
-                  <strong>{{ $message }}</strong>
-            </span>
-            @enderror
+                <div class="col-md-6">
+                    <input id="option1_${questionCount}" type="text" class="form-control @error('option1') is-invalid @enderror" name="option1[]" required>
+                    @error('option1')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                    @enderror
                 </div>
               </div>
 
               <div class="row mb-3">
                 <label for="option2" class="col-md-4 col-form-label text-md-end">{{ __('Option 2') }}</label>
-          <div class="col-md-6">
-            <input id="option2_${questionCount}" type="text" class="form-control @error('option2') is-invalid @enderror" name="option2[]" required>
-            @error('option2')
-                <span class="invalid-feedback" role="alert">
-                  <strong>{{ $message }}</strong>
-            </span>
-            @enderror
+                <div class="col-md-6">
+                    <input id="option2_${questionCount}" type="text" class="form-control @error('option2') is-invalid @enderror" name="option2[]" required>
+                    @error('option2')
+                        <span class="invalid-feedback" role="alert">
+                          <strong>{{ $message }}</strong>
+                    </span>
+                    @enderror
                 </div>
               </div>
 
               <div class="row mb-3">
                 <label for="option3" class="col-md-4 col-form-label text-md-end">{{ __('Option 3') }}</label>
-          <div class="col-md-6">
-            <input id="option3_${questionCount}" type="text" class="form-control @error('option3') is-invalid @enderror" name="option3[]" required>
-            @error('option3')
-                <span class="invalid-feedback" role="alert">
-                  <strong>{{ $message }}</strong>
-            </span>
-            @enderror
+                    <div class="col-md-6">
+                        <input id="option3_${questionCount}" type="text" class="form-control @error('option3') is-invalid @enderror" name="option3[]" required>
+                        @error('option3')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
                 </div>
               </div>
 
@@ -365,18 +344,18 @@
 
                 $('#question-container').append(questionForm);
                 var newQuestionForm = $('.card').last().find('.question-form');
-                var topicDropdown = newQuestionForm.find('#topic');
-
-                // Attach event handler to topic dropdown for dynamic population of subtopics
-                topicDropdown.on('change', function () {
-                    populateSubtopics($(this));
-                });
-                populateSubtopics(topicDropdown);
+                // var topicDropdown = newQuestionForm.find('#topic');
+                //
+                // // Attach event handler to topic dropdown for dynamic population of subtopics
+                // topicDropdown.on('change', function () {
+                //     populateSubtopics($(this));
+                // });
+                // populateSubtopics(topicDropdown);
             }
 
-            $('#topic').on('change', function () {
-                populateSubtopics();
-            });
+            // $('#topic').on('change', function () {
+            //     populateSubtopics();
+            // });
 
             // Event delegation for the "Add Question" button click
             $('#add-question-btn').click(function () {
@@ -393,11 +372,5 @@
             });
         });
     </script>
-
-
-
-
-
-
 
 @endsection
