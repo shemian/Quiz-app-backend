@@ -68,9 +68,9 @@
                                 @foreach ($questions as $question)
                                     <tr>
                                         <td>{{ $question->created_at }}</td>
-                                        <td>{{ $question->subject->name }}</td>
-                                        <td>{{ $question->subject->educationLevel->name }}</td>
-                                        <td>{{ $question->subject->educationSystem->name }}</td>
+                                        <td>{{ $question->exam->subject->name }}</td>
+                                        <td>{{ $question->exam->subject->educationLevel->name }}</td>
+                                        <td>{{ $question->exam->subject->educationSystem->name }}</td>
                                         <td>{{ $question->question }}</td>
                                         <td>{{ $question->answer }}</td>
                                         <td>
