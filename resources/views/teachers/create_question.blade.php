@@ -40,50 +40,18 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-body">
-                        <h4 class="header-title">Select2</h4>
 
                         <ul class="nav nav-tabs nav-bordered mb-3">
                             <li class="nav-item">
                                 <a href="#education" data-bs-toggle="tab" aria-expanded="false" class="nav-link active">
-                                    Set up Education
+                                    Set Up Questions
                                 </a>
                             </li>
                         </ul> <!-- end nav-->
 
                         <form method="POST" action="{{route('store_questions')}}">
                             @csrf
-
-                            <div class="form-group">
-                                <label for="education_system">Education System</label>
-                                <select id="education_system" name="education_system_id" class="form-control">
-                                    <option value="">Select Education System</option>
-                                    @foreach($education_systems as $education_system)
-                                        <option value="{{ $education_system->id }}">{{ $education_system->name }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-
-                            <div class="form-group">
-                                <label for="education_level">Education Level</label>
-                                <select id="education_level" name="education_level_id" class="form-control">
-                                    <option value="">Select Education Level</option>
-                                </select>
-                            </div>
-
-                            <div class="form-group">
-                                <label for="subject">Subject</label>
-                                <select id="subject" name="subject_id" class="form-control">
-                                    <option value="">Select Subject</option>
-                                </select>
-                            </div>
-
-{{--                            <div class="form-group">--}}
-{{--                                <label for="topic">Topic</label>--}}
-{{--                                <select id="topic" name="topic_id" class="form-control">--}}
-{{--                                    <option value="">Select Topic</option>--}}
-{{--                                </select>--}}
-{{--                            </div>--}}
-
+                            <input type="hidden" name="exam_id" value="{{ ($exam->id) }}">
 
                             <div id="question-container">
                                 <!-- Dynamic question form container -->
@@ -111,7 +79,27 @@
         $(document).ready(function () {
             // Topic List
             let topicList = [];
+            let educationLevels = [];
+            const exam = @json($exam);
             let selectedQuestion = 0;
+
+            $.ajax({
+                url: '/teacher/get-topics',
+                type: 'GET',
+                data: {subjectId: exam.subject_id},
+                success: function (data) {
+                    topicList = data.topics;
+                }
+            });
+            console.log(exam.subject.education_system_id);
+            $.ajax({
+                url: '/teacher/get-education-levels',
+                type: 'GET',
+                data: {educationSystemId: exam.subject.education_system_id},
+                success: function (data) {
+                    educationLevels = data.educationLevels;
+                }
+            });
 
             // Function to populate subtopics based on topic selection
             function populateSubtopics(questionCount, topicId) {
@@ -130,27 +118,6 @@
                     }
                 });
             }
-
-
-            // Populate education levels based on education system selection
-            $('#education_system').on('change', function () {
-                var educationSystemId = $(this).val();
-
-                $.ajax({
-                    url: '/teacher/get-education-levels',
-                    type: 'GET',
-                    data: {educationSystemId: educationSystemId},
-                    success: function (data) {
-                        var options = '<option value="">Select Education Level</option>';
-
-                        $.each(data.educationLevels, function (key, educationLevel) {
-                            options += '<option value="' + educationLevel.id + '">' + educationLevel.name + '</option>';
-                        });
-
-                        $('#education_level').html(options);
-                    }
-                });
-            });
 
             // Populate subjects based on education system and education level selection
             $('#education_level').on('change', function () {
@@ -177,18 +144,9 @@
             });
 
             // Populate topics based on subject selection
-            $('#subject').on('change', function () {
-                var subjectId = $(this).val();
-
-                $.ajax({
-                    url: '/teacher/get-topics',
-                    type: 'GET',
-                    data: {subjectId: subjectId},
-                    success: function (data) {
-                        topicList = data.topics;
-                    }
-                });
-            });
+            // $('#subject').on('change', function () {
+            //     var subjectId = $(this).val();
+            // });
 
             // Populate subtopics based on topic selection
             $(document).on('change', '[id^=question] #topic', function () {
@@ -212,14 +170,39 @@
                     options += '<option value="' + topic.id + '">' + topic.topic_strand + '</option>';
                 });
 
+
+                var education_level_options = '<option value="">Select Education Level</option>';
+
+                $.each(educationLevels, function (key, educationLevel) {
+                    education_level_options += '<option value="' + educationLevel.id + '">' + educationLevel.name + '</option>';
+                });
+
+                $('#education_level').html(education_level_options);
+
                 var questionForm = `
                 <div class="card form-group question-form" id="question_${questionCount}">
                     <div class="card-body">
                         <h5 class="card-title">Question Card</h5>
                         <hr>
                         <label for="question_${questionCount}">Question ${questionCount}</label>
-                            <div class="row mb-3">
-                                <label for="topic" class="col-md-4 col-form-label text-md-end">{{ __('Topic') }}</label>
+
+                             <div class="row mb-3">-
+                                <label for="Belongs To Education Level" class="col-md-4 col-form-label text-md-end">{{ __('Belongs To Eduction Level') }}</label>
+                                <div class="col-md-6">
+                                    <select id="belongs_to_education_level" name="topic_id" class="topicq_${questionCount} form-control" >
+                                        ${education_level_options}
+                                    </select>
+                                    @error('belongs_to_education_level')
+                                       <span class="invalid-feedback" role="alert">
+                                             <strong>{{ $message }}</strong>
+                                       </span>
+                                    @enderror
+                                </div>
+                             </div>
+
+
+              <div class="row mb-3">
+                <label for="topic" class="col-md-4 col-form-label text-md-end">{{ __('Topic') }}</label>
                                 <div class="col-md-6">
                                     <select id="topic" name="topic_id" class="topicq_${questionCount} form-control">
                                         ${options}
@@ -230,7 +213,7 @@
                                     </span>
                                     @enderror
                                  </div>
-                            </div>
+                              </div>
 
                             <div class="row mb-3">
                                 <label for="subtopic" class="col-md-4 col-form-label text-md-end">{{ __('Subtopic') }}</label>
