@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\EducationSystemLevelSubject;
+use App\Models\Exam;
 use App\Models\SubTopicSubStrand;
 use App\Models\TopicStrand;
 use Illuminate\Http\Request;
@@ -23,16 +24,24 @@ class QuestionController extends Controller
     public function index()
     {
         $questions = Question::with(['subject.educationLevel', 'subject.educationSystem'])
-            ->select('id', 'subject_id', 'question', 'answer', 'created_at')
+            ->select('id', 'exam_id', 'question', 'answer', 'created_at')
             ->get();
         return view('teachers.questions', compact('questions'));
     }
 
-    public function create_question(){
+    public function create_question($examId){
         $subjects = Subject::all();
         $education_systems = EducationSystem::all();
-        return view('teachers.create_question',compact('subjects',  'education_systems'));
+        $exam = Exam::with(['subject.educationLevel', 'subject.educationSystem'])
+            ->select('id', 'subject_id', 'name',)
+            ->where('id', $examId)
+            ->first();
+
+        return view('teachers.create_question',compact('subjects',  'education_systems', 'exam'));
     }
+
+
+
 
     /**
      * Store a newly created resource in storage.
@@ -42,7 +51,7 @@ class QuestionController extends Controller
     public function store(Request $request)
     {
         $validatedData = $request->validate([
-            'subject_id' => 'required',
+            'exam_id' => 'required',
             'subtopic_id' => 'required',
             'topic_id' => 'required',
             'questions' => 'required|array',
@@ -64,7 +73,7 @@ class QuestionController extends Controller
 
         foreach ($validatedData['questions'] as $index => $question) {
             $newQuestionData = [
-                'subject_id' => $validatedData['subject_id'],
+                'exam_id' => $validatedData['exam_id'],
                 'sub_topic_sub_strand_id' => $validatedData['subtopic_id'],
                 'topic_strand_id' => $validatedData['topic_id'],
                 'question' => $question,
