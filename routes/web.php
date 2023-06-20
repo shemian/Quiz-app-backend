@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ExamController;
 use App\Http\Controllers\SubTopicSubStrandController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TeacherController;
@@ -31,6 +32,7 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
 
 Route::prefix('/admin')->middleware(['isAdmin'])->group(function(){
     Route::get('/', [AdminController::class, 'index'])->name('admin.dashboard');
@@ -72,8 +74,7 @@ Route::prefix('teacher')->middleware([ 'isTeacher'])->group(function(){
     Route::get('/get-topics', [QuestionController::class, 'getTopics']);
     Route::get('/get-subtopics', [QuestionController::class, 'getSubtopics']);
 
-    Route::get('/create_question', [QuestionController::class, 'create_question'])->name('create_question');
-    Route::post('/create_question', [EducationSystemLevelSubjectController::class, 'store'])->name('store_eduaction_system_level_subjects');
+    Route::get('/create_question/{examId}', [QuestionController::class, 'create_question'])->name('create_question');
 
 
     Route::get('/create_topics_and_strands/{educationSystemId}/{educationLevelId}/{subjectId}', [TopicsAndStrandsController::class, 'index'])->name('topics_strands.index');
@@ -84,6 +85,9 @@ Route::prefix('teacher')->middleware([ 'isTeacher'])->group(function(){
 
     Route::post('/questions', [QuestionController::class, 'store'])->name('store_questions');
     Route::post('/display_education_level', [EduacationSystemsController::class, 'getEducationLevels'])->name('getEducationLevels');
+
+    Route::get('/exams', [ExamController::class, 'index'])->name('get_exams');
+    Route::post('/exams', [ExamController::class, 'store'])->name('store_exams');
 });
 
 
