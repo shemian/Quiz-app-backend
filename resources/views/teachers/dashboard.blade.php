@@ -18,7 +18,7 @@
                 <div class="card-body">
                     <div class="row align-items-center">
                         <div class="col-6">
-                            <h5 class="text-muted fw-normal mt-0 text-truncate" title="Campaign Sent">Subjects</h5>
+                            <h5 class="text-muted fw-normal mt-0 text-truncate" title="Campaign Sent">Exams</h5>
                             <h3 class="my-2 py-1">10</h3>
                             <p class="mb-0 text-muted">
                                 <span class="text-success me-2"><i class="mdi mdi-arrow-up-bold"></i> 3.27%</span>
@@ -39,7 +39,7 @@
                 <div class="card-body">
                     <div class="row align-items-center">
                         <div class="col-6">
-                            <h5 class="text-muted fw-normal mt-0 text-truncate" title="New Leads">Questions</h5>
+                            <h5 class="text-muted fw-normal mt-0 text-truncate" title="New Leads">Subjects</h5>
                             <h3 class="my-2 py-1">15</h3>
                             <p class="mb-0 text-muted">
                                 <span class="text-danger me-2"><i class="mdi mdi-arrow-down-bold"></i> 5.38%</span>
@@ -62,7 +62,7 @@
                 <div class="card-body">
                     <div class="row align-items-center">
                         <div class="col-6">
-                            <h5 class="text-muted fw-normal mt-0 text-truncate" title="Booked Revenue">Reports</h5>
+                            <h5 class="text-muted fw-normal mt-0 text-truncate" title="Booked Revenue">Questions</h5>
                             <h3 class="my-2 py-1">Monthly</h3>
                             <p class="mb-0 text-muted">
                                 <span class="text-success me-2"><i class="mdi mdi-arrow-up-bold"></i> 3.27%</span>
@@ -94,80 +94,37 @@
                             <a href="javascript:void(0);" class="dropdown-item">Action</a>
                         </div>
                     </div>
-                    <h4 class="header-title mb-3">Total Questions</h4>
+                    <h4 class="header-title mb-3">Exams</h4>
 
                     <div class="table-responsive">
                         <table class="table table-striped table-sm table-nowrap table-centered mb-0">
                             <thead>
                                 <tr>
+                                    <th>Exam Name</th>
                                     <th>Subject</th>
-                                    <th>Topic</th>
-                                    <th>Class</th>
+                                    <th>No Questions</th>
+                                    <th>No Topics</th>
+                                    <th>No Subtopics</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
                             <tbody>
+                            @foreach($exams as $exam)
                                 <tr>
                                     <td>
-                                        <h5 class="font-15 mb-1 fw-normal">Mathematics</h5>
-                                        <span class="text-muted font-13">Grade 2</span>
+                                        <h5 class="font-15 mb-1 fw-normal">{{ $exam->name}}</h5>
+                                        <span class="text-muted font-13">{{ $exam->subject->educationSystem->name}}, {{ $exam->subject->educationLevel->name}}</span>
                                     </td>
-                                    <td>Algebra</td>
-                                    <td>Grade 2</td>
+                                    <td>{{ $exam->subject->name }}</td>
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
 
                                     <td class="table-action">
                                         <a href="javascript: void(0);" class="action-icon"> <i class="mdi mdi-eye"></i></a>
                                     </td>
                                 </tr>
-                                <tr>
-                                    <td>
-                                        <h5 class="font-15 mb-1 fw-normal">Science</h5>
-                                        <span class="text-muted font-13">Grade 4</span>
-                                    </td>
-                                    <td>Introduction</td>
-                                    <td>Grade 4</td>
-
-                                    <td class="table-action">
-                                        <a href="javascript: void(0);" class="action-icon"> <i class="mdi mdi-eye"></i></a>
-                                    </td>
-                                </tr>
-
-                                <tr>
-                                    <td>
-                                        <h5 class="font-15 mb-1 fw-normal">Science</h5>
-                                        <span class="text-muted font-13">Grade 4</span>
-                                    </td>
-                                    <td>Introduction</td>
-                                    <td>Grade 4</td>
-
-                                    <td class="table-action">
-                                        <a href="javascript: void(0);" class="action-icon"> <i class="mdi mdi-eye"></i></a>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <h5 class="font-15 mb-1 fw-normal">Science</h5>
-                                        <span class="text-muted font-13">Grade 4</span>
-                                    </td>
-                                    <td>Introduction</td>
-                                    <td>Grade 4</td>
-
-                                    <td class="table-action">
-                                        <a href="javascript: void(0);" class="action-icon"> <i class="mdi mdi-eye"></i></a>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <h5 class="font-15 mb-1 fw-normal">Science</h5>
-                                        <span class="text-muted font-13">Grade 4</span>
-                                    </td>
-                                    <td>Introduction</td>
-                                    <td>Grade 4</td>
-
-                                    <td class="table-action">
-                                        <a href="javascript: void(0);" class="action-icon"> <i class="mdi mdi-eye"></i></a>
-                                    </td>
-                                </tr>
+                                @endforeach
                             </tbody>
                         </table>
                     </div> <!-- end table-responsive-->
