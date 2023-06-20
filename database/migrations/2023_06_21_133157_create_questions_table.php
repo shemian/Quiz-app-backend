@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('questions', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->foreignUuid('subject_id')->constrained('subjects')->cascadeOnDelete();
+            $table->foreignUuid('exam_id')->constrained('exams')->cascadeOnDelete();
             $table->foreignUuid('sub_topic_sub_strand_id')->constrained('sub_topic_sub_strands')->cascadeOnDelete();
             $table->foreignUuid('topic_strand_id')->constrained('topic_strands')->cascadeOnDelete();
             $table->string('question');
