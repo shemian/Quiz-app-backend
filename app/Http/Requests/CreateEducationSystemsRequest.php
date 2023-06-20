@@ -22,7 +22,7 @@ class CreateEducationSystemsRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => 'required| unique:education_systems',
+            'name' => 'required',
         ];
     }
 }
