@@ -43,6 +43,13 @@ class Subject extends Model
         return $this->belongsTo(EducationLevel::class, 'education_level_id');
     }
 
+//    public function educationLevel(): BelongsToMany
+//    {
+//        return $this->belongsToMany(EducationLevel::class, 'education_level_subject')
+//            ->withTimestamps();
+//    }
+// Remember to modify the following to the EducationLevel model:
+
     public function topicStrands(): HasMany
     {
         return $this->hasMany(TopicStrand::class);
