@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Exam;
 use Illuminate\Http\Request;
 
 class TeacherController extends Controller
@@ -11,9 +12,14 @@ class TeacherController extends Controller
      */
     public function index()
     {
-        return view('teachers.dashboard');
+        $exams = Exam::with(['subject.educationLevel', 'subject.educationSystem'])
+        ->select('id', 'subject_id', 'name',)
+        ->get();
+
+
+        return view('teachers.dashboard', compact('exams'));
     }
-    
+
 
     /**
      * Store a newly created resource in storage.
