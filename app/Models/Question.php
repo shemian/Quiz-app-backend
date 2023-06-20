@@ -13,7 +13,7 @@ class Question extends Model
     use HasUuids, HasFactory;
 
     protected $fillable = [
-        'subject_id',
+        'exam_id',
         'sub_topic_sub_strand_id',
         'topic_strand_id',
         'question',
@@ -25,6 +25,11 @@ class Question extends Model
         'image',
 
     ];
+
+    public function exam(): BelongsTo
+    {
+        return $this->belongsTo(Exam::class);
+    }
 
     public function subject(): BelongsTo
     {
