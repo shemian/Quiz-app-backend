@@ -24,6 +24,6 @@ class TopicStrand extends Model
 
     public function subTopicSubStrands(): HasMany
     {
-        return $this->hasMany(SubtopicSubStrand::class);
+        return $this->hasMany(SubTopicSubStrand::class);
     }
 }
