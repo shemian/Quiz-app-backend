@@ -1,0 +1,28 @@
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Concerns\HasUuids;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+
+class Exam extends Model
+{
+    use HasUuids, HasFactory;
+    protected $fillable = [
+        'subject_id',
+        'start_date',
+        'end_date',
+    ];
+
+    public function subject()
+    {
+        return $this->belongsTo(Subject::class);
+    }
+
+    public  function question() : HasMany
+    {
+        return $this->hasMany(Question::class);
+    }
+}
