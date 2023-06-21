@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ExamController;
+use App\Http\Controllers\SubscriptionPlanController;
 use App\Http\Controllers\SubTopicSubStrandController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TeacherController;
@@ -49,6 +50,9 @@ Route::prefix('/admin')->middleware(['isAdmin'])->group(function(){
 
     Route::get('/education_level', [EduacationSystemsController::class, 'get_education_level'])->name('get_education_level');
     Route::post('/education_level', [EduacationSystemsController::class, 'store_education_level'])->name('store_education_level');
+
+    // Subscriptions Plan Routes
+    Route::resource('subscriptions', SubscriptionPlanController::class);
 
 
 
