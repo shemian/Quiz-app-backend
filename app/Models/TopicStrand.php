@@ -26,4 +26,10 @@ class TopicStrand extends Model
     {
         return $this->hasMany(SubTopicSubStrand::class);
     }
+
+    public function questions(): HasMany
+    {
+        return $this->hasMany(Question::class);
+    }
+
 }
