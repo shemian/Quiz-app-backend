@@ -7,6 +7,7 @@ use App\Models\EducationSystem;
 use App\Models\Exam;
 use App\Models\Question;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class ExamController extends Controller
 {
@@ -17,8 +18,9 @@ class ExamController extends Controller
     {
         $education_systems = EducationSystem::all();
         $exams = Exam::with(['subject.educationLevel', 'subject.educationSystem'])
-            ->select('id', 'subject_id', 'name',)
+            ->withCount('questions')
             ->get();
+        Log::info($exams);
 
         return view('teachers.exams', compact('education_systems', 'exams'));
     }
