@@ -21,7 +21,7 @@ class Exam extends Model
         return $this->belongsTo(Subject::class);
     }
 
-    public  function question() : HasMany
+    public  function questions() : HasMany
     {
         return $this->hasMany(Question::class);
     }
