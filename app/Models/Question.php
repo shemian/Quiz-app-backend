@@ -41,8 +41,14 @@ class Question extends Model
         return $this->hasMany(Result::class);
     }
 
-    public function EducationSystemLevelSubject(): BelongsTo
+    public function subTopicSubStrand(): BelongsTo
     {
-        return $this->belongsTo(EducationSystemLevelSubject::class);
+        return $this->belongsTo(SubTopicSubStrand::class);
     }
+
+    public function topicStrand(): BelongsTo
+    {
+        return $this->belongsTo(TopicStrand::class);
+    }
+
 }
