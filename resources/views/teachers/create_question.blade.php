@@ -91,7 +91,8 @@
                     topicList = data.topics;
                 }
             });
-            console.log(exam.subject.education_system_id);
+
+            console.log(exam.subject_id);
             $.ajax({
                 url: '/teacher/get-education-levels',
                 type: 'GET',
