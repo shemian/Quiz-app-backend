@@ -17,7 +17,6 @@ class Subject extends Model
         'name',
         'education_system_id',
         'education_level_id',
-        'topic_strand',
     ];
 
 
@@ -31,6 +30,10 @@ class Subject extends Model
     //     return $this->hasMany(Result::class);
     // }
 
+    public function topicStrands(): HasMany
+    {
+        return $this->hasMany(TopicStrand::class);
+    }
 
 
     public function educationSystem(): BelongsTo
@@ -50,10 +53,6 @@ class Subject extends Model
 //    }
 // Remember to modify the following to the EducationLevel model:
 
-    public function topicStrands(): HasMany
-    {
-        return $this->hasMany(TopicStrand::class);
-    }
 
 
 }
