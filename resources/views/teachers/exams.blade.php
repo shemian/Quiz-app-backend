@@ -139,14 +139,15 @@
                                     </thead>
                                     <tbody>
                                     @foreach($exams as $exam)
+
                                         <tr>
                                             <td>{{ $exam->name }}</td>
                                             <td>{{ $exam->subject->educationLevel->name}}</td>
                                             <td>{{ $exam->subject->educationSystem->name }}</td>
                                             <td>{{ $exam->subject->name }}</td>
+                                            <td>{{ $exam->questions_count }}</td>
                                             <td>0</td>
-                                            <td></td>
-                                            <td>0</td>
+                                            <td>{{ $exam->questions_count }}</td>
                                             <td><a href="{{ route('create_question', ['examId' => $exam->id]) }}" title="Add Question"><i class="mdi mdi-file-question-outline"></i></a></td>
 
                                             <td>
