@@ -160,6 +160,68 @@
             </div>
         </div>
 
+        <!-- Plan Modal -->
+        <div class="modal fade" id="planmodal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="staticBackdropLabel">Choose A Plan</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+
+                        <form method="POST" action="">
+                            @csrf
+
+                            <div class="row mb-3">
+                                <label for="subscription_plan" class="col-md-4 col-form-label text-md-end">{{ __('Select a Plan' ) }}</label>
+
+                                <div class="col-md-6">
+                                    <select id="subscription_plan" name="subscription_plan" class="form-control @error('subscription_plan') is-invalid @enderror">
+                                        <option value="">Select a Plan</option>
+                                        @foreach($subscription_plans as $subscription_plan)
+                                            <option value="{{ $subscription_plan->name }}">{{ $subscription_plan->name }}</option>
+                                        @endforeach
+                                    </select>
+
+                                    @error('subscription_plan')
+                                    <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                                    @enderror
+                                </div>
+                            </div>
+
+                            <div class="row mb-3">
+                                <label for="subscription_plan_price" class="col-md-4 col-form-label text-md-end">{{ __('Price') }}</label>
+
+                                <div class="col-md-6">
+                                    <input id="subscription_plan_price" type="text" class="form-control @error('subscription_plan_price') is-invalid @enderror" name="subscription_plan_price" required autofocus disabled>
+
+                                    @error('subscription_plan_price')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                    @enderror
+                                </div>
+                            </div>
+
+                            <div class="row mb-0">
+                                <div class="col-md-6 offset-md-4">
+                                    <button type="button" class="btn btn-primary" id="purchase_plan">
+                                        {{ __('Purchase Plan') }}
+                                    </button>
+                                </div>
+                            </div>
+
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
         <div class="row">
             <div class="col-12">
                 <div class="card">
@@ -187,6 +249,7 @@
                                         <th>School</th>
                                         <th>Wallet Balance</th>
                                         <th>Centiis</th>
+                                        <th>Account Status</th>
                                         <th>Action</th>
                                     </tr>
                                     </thead>
@@ -199,6 +262,18 @@
                                             <td>{{ $student->school_name }}</td>
                                             <td>{{ $student->credit }}</td>
                                             <td>{{ $student->credit }}</td>
+                                            @if($student->account_status == 1)
+                                                <td>Active</td>
+                                            @elseif($student->account_status == 0)
+                                                <td>
+                                                    <a href="" title="Activate Account" data-student-id="{{ $student->id }}" id="activate-account-link" data-bs-toggle="modal" data-bs-target="#planmodal">
+                                                        <i class="mdi mdi-book-edit-outline"></i> Activate
+                                                    </a>
+
+                                                </td>
+                                            @elseif($student->account_status == 2)
+                                                <td>Pending</td>
+                                            @endif
 
                                             <td>
                                                 <a href="" title="View"><i class="mdi mdi-eye"></i></a>
@@ -224,7 +299,9 @@
 
 @section('scripts')
     <script>
+        let studentId = null;
         $(document).ready(function() {
+
             // When the education system dropdown value changes
             $('#education_system_id').on('change', function() {
                 var educationSystemId = $(this).val();
@@ -253,32 +330,64 @@
                 });
             });
 
-            // Function to handle next button click on the wizard form
-            function next() {
-                var currentTab = $('.tab-pane.active');
-                var nextTab = currentTab.next('.tab-pane');
+            const subscription_plans = @json($subscription_plans);
 
-                if (nextTab.length > 0) {
-                    currentTab.removeClass('active');
-                    nextTab.addClass('active');
-                }
-            }
+            // When the subscription plan dropdown value changes
+            $('#subscription_plan').change(function() {
+                var planId = $(this).val();
+                var selectedPlan = subscription_plans.find(function(plan) {
+                    return plan.name === planId;
+                });
 
-            // Function to handle previous button click on the wizard form
-            function previous() {
-                var currentTab = $('.tab-pane.active');
-                var prevTab = currentTab.prev('.tab-pane');
+                // Display the price of the selected plan
+                $('#subscription_plan_price').val(selectedPlan.price);
+            });
 
-                if (prevTab.length > 0) {
-                    currentTab.removeClass('active');
-                    prevTab.addClass('active');
-                }
-            }
+            $(document).on('click', '#activate-account-link', function(e) {
+                e.preventDefault();
+                studentId = $(this).data('student-id');
+                console.log('Student ID:', studentId);
+            });
+
+            //send form request to activate student account
+            $('#purchase_plan').on('click', function(e) {
+                e.preventDefault();
+
+                // Make an AJAX request to fetch the education levels for the selected education system
+                $.ajax({
+                    url: '{{ route('stk_push') }}',
+                    method: 'POST',
+                    data: {
+                        _token: '{{ csrf_token() }}',
+                        student_id: studentId,
+                        subscription_plan_price: $('#subscription_plan_price').val(),
+                        subscription_plan_name: $('#subscription_plan').val(),
+                    },
+                    success: function(response) {
+                        console.log(response);
+                        $('#planmodal').modal('toggle');
+                        alert(response.message);
+                        if (response.success === "0") {
+                            console.log(response);
+                            window.location.href = "{{ route('get_students') }}";
+                        }
+                    },
+                    error: function(xhr, status, error) {
+                        console.error(xhr.responseText);
+                    }
+                });
+                // Show the "topicsBackdrop" modal when the "Add a Topic" button is clicked
+                $('#datatable-buttons').on('click', '.btn-primary[data-target="#topicsBackdrop"]', function() {
+                    $('#topicsBackdrop').modal('show');
+                });
+            });
         });
     </script>
 @endsection
 
 @section('scripts')
+
+
     @if(Session::has('formData'))
         <script>
             // Restore form data from session
