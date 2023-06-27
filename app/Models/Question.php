@@ -51,4 +51,9 @@ class Question extends Model
         return $this->belongsTo(TopicStrand::class);
     }
 
+    public function teachers(): BelongsTo
+    {
+        return $this->belongsTo( Teacher::class);
+    }
+
 }
