@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\GuardianController;
 use App\Http\Controllers\MpesaTransactionController;
 use App\Models\MpesaTransaction;
 use Illuminate\Http\Request;
@@ -35,9 +36,10 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+
 Route::prefix('/v1')->group(function() {
     Route::post('/access/token', [MpesaTransactionController::class, 'generateAccessToken']);
-    Route::post('/quiz/stk/push', [MpesaTransactionController::class, 'customerMpesaSTKPush']);
+    Route::post('/quiz/stk/push', [GuardianController::class, 'activateStudent'])->name('stk_push');
     Route::post('/quiz/validation', [MpesaTransactionController::class, 'mpesaValidation']);
-    Route::post('/quiz/transaction/confirmation', [MpesaTransactionController::class, 'mpesaConfirmation']);
+    Route::post('/quiz/transaction/confirmation/{$centyPlusId}', [MpesaTransactionController::class, 'mpesaConfirmation']);
 });
