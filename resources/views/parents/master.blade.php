@@ -56,6 +56,8 @@
 
         <div class="rightbar-overlay"></div>
 
+
+
         <!-- bundle -->
         <script src="{{ asset('assets/js/vendor.min.js') }}"></script>
         <script src="{{ asset('assets/js/app.min.js') }}"></script>
@@ -86,6 +88,7 @@
         <script src="{{ asset('assets/js/vendor/dataTables.keyTable.min.js') }}"></script>
         <script src="{{ asset('assets/js/vendor/dataTables.select.min.js') }}"></script>
         <script src="{{ asset('assets/js/pages/demo.datatable-init.js') }}"></script>
+
         @yield('scripts')
 
     </body>
