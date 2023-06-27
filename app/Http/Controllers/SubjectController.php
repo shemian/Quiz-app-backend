@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\EducationSystem;
+use App\Models\Teacher;
 use App\Models\TopicStrand;
 use Illuminate\Http\Request;
 use App\Http\Requests\SubjectsRequest;
@@ -34,13 +35,30 @@ class SubjectController extends Controller
     {
         $data = $request->validated();
 
+        $user = auth()->user();
+
+        if (!$user) {
+            // Handle the case when the user is not authenticated
+            return redirect()->back()->with('error', 'You must be logged in to create a subject.');
+        }
+
+        $teacher = Teacher::where('user_id', $user->id)->first();
+
+        if (!$teacher) {
+            // Handle the case when the authenticated user is not a teacher
+            return redirect()->back()->with('error', 'You must be a teacher to create a subject.');
+        }
+
         $newSubject = new Subject();
-        $newSubject->name=$data['name'];
-        $newSubject->education_system_id=$data['education_system_id'];
-        $newSubject->education_level_id=$data['education_level_id'];
+        $newSubject->name = $data['name'];
+        $newSubject->teacher_id = $teacher->id;
+        $newSubject->education_system_id = $data['education_system_id'];
+        $newSubject->education_level_id = $data['education_level_id'];
         $newSubject->save();
-        return redirect()->route('get_subjects')->with('success', 'Subject Created successfully!');
+
+        return redirect()->route('get_subjects')->with('success', 'Subject created successfully!');
     }
+
 
     /**
      * Display the specified resource.
