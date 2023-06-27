@@ -2,16 +2,20 @@
 
 namespace App\Http\Controllers;
 
+use App\Enums\AccountStatus;
+use App\Http\Controllers\MpesaTransactionController;
 use App\Models\EducationSystem;
+use App\Models\SubscriptionPlan;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Student;
 use App\Models\Guardian;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
 use Datatables;
 use App\Jobs\SendStudentAccountEmail;
-
 class GuardianController extends Controller
 {
 
@@ -30,7 +34,35 @@ class GuardianController extends Controller
         $guardian = Guardian::where('user_id', auth()->user()->id)->first();
         $students = $guardian->students;
         $education_systems = EducationSystem::all();
-        return view('parents.create_student', compact('education_systems', 'students'));
+        $subscription_plans = SubscriptionPlan::all();
+        return view('parents.create_student', compact('education_systems', 'students', 'subscription_plans'));
+    }
+
+    public function activateStudent(Request $request)
+    {
+        $request->validate([
+            'student_id' => 'required',
+            'subscription_plan_name' => 'required',
+            'subscription_plan_price' => 'required',
+        ]);
+
+
+        $student = Student::findOrFail($request->student_id);
+        $guardian =  $student->guardian()->first();
+        $user = User::findOrFail($student->user_id);
+
+        $response = (new MpesaTransactionController)->customerMpesaSTKPush($guardian->phone_number, $request->subscription_plan_price, $user->centy_plus_id, $request->subscription_plan_name);
+        $response = json_decode($response, true);
+
+        if ($response["ResponseCode"] == "0") {
+            $student->account_status = AccountStatus::PENDING;
+            $student->save();
+        }
+
+        return response()->json([
+            "success" => $response["ResponseCode"],
+            "message" => $response["ResponseDescription"],
+        ]);
     }
 
     /**
