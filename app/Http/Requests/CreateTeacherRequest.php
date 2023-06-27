@@ -28,13 +28,20 @@ class CreateTeacherRequest extends FormRequest
                 'max:200'
             ],
             'email'=>[
-                'required', 
-                'string', 
-                'email', 
-                'max:255', 
+                'required',
+                'string',
+                'email',
+                'max:255',
                 'unique:users'
             ],
-            
+
+            'phone_number'=>[
+                'nullable',
+                'digits:10',
+                'string',
+                'max:255'
+            ],
+
         ];
 
         return $rules;
