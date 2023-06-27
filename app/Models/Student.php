@@ -25,20 +25,8 @@ class Student extends Model
         'credit',
     ];
 
-    protected static function boot()
-    {
-        parent::boot();
 
-        static::creating(function ($student) {
-            // Generate the centy_plus_id in the format "CTP-000001", "CTP-000002", etc.
-            $lastStudent = static::orderBy('id', 'desc')->first();
-
-            $sequence = $lastStudent ? intval(Str::after($lastStudent->centy_plus_id, 'CTP-')) + 1 : 1;
-            $student->centy_plus_id = 'CTP-' . str_pad($sequence, 6, '0', STR_PAD_LEFT);
-        });
-    }
-
-    public function guardians(): BelongsTo
+    public function guardian(): BelongsTo
     {
         return $this->belongsTo(Guardian::class);
     }
