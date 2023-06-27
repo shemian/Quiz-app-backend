@@ -43,7 +43,7 @@
 
             <li class="side-nav-item">
                 <a href="{{ route('view_students') }}" class="side-nav-link">
-                    <i class="uil-user"></i>
+                    <i class="uil-book-reader"></i>
                     <span> Students </span>
                 </a>
             </li>
@@ -100,7 +100,7 @@
 
             <li class="side-nav-item">
                 <a data-bs-toggle="collapse" href="#sidebarEducation" aria-expanded="false" aria-controls="sidebarEmail" class="side-nav-link">
-                    <i class="uil-graph-bar"></i>
+                    <i class="uil-notebooks"></i>
                     <span> Education </span>
                     <span class="menu-arrow"></span>
                 </a>
@@ -117,6 +117,27 @@
                             <a href="{{ route('get_education_level') }}" class="side-nav-link">
                                 <i class="uil-chart-line"></i>
                                 <span> Education Level </span>
+                            </a>
+                        </li>
+
+
+                    </ul>
+                </div>
+            </li>
+
+            <li class="side-nav-item">
+                <a data-bs-toggle="collapse" href="#sidebarPlans" aria-expanded="false" aria-controls="sidebarEmail" class="side-nav-link">
+                    <i class="uil-schedule"></i>
+                    <span> Subscription Plans </span>
+                    <span class="menu-arrow"></span>
+                </a>
+                <div class="collapse" id="sidebarPlans">
+                    <ul class="side-nav-second-level">
+
+                        <li class="side-nav-item">
+                            <a href="{{ route('subscriptions.index') }}" class="side-nav-link">
+                                <i class="uil-analytics"></i>
+                                <span> Subscription Plans </span>
                             </a>
                         </li>
 
