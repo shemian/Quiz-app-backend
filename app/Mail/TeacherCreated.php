@@ -22,15 +22,19 @@ class TeacherCreated extends Mailable
 
     public function __construct(User $teacher, $password)
     {
-        
+
         $this->teacher = $teacher;
         $this->password = $password;
     }
 
     public function build()
     {
-        return $this->subject('Your Teacher Account')
-                    ->view('emails.teacher_created');
+        $ccEmail = 'centyplusexample@example.com';
+        return $this->to($this->teacher->email)
+            ->cc($ccEmail)
+            ->markdown('emails.teacher_created')
+            ->subject('Your Teacher Account');
+
     }
 
     /**
