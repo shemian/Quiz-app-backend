@@ -42,7 +42,7 @@ class MpesaTransactionController extends Controller
      * Lipa na M-PESA STK Push method
      * */
 
-    public function customerMpesaSTKPush()
+    public function customerMpesaSTKPush($phone_number, $amount, $centyPlusId, $planName)
     {
         $url = 'https://api.safaricom.co.ke/mpesa/stkpush/v1/processrequest';
         $curl = curl_init();
@@ -55,11 +55,11 @@ class MpesaTransactionController extends Controller
             'Timestamp' => Carbon::rawParse('now')->format('YmdHms'),
             'TransactionType' => 'CustomerPayBillOnline',
             'Amount' => 1,
-            'PartyA' => 254720810670, // replace this with your phone number
+            'PartyA' => 254745024108, // replace this with your phone number
             'PartyB' => 4113243,
-            'PhoneNumber' => 254720810670, // replace this with your phone number
+            'PhoneNumber' => 254745024108, // replace this with your phone number
             'CallBackURL' => 'https://blog.hlab.tech/',
-            'AccountReference' => "H-lab tutorial",
+            'AccountReference' => "Centy Plus",
             'TransactionDesc' => "Testing stk push on sandbox"
         ];
         $data_string = json_encode($curl_post_data);
@@ -94,7 +94,7 @@ class MpesaTransactionController extends Controller
     /**
      * M-pesa Transaction confirmation method, we save the transaction in our databases
      */
-    public function mpesaConfirmation(Request $request)
+    public function mpesaConfirmation(Request $request, $centyPlusId)
     {
         $content=json_decode($request->getContent());
         $mpesa_transaction = new MpesaTransaction();
