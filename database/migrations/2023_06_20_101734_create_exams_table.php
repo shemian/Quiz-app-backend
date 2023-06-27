@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('exams', function (Blueprint $table) {
             $table->uuid('id')->primary();
+            $table->foreignUuid('teacher_id')->constrained('teachers')->cascadeOnDelete();
             $table->string('name');
             $table->foreignUuid('subject_id')->constrained('subjects')->cascadeOnDelete();
             $table->timestamps();
