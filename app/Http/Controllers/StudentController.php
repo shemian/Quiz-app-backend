@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Exam;
 use Illuminate\Http\Request;
 use App\Models\Question;
 use App\Models\Result;
 use App\Models\Subject;
 use App\Models\Student;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 
 class StudentController extends Controller
 {
@@ -17,6 +19,22 @@ class StudentController extends Controller
     public function index()
     {
         return view('students.dashboard');
+    }
+
+    public function getExams()
+    {
+        $user = Auth::user();
+        $student = $user->student;
+
+        $exams = Exam::with(['subject.educationLevel', 'subject.educationSystem'])
+            ->whereHas('subject', function ($query) use ($student) {
+                $query->where('education_level_id', $student->educationLevel->id)
+                    ->where('education_system_id', $student->educationSystem->id);
+            })
+            ->select('id', 'name', 'subject_id', 'created_at')
+            ->get();
+
+        return view('students.get_exams', compact('exams'));
     }
 
     public function getSubjects()
@@ -32,7 +50,8 @@ class StudentController extends Controller
         return view('students.get_subjects', compact('subjects'));
     }
 
-    public function showQuestions($subjectId)
+
+    public function showQuestions($examId)
     {
         // Retrieve the authenticated user
         $user = auth()->user();
@@ -45,90 +64,94 @@ class StudentController extends Controller
             return redirect()->back()->with('error', 'Student record not found.');
         }
 
-        // Check if a result exists for the given student and subject
-        $result = Result::where('student_id', $student->id)->where('subject_id', $subjectId)->first();
+        // Check if a result exists for the given student and exam
+        $result = Result::where('student_id', $student->id)->where('exam_id', $examId)->first();
 
         if ($result) {
             // Redirect to the view_result route with the result ID parameter
             return redirect()->route('students.view_results', ['result' => $result]);
         }
 
-        $subject = Subject::findOrFail($subjectId);
-        $questions = Question::where('subject_id', $subjectId)->get();
-        $subtopic = 'Some subtopic'; // Replace with your subtopic logic
-        return view('students.display_questions', compact('subject', 'questions', 'subtopic'));
+        $exam = Exam::findOrFail($examId);
+        $questions = $exam->questions;
+        Log::info($questions);
+        // Add any additional logic to retrieve the subtopic for the exam
+
+        return view('students.display_questions', compact('exam', 'questions'));
     }
 
-    public function submitAnswers(Request $request, $subjectId)
-{
-    $answers = $request->input('answer');
-    $subject = Subject::findOrFail($subjectId);
+    public function submitAnswers(Request $request, $examId)
+    {
+        $answers = $request->input('answer');
+        $exam = Exam::findOrFail($examId);
 
-    // Retrieve the authenticated user
-    $user = auth()->user();
+        // Retrieve the authenticated user
+        $user = auth()->user();
 
-    // Retrieve the corresponding student record based on the user's ID
-    $student = Student::where('user_id', $user->id)->first();
+        // Retrieve the corresponding student record based on the user's ID
+        $student = Student::where('user_id', $user->id)->first();
 
-    if (!$student) {
-        // Handle the case where the student record does not exist
-        return redirect()->back()->with('error', 'Student record not found.');
-    }
-
-    $totalMarks = 0;
-    $marksObtained = 0;
-    $resultDetails = [];
-
-    foreach ($answers as $questionId => $selectedAnswer) {
-        $question = Question::find($questionId);
-
-        if (!$question) {
-            // Handle the case where the question does not exist
-            continue;
+        if (!$student) {
+            // Handle the case where the student record does not exist
+            return redirect()->back()->with('error', 'Student record not found.');
         }
 
-        $correctAnswer = $question->answer;
-        $isCorrect = $correctAnswer === $selectedAnswer;
+        $totalMarks = 0;
+        $marksObtained = 0;
+        $resultDetails = [];
 
-        $totalMarks += $question->marks; // Accumulate the total marks
+        foreach ($answers as $questionId => $selectedAnswer) {
+            $question = Question::find($questionId);
 
-        if ($isCorrect) {
-            $marksObtained += $question->marks; // Add the marks for correct answer
-            $resultDetails[$questionId] = 'correct';
+            if (!$question || $question->exam_id !== $exam->id) {
+                // Handle the case where the question does not exist or does not belong to the exam
+                continue;
+            }
+
+            $correctAnswer = $question->answer;
+            $isCorrect = $correctAnswer === $selectedAnswer;
+
+            $totalMarks += $question->marks; // Accumulate the total marks
+
+            if ($isCorrect) {
+                $marksObtained += $question->marks; // Add the marks for correct answer
+                $resultDetails[$questionId] = 'correct';
+            } else {
+                $resultDetails[$questionId] = 'incorrect';
+            }
+        }
+
+        $result = Result::create([
+            'student_id' => $student->id,
+            'exam_id' => $examId,
+            'subject_id' => $exam->subject_id,
+            'yes_ans' => count(array_filter($resultDetails, fn($value) => $value === 'correct')), // Count the number of correct answers
+            'no_ans' => count(array_filter($resultDetails, fn($value) => $value === 'incorrect')), // Count the number of incorrect answers
+            'result_json' => json_encode($resultDetails),
+            'marks_obtained' => $marksObtained, // Store the marks obtained
+            'total_marks' => $totalMarks, // Store the total marks
+        ]);
+
+        if ($result) {
+            $result->update(['marks_obtained' => $marksObtained]); // Update the 'marks_obtained' attribute in the database
+            return redirect()->route('students.view_results', ['result' => $result->id])->with('success', 'Answers submitted successfully.');
         } else {
-            $resultDetails[$questionId] = 'incorrect';
+            return redirect()->back()->with('error', 'Failed to submit answers. Please try again.');
         }
     }
 
-    $result = Result::create([
-        'student_id' => $student->id,
-        'subject_id' => $subjectId,
-        'yes_ans' => count(array_filter($resultDetails, fn($value) => $value === 'correct')), // Count the number of correct answers
-        'no_ans' => count(array_filter($resultDetails, fn($value) => $value === 'incorrect')), // Count the number of incorrect answers
-        'result_json' => json_encode($resultDetails),
-        'marks_obtained' => $marksObtained, // Store the marks obtained
-        'total_marks' => $totalMarks, // Store the total marks
-    ]);
-
-    if ($result) {
-        $result->update(['marks_obtained' => $marksObtained]); // Update the 'marks_obtained' attribute in the database
-        return redirect()->route('students.view_results', ['result' => $result->id])->with('success', 'Answers submitted successfully.');
-    } else {
-        return redirect()->back()->with('error', 'Failed to submit answers. Please try again.');
-    }
-}
 
 
     public function viewResult(Result $result)
     {
-        // Retrieve the subject related to the result
-        $subject = $result->subject;
+        // Retrieve the exam related to the result
+        $exam = $result->exam;
 
-        // Retrieve the subject ID from the result
-        $subjectId = $result->subject_id;
+        // Retrieve the exam ID from the result
+        $examId = $result->exam_id;
 
-        // Retrieve the questions related to the subject
-        $questions = Question::where('subject_id', $subjectId)->get();
+        // Retrieve the questions related to the exam
+        $questions = Question::where('exam_id', $examId)->get();
 
         // Decode the result JSON to retrieve the details of correct and incorrect answers
         $resultDetails = json_decode($result->result_json, true);
@@ -159,8 +182,9 @@ class StudentController extends Controller
             }
         }
 
-        return view('students.view_result', compact('result', 'subject', 'answersDetails'));
+        return view('students.view_result', compact('result', 'exam', 'answersDetails'));
     }
+
 
     /**
      * Store a newly created resource in storage.
