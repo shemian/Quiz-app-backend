@@ -13,6 +13,7 @@ class Result extends Model
     use HasUuids, HasFactory;
 
     protected $fillable  =[
+        'exam_id',
         'student_id',
         'subject_id',
         'yes_ans',
@@ -33,5 +34,10 @@ class Result extends Model
     public function subject(): BelongsTo
     {
         return $this->belongsTo(Subject::class);
+    }
+
+    public function exam(): BelongsTo
+    {
+        return $this->belongsTo(Exam::class);
     }
 }
