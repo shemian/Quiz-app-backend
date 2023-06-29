@@ -128,14 +128,36 @@ class GuardianController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $request->validate([
+            'name' => 'required',
+            'date_of_birth' => 'required',
+            'school_name' => 'required',
+            'education_system_id' => 'required',
+            'education_level_id' => 'required',
+        ]);
+
+        $student = Student::find($id);
+        $student->name = $request->name;
+        $student->date_of_birth = $request->date_of_birth;
+        $student->school_name = $request->school_name;
+        $student->education_system_id = $request->education_system_id;
+        $student->education_level_id = $request->education_level_id;
+        $student->save();
+
+        return redirect()->route('get_students')
+            ->with('success', 'Student account updated successfully.');
     }
+
 
     /**
      * Remove the specified resource from storage.
      */
     public function destroy(string $id)
     {
-        //
+        $student = Student::find($id);
+        $student->delete();
+
+        return redirect()->route('get_students')
+            ->with('success', 'Student account deleted successfully.');
     }
 }
