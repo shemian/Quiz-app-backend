@@ -3,7 +3,7 @@
 @section('content')
     <div class="container">
         <h1>View Results</h1>
-        <h2>Subject: {{ $subject->name }}</h2>
+        <h2>Subject: {{ $exam->name }}</h2>
         <p>Marks Obtained: {{ $result->marks_obtained }}</p>
 
         <h3>Correctly Answered Questions</h3>
