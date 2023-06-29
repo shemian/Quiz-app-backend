@@ -103,9 +103,10 @@ Route::prefix('teacher')->middleware([ 'isTeacher'])->group(function(){
 
 Route::prefix('student')->middleware(['auth', 'isStudent'])->group(function(){
     Route::get('/', [StudentController::class, 'index'])->name('student.dashboard');
+    Route::get('/view_exams', [StudentController::class, 'getExams'])->name('view_exams');
     Route::get('/view_questions', [StudentController::class, 'getSubjects'])->name('view_questions');
-    Route::get('/questions/{subject}', [StudentController::class, 'showQuestions'])->name('show_questions');
-    Route::post('/questions/{subject}', [StudentController::class, 'submitAnswers'])->name('questions.submit');
+    Route::get('/questions/{exam}', [StudentController::class, 'showQuestions'])->name('show_questions');
+    Route::post('/questions/{exam}', [StudentController::class, 'submitAnswers'])->name('questions.submit');
     Route::get('/view_result/{result}', [StudentController::class, 'viewResult'])->name('students.view_results');
 
 
