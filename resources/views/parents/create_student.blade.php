@@ -41,7 +41,7 @@
 
         <!-- Scrollable modal -->
 
-        <!-- Modal -->
+        <!-- Create student Modal -->
         <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
@@ -221,7 +221,6 @@
         </div>
 
 
-
         <div class="row">
             <div class="col-12">
                 <div class="card">
@@ -257,7 +256,7 @@
                                     @foreach($students as $student)
                                         <tr>
                                             <td>{{ $student->user->name }}</td>
-                                            <td>{{ $student->centy_plus_id }}</td>
+                                            <td>{{ $student->user->centy_plus_id }}</td>
                                             <td>{{ $student->EducationLevel->name }}</td>
                                             <td>{{ $student->school_name }}</td>
                                             <td>{{ $student->credit }}</td>
@@ -277,8 +276,121 @@
 
                                             <td>
                                                 <a href="" title="View"><i class="mdi mdi-eye"></i></a>
-                                                <a href="" title="Edit"><i class="mdi mdi-trash-outline"></i></a>
+                                                <a href="#" data-bs-toggle="modal" data-bs-target="#editModal_{{ $student->id }}" title="Edit"><i class="mdi mdi-book-edit-outline"></i></a>
+
+                                                <a href="#"  title="Delete" onclick="event.preventDefault(); deleteStudent('{{ route('delete_student', $student->id) }}');">
+                                                    <i class="mdi mdi-trash-can-outline"></i>
+                                                </a>
+
+                                                <form id="delete-form" method="POST" action="{{ route('delete_student', $student->id) }}" style="display: none;">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                </form>
+
                                             </td>
+
+                                            <!-- Edit Subscription Plan Modal -->
+                                            <div class="modal fade" id="editModal_{{ $student->id }}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
+                                                <div class="modal-dialog modal-dialog-centered">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title" id="editModalLabel">Edit Student</h5>
+                                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            <form id="editForm_{{ $student->id }}" method="POST" action="">
+                                                                @csrf
+                                                                @method('PUT')
+
+                                                                <!-- Edit Subscription Plan Form fields -->
+                                                                <div class="row mb-3">
+                                                                    <label for="name" class="col-md-4 col-form-label text-md-end">{{ __('Student Name') }}</label>
+
+                                                                    <div class="col-md-6">
+                                                                        <input id="name"  value="{{ $student->user->name }}" type="text" class="form-control @error('name') is-invalid @enderror" name="name" required autofocus>
+
+                                                                        @error('name')
+                                                                        <span class="invalid-feedback" role="alert">
+                                                                            <strong>{{ $message }}</strong>
+                                                                        </span>
+                                                                        @enderror
+                                                                    </div>
+                                                                </div>
+
+                                                                <div class="row mb-3">
+                                                                    <label for="date_of_birth" class="col-md-4 col-form-label text-md-end">{{ __('Date Of Birth') }}</label>
+                                                                    <div class="col-md-6">
+                                                                        <input id="date_of_birth" type="date" value="{{ $student->date_of_birth }}"class="form-control @error('date_of_birth') is-invalid @enderror" name="date_of_birth" required>
+
+                                                                        @error('date_of_birth')
+                                                                        <span class="invalid-feedback" role="alert">
+                                                                            <strong>{{ $message }}</strong>
+                                                                        </span>
+                                                                        @enderror
+                                                                    </div>
+                                                                </div>
+
+                                                                <div class="row mb-3">
+                                                                    <label for="school_name" class="col-md-4 col-form-label text-md-end">{{ __('School Name') }}</label>
+
+                                                                    <div class="col-md-6">
+                                                                        <input id="school_name" value="{{ $student->school_name }}" type="text" class="form-control @error('school_name') is-invalid @enderror" name="school_name" required>
+
+                                                                        @error('school_name')
+                                                                        <span class="invalid-feedback" role="alert">
+                                                                            <strong>{{ $message }}</strong>
+                                                                        </span>
+                                                                        @enderror
+                                                                    </div>
+                                                                </div>
+
+                                                                <div class="row mb-3">
+                                                                    <label for="education_system_id" class="col-md-4 col-form-label text-md-end">{{ __('Education System') }}</label>
+
+                                                                    <div class="col-md-6">
+                                                                        <select id="education_system_id" name="education_system_id" class="form-control @error('education_system_id') is-invalid @enderror">
+                                                                            <option value="">Select an Education System</option>
+                                                                            @foreach($education_systems as $education_system)
+                                                                                <option value="{{ $education_system->id }}">{{ $education_system->name }}</option>
+                                                                            @endforeach
+                                                                        </select>
+
+                                                                        @error('education_system_id')
+                                                                        <span class="invalid-feedback" role="alert">
+                                                                            <strong>{{ $message }}</strong>
+                                                                        </span>
+                                                                        @enderror
+                                                                    </div>
+                                                                </div>
+
+                                                                <div class="row mb-3">
+                                                                    <label for="education_level_id" class="col-md-4 col-form-label text-md-end">{{ __('Education Level') }}</label>
+
+                                                                    <div class="col-md-6">
+                                                                        <select id="education_level_id" name="education_level_id" class="form-control @error('education_level_id') is-invalid @enderror">
+                                                                            <option value="">Select an Education Level</option>
+                                                                            <!-- This options will be dynamically populated based on the selected education system -->
+                                                                        </select>
+
+                                                                        @error('education_level_id')
+                                                                        <span class="invalid-feedback" role="alert">
+                                                                            <strong>{{ $message }}</strong>
+                                                                        </span>
+                                                                        @enderror
+                                                                    </div>
+                                                                </div>
+
+                                                                <div class="row mb-0">
+                                                                    <div class="col-md-6 offset-md-4">
+                                                                        <button type="submit" class="btn btn-primary">{{ __('Update') }}</button>
+                                                                    </div>
+                                                                </div>
+                                                            </form>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
 
                                         </tr>
                                     @endforeach
@@ -292,12 +404,16 @@
                 </div> <!-- end card -->
             </div><!-- end col-->
         </div>
+
+
         <!-- end row-->
     </div> <!-- container -->
 
 @endsection
 
 @section('scripts')
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
     <script>
         let studentId = null;
         $(document).ready(function() {
@@ -382,6 +498,24 @@
                 });
             });
         });
+
+        function deleteStudent(deleteUrl) {
+            Swal.fire({
+                title: 'Are you sure?',
+                text: "This action cannot be undone!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#d33',
+                cancelButtonColor: '#3085d6',
+                confirmButtonText: 'Yes, delete it!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    // Perform the deletion by submitting the form
+                    document.getElementById('delete-form').action = deleteUrl;
+                    document.getElementById('delete-form').submit();
+                }
+            });
+        }
     </script>
 @endsection
 
