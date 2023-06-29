@@ -15,15 +15,27 @@ class ExamController extends Controller
     /**
      * Display a listing of the resource.
      */
+
     public function index()
     {
+
+        $user = auth()->user();
+        $teacher = Teacher::where('user_id', $user->id)->first();
         $education_systems = EducationSystem::all();
-        $exams = Exam::with(['subject.educationLevel', 'subject.educationSystem'])
+
+        $exams = $teacher->exams()
+            ->with(['subject.educationLevel', 'subject.educationSystem'])
             ->withCount('questions')
             ->get();
-        Log::info($exams);
 
-        return view('teachers.exams', compact('education_systems', 'exams'));
+        $topics_subtopics_counts = [];
+        foreach ($exams as $exam) {
+            $topicStrands = $exam->questions()->distinct('topic_strand_id')->count('topic_strand_id');
+            $subTopicStrands = $exam->questions()->distinct('sub_topic_sub_strand_id')->count('sub_topic_sub_strand_id');
+            $topics_subtopics_counts[$exam->id] = ['topicStrands' => $topicStrands, 'subTopicStrands' => $subTopicStrands];
+        }
+
+        return view('teachers.exams', compact('education_systems', 'exams', 'topics_subtopics_counts'));
     }
 
     /**
@@ -59,27 +71,45 @@ class ExamController extends Controller
     }
 
 
-    /**
-     * Display the specified resource.
-     */
     public function show(string $id)
     {
-        //
+        $exam = Exam::find($id);
+
+        if (!$exam) {
+            return redirect()->back()->with('error', 'Exam not found.');
+        }
+
+        return view('exam.show', compact('exam'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, string $id)
     {
-        //
+        $data = $request->validated();
+
+        $exam = Exam::find($id);
+
+        if (!$exam) {
+            return redirect()->back()->with('error', 'Exam not found.');
+        }
+
+        $exam->name = $data['name'];
+        $exam->subject_id = $data['subject_id'];
+        $exam->save();
+
+        return redirect()->route('get_exams')->with('success', 'Exam updated successfully!');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(string $id)
     {
-        //
+        $exam = Exam::find($id);
+
+        if (!$exam) {
+            return redirect()->back()->with('error', 'Exam not found.');
+        }
+
+        $exam->delete();
+
+        return redirect()->route('get_exams')->with('success', 'Exam deleted successfully!');
     }
+
 }
