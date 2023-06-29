@@ -71,9 +71,18 @@ class SubjectController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(SubjectsRequest $request, string $id)
     {
-        //
+        $data = $request->validated();
+
+        $subject = Subject::findOrFail($id);
+
+        $subject->name = $data['name'];
+        $subject->education_system_id = $data['education_system_id'];
+        $subject->education_level_id = $data['education_level_id'];
+        $subject->save();
+
+        return redirect()->route('get_subjects')->with('success', 'Subject updated successfully!');
     }
 
     /**
@@ -81,6 +90,9 @@ class SubjectController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $subject = Subject::findOrFail($id);
+        $subject->delete();
+
+        return redirect()->route('get_subjects')->with('success', 'Subject deleted successfully!');
     }
 }
