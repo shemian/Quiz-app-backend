@@ -19,7 +19,7 @@
                     <div class="row align-items-center">
                         <div class="col-6">
                             <h5 class="text-muted fw-normal mt-0 text-truncate" title="Campaign Sent">Exams</h5>
-                            <h3 class="my-2 py-1">10</h3>
+                            <h3 class="my-2 py-1">{{ $exam_count }}</h3>
                             <p class="mb-0 text-muted">
                                 <span class="text-success me-2"><i class="mdi mdi-arrow-up-bold"></i> 3.27%</span>
                             </p>
@@ -40,7 +40,7 @@
                     <div class="row align-items-center">
                         <div class="col-6">
                             <h5 class="text-muted fw-normal mt-0 text-truncate" title="New Leads">Subjects</h5>
-                            <h3 class="my-2 py-1">15</h3>
+                            <h3 class="my-2 py-1">{{ $subject_count }}</h3>
                             <p class="mb-0 text-muted">
                                 <span class="text-danger me-2"><i class="mdi mdi-arrow-down-bold"></i> 5.38%</span>
                             </p>
@@ -63,7 +63,7 @@
                     <div class="row align-items-center">
                         <div class="col-6">
                             <h5 class="text-muted fw-normal mt-0 text-truncate" title="Booked Revenue">Questions</h5>
-                            <h3 class="my-2 py-1">200</h3>
+                            <h3 class="my-2 py-1"></h3>
                             <p class="mb-0 text-muted">
                                 <span class="text-success me-2"><i class="mdi mdi-arrow-up-bold"></i> 3.27%</span>
                             </p>
@@ -116,9 +116,9 @@
                                         <span class="text-muted font-13">{{ $exam->subject->educationSystem->name}}, {{ $exam->subject->educationLevel->name}}</span>
                                     </td>
                                     <td>{{ $exam->subject->name }}</td>
-                                    <td>0</td>
-                                    <td>0</td>
-                                    <td>0</td>
+                                    <td>{{ $exam->questions_count  }}</td>
+                                    <td>{{ $topics_subtopics_counts[$exam->id]["topicStrands"] }}</td>
+                                    <td>{{ $topics_subtopics_counts[$exam->id]["subTopicStrands"]  }}</td>
 
                                     <td class="table-action">
                                         <a href="javascript: void(0);" class="action-icon"> <i class="mdi mdi-eye"></i></a>
