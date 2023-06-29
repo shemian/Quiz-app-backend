@@ -57,7 +57,15 @@
                                     <td>{{ $student->account_number }}</td>
                                     <td>{{ $student->school_name }}</td>
                                     <td>{{ $student->credit }}</td>
-                                    <td>{{ $student->account_status }}</td>
+                                    <td>
+                                        @if($student->account_status == 1){
+                                    Active
+                                    }@elseif($student->account_status == 2){
+                                    Pending
+                                    }@elseif($student->account_status == 3){
+                                  Suspended
+                                    @endif
+                                    </td>
                                     <td>
                                         <a href="" title="View"><i class="mdi mdi-eye"></i></a>
 
