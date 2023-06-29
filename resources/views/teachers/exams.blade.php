@@ -146,14 +146,95 @@
                                             <td>{{ $exam->subject->educationSystem->name }}</td>
                                             <td>{{ $exam->subject->name }}</td>
                                             <td>{{ $exam->questions_count }}</td>
-                                            <td>0</td>
-                                            <td>{{ $exam->questions_count }}</td>
+                                            <td>{{ $topics_subtopics_counts[$exam->id]["topicStrands"] }}</td>
+                                            <td>{{ $topics_subtopics_counts[$exam->id]["subTopicStrands"]  }}</td>
                                             <td><a href="{{ route('create_question', ['examId' => $exam->id]) }}" title="Add Question"><i class="mdi mdi-file-question-outline"></i></a></td>
 
                                             <td>
-                                                <a href="" title="Edit"><i class="mdi mdi-book-edit-outline"></i></a>
-                                                <a href="" title="Delete"><i class="mdi mdi-book-edit-outline"></i></a>
+                                                <a href="#" data-bs-toggle="modal" data-bs-target="#editModal_{{ $exam->id }}" title="Edit"><i class="mdi mdi-book-edit-outline"></i></a>
+
+                                                <a href="#"  title="Delete" onclick="event.preventDefault(); deleteStudent('{{ route('delete_subjects', $exam->id) }}');">
+                                                    <i class="mdi mdi-trash-can-outline"></i>
+                                                </a>
+
+                                                <form id="delete-form" method="POST" action="{{ route('delete_subjects', $exam->id) }}" style="display: none;">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                </form>
                                             </td>
+
+                                            <!-- Edit Modal -->
+                                            <div class="modal fade" id="editModal_{{ $exam->id }}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
+                                                <div class="modal-dialog modal-dialog-centered">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title" id="editModalLabel">Edit Student</h5>
+                                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            <form id="editForm_{{ $exam->id }}" method="POST" action="">
+                                                                @csrf
+                                                                @method('PUT')
+
+                                                                <!-- Edit Subscription Plan Form fields -->
+
+                                                                <div class="row mb-3">
+                                                                    <label for="name" class="col-md-4 col-form-label text-md-end">{{ __('Exam Name') }}</label>
+
+                                                                    <div class="col-md-6">
+                                                                        <input id="name" type="text" value="{{ $exam->name }}"  class="form-control @error('name') is-invalid @enderror" name="name"  required >
+
+                                                                        @error('name')
+                                                                        <span class="invalid-feedback" role="alert">
+                                                                            <strong>{{ $message }}</strong>
+                                                                        </span>
+                                                                        @enderror
+                                                                    </div>
+                                                                </div>
+
+                                                                <div class="row mb-3">
+                                                                    <label for="education_system" class="col-md-4 col-form-label text-md-end">Education System</label>
+                                                                    <div class="col-md-6">
+                                                                        <select id="education_system" name="education_system_id" class="form-control">
+                                                                            <option value="">Select Education System</option>
+                                                                            @foreach($education_systems as $education_system)
+                                                                                <option value="{{ $education_system->id }}">{{ $education_system->name }}</option>
+                                                                            @endforeach
+                                                                        </select>
+                                                                    </div>
+                                                                </div>
+
+                                                                <div class="row mb-3">
+                                                                    <label for="education_level" class="col-md-4 col-form-label text-md-end">Education Level</label>
+                                                                    <div class="col-md-6">
+                                                                        <select id="education_level" name="education_level_id" class="form-control">
+                                                                            <option value="{{ $exam->subject->educationSystem->name }}">Select Education Level</option>
+                                                                        </select>
+                                                                    </div>
+                                                                </div>
+
+                                                                <div class="row mb-3">
+                                                                    <label for="subject" class="col-md-4 col-form-label text-md-end">Subject</label>
+                                                                    <div class="col-md-6">
+                                                                        <select id="subject" name="subject_id" class="form-control">
+                                                                            <option value="{{ $exam->subject->name }}">Select Subject</option>
+
+                                                                        </select>
+                                                                    </div>
+                                                                </div>
+
+
+                                                                <div class="row mb-0">
+                                                                    <div class="col-md-6 offset-md-4">
+                                                                        <button type="submit" class="btn btn-primary">{{ __('Update') }}</button>
+                                                                    </div>
+                                                                </div>
+                                                            </form>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
 
                                         </tr>
                                         @endforeach
@@ -173,6 +254,7 @@
 
 
 @section('scripts')
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
     // Populate education levels based on education system selection
@@ -214,6 +296,24 @@
             }
         });
     });
+
+    function deleteStudent(deleteUrl) {
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "This action cannot be undone!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#d33',
+            cancelButtonColor: '#3085d6',
+            confirmButtonText: 'Yes, delete it!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                // Perform the deletion by submitting the form
+                document.getElementById('delete-form').action = deleteUrl;
+                document.getElementById('delete-form').submit();
+            }
+        });
+    }
 
     </script>
 
