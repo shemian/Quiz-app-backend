@@ -246,6 +246,7 @@
                 </div>
             </div>
         </div>
+
     </div>
 
 
@@ -256,6 +257,18 @@
 @section('scripts')
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- third party js -->
+    <script src="{{ asset('assets/js/vendor/jquery.dataTables.min.js') }}"></script>
+    <script src="{{ asset('assets/js/vendor/dataTables.bootstrap5.js') }}"></script>
+    <script src="{{ asset('assets/js/vendor/dataTables.responsive.min.js') }}"></script>
+    <script src="{{ asset('assets/js/vendor/responsive.bootstrap5.min.js') }}"></script>
+    <script src="{{ asset('assets/js/vendor/buttons.bootstrap5.min.js') }}"></script>
+    <script src="{{ asset('assets/js/vendor/buttons.html5.min.js') }}"></script>
+    <script src="{{ asset('assets/js/vendor/buttons.flash.min.js') }}"></script>
+    <script src="{{ asset('assets/js/vendor/buttons.print.min.js') }}"></script>
+    <script src="{{ asset('assets/js/vendor/dataTables.keyTable.min.js') }}"></script>
+    <script src="{{ asset('assets/js/vendor/dataTables.select.min.js') }}"></script>
+
     <script>
     // Populate education levels based on education system selection
     $('#education_system').on('change', function () {
