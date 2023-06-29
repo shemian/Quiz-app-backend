@@ -64,6 +64,9 @@ Route::prefix('parent')->middleware(['isParent'])->group(function(){
     Route::post('/students', [GuardianController::class, 'store'])->name('store_student');
     Route::post('/education-levels', [EduacationSystemsController::class, 'getEducationLevels'])->name('get_education_levels');
 
+    Route::post('/edit-students/{id}', [GuardianController::class, 'update'])->name('update_student');
+    Route::delete('/delete-students/{id}', [GuardianController::class, 'destroy'])->name('delete_student');
+
 });
 
 
@@ -71,6 +74,9 @@ Route::prefix('teacher')->middleware([ 'isTeacher'])->group(function(){
     Route::get('/', [TeacherController::class, 'index'])->name('teacher.dashboard');
     Route::get('/subjects', [SubjectController::class, 'index'])->name('get_subjects');
     Route::post('/subjects', [SubjectController::class, 'store'])->name('store_subjects');
+    Route::post('/edit-subjects/{id}', [SubjectController::class, 'update'])->name('update_subjects');
+    Route::delete('/delete-subjects/{id}', [SubjectController::class, 'destroy'])->name('delete_subjects');
+
     Route::get('/questions', [QuestionController::class, 'index'])->name('get_questions');
 
     Route::get('/get-education-levels', [QuestionController::class, 'getEducationLevels']);
