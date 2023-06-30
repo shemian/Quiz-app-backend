@@ -133,6 +133,7 @@ class MpesaTransactionController extends Controller
         $student->guardian->save();
         $chart_of_account->save();
 
+
         Log::info('Mpesa'.$request);
 
 
@@ -141,6 +142,24 @@ class MpesaTransactionController extends Controller
         $response->headers->set("Content-Type","text/xml; charset=utf-8");
         $response->setContent(json_encode(["C2BPaymentConfirmationResult"=>"Success"]));
         return $response;
+    }
+
+
+    public function mpesaRegisterUrls()
+    {
+        $curl = curl_init();
+        curl_setopt($curl, CURLOPT_URL, 'https://api.safaricom.co.ke/mpesa/c2b/v1/registerurl');
+        curl_setopt($curl, CURLOPT_HTTPHEADER, array('Content-Type:application/json','Authorization: Bearer '. $this->generateAccessToken()));
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($curl, CURLOPT_POST, true);
+        curl_setopt($curl, CURLOPT_POSTFIELDS, json_encode(array(
+            'ShortCode' => "4113243",
+            'ResponseType' => 'Completed',
+            'ConfirmationURL' => "https://quiz.centyplus.africa/api/v1/hlab/transaction/confirmation",
+            'ValidationURL' => "https://quiz.centyplus.africa/api/v1/hlab/validation"
+        )));
+        $curl_response = curl_exec($curl);
+        echo $curl_response;
     }
 
 
