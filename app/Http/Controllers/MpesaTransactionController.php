@@ -77,10 +77,6 @@ class MpesaTransactionController extends Controller
         curl_setopt($curl, CURLOPT_POSTFIELDS, $data_string);
         $curl_response = curl_exec($curl);
         Log::info($curl_response);
-        Log::info($phone_number);
-        Log::info($amount);
-        Log::info($centyPlusId);
-        Log::info($planName);
         return $curl_response;
     }
 
@@ -136,7 +132,7 @@ class MpesaTransactionController extends Controller
         $student->guardian->save();
         $chart_of_account->save();
 
-        Log::info($request->getContent());
+        Log::info('Mpesa'.$request);
 
 
         // Responding to the confirmation request
