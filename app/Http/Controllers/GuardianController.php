@@ -51,7 +51,7 @@ class GuardianController extends Controller
         $guardian =  $student->guardian()->first();
         $user = User::findOrFail($student->user_id);
 
-        $response = (new MpesaTransactionController)->customerMpesaSTKPush($guardian->phone_number, $request->subscription_plan_price, $user->centy_plus_id, $request->subscription_plan_name);
+        $response = (new MpesaTransactionController)->customerMpesaSTKPush($guardian->user->phone_number, $request->subscription_plan_price, $user->centy_plus_id, $request->subscription_plan_name);
         $response = json_decode($response, true);
 
         if ($response["ResponseCode"] == "0") {
