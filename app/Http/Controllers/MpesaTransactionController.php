@@ -1,7 +1,11 @@
 <?php
 
 namespace App\Http\Controllers;
+use App\Models\Guardian;
 use App\Models\MpesaTransaction;
+use App\Models\Student;
+use App\Models\ChartOfAccounts;
+use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Response;
 
@@ -48,25 +52,35 @@ class MpesaTransactionController extends Controller
         $curl = curl_init();
         curl_setopt($curl, CURLOPT_URL, $url);
         curl_setopt($curl, CURLOPT_HTTPHEADER, array('Content-Type:application/json','Authorization:Bearer '.$this->generateAccessToken()));
+
+        $formattedAmount = number_format($amount, 0, '', '');
+        $formattedPhoneNumber = '254' . substr($phone_number, 1);
+        Log::info($formattedPhoneNumber);
+
         $curl_post_data = [
             //Fill in the request parameters with valid values
             'BusinessShortCode' => 4113243,
             'Password' => $this->lipaNaMpesaPassword(),
             'Timestamp' => Carbon::rawParse('now')->format('YmdHms'),
             'TransactionType' => 'CustomerPayBillOnline',
-            'Amount' => 1,
-            'PartyA' => 254745024108, // replace this with your phone number
+            'Amount' => $formattedAmount,
+            'PartyA' => $formattedPhoneNumber, // replace this with your phone number
             'PartyB' => 4113243,
-            'PhoneNumber' => 254745024108, // replace this with your phone number
-            'CallBackURL' => 'https://blog.hlab.tech/',
+            'PhoneNumber' => $formattedPhoneNumber, // replace this with your phone number
+            'CallBackURL' => 'https://quiz.centyplus.africa/api/v1/quiz/transaction/confirmation/$centyPlusId/',
             'AccountReference' => "Centy Plus",
-            'TransactionDesc' => "Testing stk push on sandbox"
+            'TransactionDesc' => "Centy Plus $planName Payment"
         ];
         $data_string = json_encode($curl_post_data);
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($curl, CURLOPT_POST, true);
         curl_setopt($curl, CURLOPT_POSTFIELDS, $data_string);
         $curl_response = curl_exec($curl);
+        Log::info($curl_response);
+        Log::info($phone_number);
+        Log::info($amount);
+        Log::info($centyPlusId);
+        Log::info($planName);
         return $curl_response;
     }
 
@@ -112,6 +126,17 @@ class MpesaTransactionController extends Controller
         $mpesa_transaction->middle_name = $content->MiddleName;
         $mpesa_transaction->last_name = $content->LastName;
         $mpesa_transaction->save();
+
+        $user = User::where('centy_plus_id', $centyPlusId)->first();
+        $student = Student::where('user_id', $user->id)->first();
+
+        $chart_of_account = ChartOfAccounts::where('account_name', 'Business Account')->first();
+        $student->guardian->credit = $content->TransAmount/2;
+        $chart_of_account->account_balance = $chart_of_account->account_balance + $content->TransAmount/2;
+        $student->guardian->save();
+        $chart_of_account->save();
+
+
         // Responding to the confirmation request
         $response = new Response();
         $response->headers->set("Content-Type","text/xml; charset=utf-8");
