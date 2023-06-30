@@ -67,7 +67,7 @@ class MpesaTransactionController extends Controller
             'PartyA' => $formattedPhoneNumber, // replace this with your phone number
             'PartyB' => 4113243,
             'PhoneNumber' => $formattedPhoneNumber, // replace this with your phone number
-            'CallBackURL' => 'https://quiz.centyplus.africa/api/v1/quiz/transaction/confirmation/$centyPlusId/',
+            'CallBackURL' => 'https://quiz.centyplus.africa/api/v1/quiz/transaction/confirmation/',
             'AccountReference' => "Centy Plus",
             'TransactionDesc' => "Centy Plus $planName Payment"
         ];
@@ -104,7 +104,7 @@ class MpesaTransactionController extends Controller
     /**
      * M-pesa Transaction confirmation method, we save the transaction in our databases
      */
-    public function mpesaConfirmation(Request $request, $centyPlusId)
+    public function mpesaConfirmation(Request $request)
     {
         $content=json_decode($request->getContent());
         $mpesa_transaction = new MpesaTransaction();
@@ -123,6 +123,7 @@ class MpesaTransactionController extends Controller
         $mpesa_transaction->last_name = $content->LastName;
         $mpesa_transaction->save();
 
+        $centyPlusId = $content->BillRefNumber;
         $user = User::where('centy_plus_id', $centyPlusId)->first();
         $student = Student::where('user_id', $user->id)->first();
 
