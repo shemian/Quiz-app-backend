@@ -136,6 +136,8 @@ class MpesaTransactionController extends Controller
         $student->guardian->save();
         $chart_of_account->save();
 
+        Log::info($request->getContent());
+
 
         // Responding to the confirmation request
         $response = new Response();
