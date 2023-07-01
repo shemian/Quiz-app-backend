@@ -55,6 +55,9 @@ class LoginController extends Controller
 
     protected function authenticated(Request $request, $user)
     {
+//        if ($user->first_login) {
+//            return redirect()->route('change.password');
+//        }
         if ($user->role === 'parent') {
             return redirect()->route('parent.dashboard');
         } elseif ($user->role === 'teacher') {
@@ -67,4 +70,5 @@ class LoginController extends Controller
             return redirect()->route('home');
         }
     }
+
 }

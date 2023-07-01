@@ -55,7 +55,7 @@ class GuardianController extends Controller
         $response = json_decode($response, true);
 
         if ($response["ResponseCode"] == "0") {
-            $student->account_status = AccountStatus::PENDING;
+            $student->account_status = AccountStatus::ACTIVE;
             $student->save();
         }
 
