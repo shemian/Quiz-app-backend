@@ -62,8 +62,8 @@
                                         <th>Account Number</th>
                                         <th>School Name</th>
                                         <th>Credit</th>
-                                        <th>Account Status</th>
                                         <th>Active Subscription</th>
+                                        <th>Account Status</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
