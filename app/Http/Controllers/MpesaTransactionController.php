@@ -133,8 +133,21 @@ class MpesaTransactionController extends Controller
 
         $user = User::where('centy_plus_id', $centyPlusId)->first();
         $student = Student::where('user_id', $user->id)->first();
-//        $parent = User::where('parent_id', $student->parent_id)->first();
         $plan = SubscriptionPlan::where('name', $planName)->first();
+
+        // check if transaction amount is insufficient
+        if ($content->TransAmount < $plan->price) {
+            // add surplus to the parent account
+            $student->guardian->credit = floatval($student->guardian->credit) + $content->TransAmount;
+            $student->guardian->save();
+
+            $response = new Response();
+            $response->headers->set("Content-Type","text/xml; charset=utf-8");
+            $response->setContent(json_encode([
+                "C2BPaymentConfirmationResult"=>"Insufficient Amount"
+            ]));
+            return $response;
+        }
 
         $chart_of_account = ChartOfAccounts::where('account_name', 'Business Account')->first();
         $chart_of_account->account_balance = $chart_of_account->account_balance + $plan->price/2;
@@ -145,7 +158,7 @@ class MpesaTransactionController extends Controller
 
         // add surplus to the parent account
         $student->guardian->credit = floatval($student->guardian->credit) + ($content->TransAmount - $plan->price);
-        $student->guardian->credit->save();
+        $student->guardian->save();
 
         // Responding to the confirmation request
         $response = new Response();
