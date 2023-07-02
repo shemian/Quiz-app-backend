@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\MpesaTransaction;
 use Illuminate\Http\Request;
 use App\Http\Requests\CreateTeacherRequest;
 use App\Models\User;
@@ -26,6 +27,12 @@ class AdminController extends Controller
         $studentCount = Student::count();
         $teacherCount = User::where('role', 'teacher')->count();
         return view ('admin.dashboard', compact('customerCount','studentCount','teacherCount'));
+    }
+
+    //Display Transaction Details
+    public function get_transactions(){
+        $transactions = MpesaTransaction::all();
+        return view('admin.transactions', compact('transactions'));
     }
 
     //Display teacher's Details
