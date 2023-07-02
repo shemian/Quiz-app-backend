@@ -62,7 +62,6 @@
                                         <th>Transaction Type</th>
                                         <th>Transaction Time</th>
                                         <th>Business Short Code</th>
-                                        <th>Payment Date</th>
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -78,8 +77,7 @@
                                             <td>{{ $transaction->bill_ref_number }}</td>
                                             <td>{{ $transaction->transaction_type }}</td>
                                             <td>{{ $transaction->trans_time }}</td>
-                                            <td>{{ $transaction->msisdn }}</td>
-                                            <td>{{ $transaction->created_at }}</td>
+                                            <td>{{ $transaction->business_short_code }}</td>
 
 
                                         </tr>
