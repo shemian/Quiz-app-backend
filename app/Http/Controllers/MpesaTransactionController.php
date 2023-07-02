@@ -106,19 +106,8 @@ class MpesaTransactionController extends Controller
      */
     public function mpesaConfirmation(Request $request)
     {
-//        {
-//            "TransactionType": "Pay Bill",
-//            "TransID": "RG26HW3NOW",
-//            "TransTime": "20230702113133",
-//            "TransAmount": "5.00",
-//            "BusinessShortCode": "4113243",
-//            "BillRefNumber": "Centy Plus",
-//            "InvoiceNumber": "",
-//            "OrgAccountBalance": "147.00",
-//            "ThirdPartyTransID": "",
-//            "MSISDN": "2547 ***** 678",
-//            "FirstName": "IAN"
-//        }
+        Log::info('Mpesa'.$request);
+
 
         $content=json_decode($request->getContent());
         $mpesa_transaction = new MpesaTransaction();
