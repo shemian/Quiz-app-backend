@@ -55,13 +55,12 @@ class GuardianController extends Controller
 
         if ($response["ResponseCode"] == "0") {
             $student->account_status = AccountStatus::PENDING;
-
             $student->save();
         }
 
         return response()->json([
             "success" => $response["ResponseCode"],
-            "message" => $response["ResponseDescription"],
+            "message" => $response["ResponseDescription"] . " Check your phone for a prompt to complete the payment."
         ]);
     }
 

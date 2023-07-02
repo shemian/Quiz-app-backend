@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+use App\Enums\AccountStatus;
 use App\Models\Guardian;
 use App\Models\MpesaTransaction;
 use App\Models\Student;
@@ -153,12 +154,14 @@ class MpesaTransactionController extends Controller
         $chart_of_account->account_balance = $chart_of_account->account_balance + $plan->price/2;
         $chart_of_account->save();
 
-        $student->centy_balance = floatval($student->centy_balance) + $plan->price/2;
-        $student->save();
-
         // add surplus to the parent account
         $student->guardian->credit = floatval($student->guardian->credit) + ($content->TransAmount - $plan->price);
         $student->guardian->save();
+
+        // update student centy balance
+        $student->centy_balance = floatval($student->centy_balance) + $plan->price/2;
+        $student->account_status = AccountStatus::ACTIVE;
+        $student->save();
 
         // Responding to the confirmation request
         $response = new Response();
