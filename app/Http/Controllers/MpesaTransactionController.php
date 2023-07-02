@@ -119,7 +119,7 @@ class MpesaTransactionController extends Controller
         $mpesa_transaction->third_party_trans_id = $content->ThirdPartyTransID;
         $mpesa_transaction->msisdn = $content->MSISDN;
         $mpesa_transaction->first_name = $content->FirstName;
-        $mpesa_transaction->middle_name = $content->MiddleName;
+        if (isset($content->MiddleName)) $mpesa_transaction->middle_name = $content->MiddleName;
         $mpesa_transaction->last_name = $content->LastName;
         $mpesa_transaction->save();
 
