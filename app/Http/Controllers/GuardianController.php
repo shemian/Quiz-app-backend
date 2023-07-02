@@ -46,7 +46,6 @@ class GuardianController extends Controller
             'subscription_plan_price' => 'required',
         ]);
 
-
         $student = Student::findOrFail($request->student_id);
         $guardian =  $student->guardian()->first();
         $user = User::findOrFail($student->user_id);
@@ -55,7 +54,8 @@ class GuardianController extends Controller
         $response = json_decode($response, true);
 
         if ($response["ResponseCode"] == "0") {
-            $student->account_status = AccountStatus::ACTIVE;
+            $student->account_status = AccountStatus::PENDING;
+
             $student->save();
         }
 
