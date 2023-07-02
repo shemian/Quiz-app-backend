@@ -161,6 +161,7 @@ class MpesaTransactionController extends Controller
         // update student centy balance
         $student->centy_balance = floatval($student->centy_balance) + $plan->price/2;
         $student->account_status = AccountStatus::ACTIVE;
+        $student->start_date =
         $student->save();
 
         // Responding to the confirmation request
