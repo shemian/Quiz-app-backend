@@ -144,8 +144,6 @@ class MpesaTransactionController extends Controller
         $student->save();
 
         // add surplus to the parent account
-        Log::info("Parent: ", $student->guardian);
-
         $student->guardian->credit = floatval($student->guardian->credit) + ($content->TransAmount - $plan->price);
         $student->guardian->credit->save();
 
