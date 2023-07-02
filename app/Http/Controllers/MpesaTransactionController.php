@@ -142,6 +142,8 @@ class MpesaTransactionController extends Controller
         $student->centy_balance = floatval($student->centy_balance) + $plan->price/2;
         $student->save();
 
+        Log::info($student->parent);
+
         // add surplus to the parent account
         $student->parent->credit = floatval($student->parent->credit) + ($content->TransAmount - $plan->price);
         $student->parent->credit->save();
