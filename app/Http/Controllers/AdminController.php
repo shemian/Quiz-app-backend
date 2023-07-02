@@ -44,7 +44,6 @@ class AdminController extends Controller
         return view('admin.students', compact('students'));
     }
 
-
     //store teachers details
     public function store_teachers(CreateTeacherRequest $request){
 
@@ -95,11 +94,31 @@ class AdminController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * Update student the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+
+
+    public function update_student_account(Request $request, string $id)
     {
-        //
+        $request->validate([
+            'account_status' => 'required',
+        ]);
+
+        $student = Student::find($id);
+        $student->account_status = $request->account_status;
+        $student->save();
+
+        return redirect()->route('view_students')
+            ->with('success', 'Student account updated successfully.');
+    }
+
+    public function destroy_student_account(string $id)
+    {
+        $student = Student::find($id);
+        $student->delete();
+
+        return redirect()->route('view_students')
+            ->with('success', 'Student account deleted successfully.');
     }
 
     /**
@@ -109,4 +128,5 @@ class AdminController extends Controller
     {
         //
     }
+
 }
