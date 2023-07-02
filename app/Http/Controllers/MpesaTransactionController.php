@@ -133,7 +133,7 @@ class MpesaTransactionController extends Controller
 
         $user = User::where('centy_plus_id', $centyPlusId)->first();
         $student = Student::where('user_id', $user->id)->first();
-        $parent = User::where('id', $student->parent_id)->first();
+        $parent = User::where('parent_id', $student->parent_id)->first();
         $plan = SubscriptionPlan::where('name', $planName)->first();
 
         $chart_of_account = ChartOfAccounts::where('account_name', 'Business Account')->first();
