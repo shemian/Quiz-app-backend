@@ -391,7 +391,6 @@
                                                 </div>
                                             </div>
 
-
                                         </tr>
                                     @endforeach
                                     </tbody>
