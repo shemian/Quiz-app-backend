@@ -68,7 +68,7 @@ class MpesaTransactionController extends Controller
             'PartyB' => 4113243,
             'PhoneNumber' => $formattedPhoneNumber, // replace this with your phone number
             'CallBackURL' => 'https://quiz.centyplus.africa/api/v1/quiz/transaction/confirmation/',
-            'AccountReference' => "Centy Plus",
+            'AccountReference' => $centyPlusId,
             'TransactionDesc' => "Centy Plus $planName Payment"
         ];
         $data_string = json_encode($curl_post_data);
@@ -106,7 +106,19 @@ class MpesaTransactionController extends Controller
      */
     public function mpesaConfirmation(Request $request)
     {
-        Log::info('Mpesa'.$request);
+//        {
+//            "TransactionType": "Pay Bill",
+//            "TransID": "RG26HW3NOW",
+//            "TransTime": "20230702113133",
+//            "TransAmount": "5.00",
+//            "BusinessShortCode": "4113243",
+//            "BillRefNumber": "Centy Plus",
+//            "InvoiceNumber": "",
+//            "OrgAccountBalance": "147.00",
+//            "ThirdPartyTransID": "",
+//            "MSISDN": "2547 ***** 678",
+//            "FirstName": "IAN"
+//        }
 
         $content=json_decode($request->getContent());
         $mpesa_transaction = new MpesaTransaction();
