@@ -133,6 +133,7 @@ class MpesaTransactionController extends Controller
 
         $user = User::where('centy_plus_id', $centyPlusId)->first();
         $student = Student::where('user_id', $user->id)->first();
+        $parent = User::where('id', $student->parent_id)->first();
         $plan = SubscriptionPlan::where('name', $planName)->first();
 
         $chart_of_account = ChartOfAccounts::where('account_name', 'Business Account')->first();
@@ -142,11 +143,8 @@ class MpesaTransactionController extends Controller
         $student->centy_balance = floatval($student->centy_balance) + $plan->price/2;
         $student->save();
 
-
-
         // add surplus to the parent account
-        $parent = User::where('id', $student->parent_id)->first();
-        Log::info($parent);
+        Log::info("Parent: ", $parent);
         $parent->credit = floatval($parent->credit) + ($content->TransAmount - $plan->price);
         $parent->credit->save();
 
