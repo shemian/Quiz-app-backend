@@ -108,7 +108,6 @@ class MpesaTransactionController extends Controller
     {
         Log::info('Mpesa'.$request);
 
-
         $content=json_decode($request->getContent());
         $mpesa_transaction = new MpesaTransaction();
         $mpesa_transaction->transaction_type = $content->TransactionType;
@@ -142,8 +141,6 @@ class MpesaTransactionController extends Controller
         $response->setContent(json_encode(["C2BPaymentConfirmationResult"=>"Success"]));
 
         return $response;
-
-        Log::info($request);
     }
 
 
