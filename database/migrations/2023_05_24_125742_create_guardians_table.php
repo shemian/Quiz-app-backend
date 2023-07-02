@@ -16,6 +16,7 @@ return new class extends Migration
             $table->foreignUuid('user_id')->constrained()->cascadeOnDelete();
             $table->string('phone_number')->nullable();
             $table->decimal('credit', 8, 2)->nullable();
+            $table->decimal('debit', 8, 2)->nullable();
             $table->timestamp('email_verified_at')->nullable();
             $table->timestamps();
         });
