@@ -130,10 +130,13 @@ class MpesaTransactionController extends Controller
         $student = Student::where('user_id', $user->id)->first();
 
         $chart_of_account = ChartOfAccounts::where('account_name', 'Business Account')->first();
-        $student->guardian->credit = $content->TransAmount/2;
+        Log::info($chart_of_account);
+
         $chart_of_account->account_balance = $chart_of_account->account_balance + $content->TransAmount/2;
-        $student->guardian->save();
         $chart_of_account->save();
+
+        $student->guardian->credit = intval($student->guardian->credit) + $content->TransAmount/2;
+        $student->guardian->save();
 
         // Responding to the confirmation request
         $response = new Response();
