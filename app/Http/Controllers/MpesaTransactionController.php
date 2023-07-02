@@ -76,9 +76,8 @@ class MpesaTransactionController extends Controller
         curl_setopt($curl, CURLOPT_POST, true);
         curl_setopt($curl, CURLOPT_POSTFIELDS, $data_string);
         $curl_response = curl_exec($curl);
-        Log::info($curl_response);
+        Log::info("Callback Confirmation: ". $curl_response);
 
-        Log::info($planName);
         return $curl_response;
     }
 
@@ -132,12 +131,10 @@ class MpesaTransactionController extends Controller
         $student = Student::where('user_id', $user->id)->first();
 
         $chart_of_account = ChartOfAccounts::where('account_name', 'Business Account')->first();
-        Log::info($chart_of_account);
-
         $chart_of_account->account_balance = $chart_of_account->account_balance + $content->TransAmount/2;
         $chart_of_account->save();
 
-        $student->guardian->credit = floatval($student->guardian->credit) + $content->TransAmount/2;
+        $student->centy_balance = floatval($student->centy_balance) + $content->TransAmount/2;
         $student->guardian->save();
 
         // Responding to the confirmation request
