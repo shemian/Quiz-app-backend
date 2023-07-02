@@ -135,7 +135,7 @@ class MpesaTransactionController extends Controller
         $chart_of_account->save();
 
         $student->centy_balance = floatval($student->centy_balance) + $content->TransAmount/2;
-        $student->guardian->save();
+        $student->centy_balance->save();
 
         // Responding to the confirmation request
         $response = new Response();
