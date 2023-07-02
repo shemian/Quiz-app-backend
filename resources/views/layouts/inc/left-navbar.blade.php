@@ -63,7 +63,7 @@
             </li>
 
             <li class="side-nav-item">
-                <a href="#" class="side-nav-link">
+                <a href="{{ route('get_transactions') }}" class="side-nav-link">
                     <i class="uil-dollar-sign"></i>
                     <span> Transactions </span>
                 </a>
