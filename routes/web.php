@@ -47,6 +47,8 @@ Route::prefix('/admin')->middleware(['isAdmin'])->group(function(){
     Route::put('/edit_account_status/{id}', [AdminController::class, 'update_student_account'])->name('update_student_account_status');
     Route::delete('/delete-students/{id}', [AdminController::class, 'destroy_student_account'])->name('destroy_student_account');
 
+    Route::get('/transactions', [AdminController::class, 'get_transactions'])->name('get_transactions');
+
 
     Route::get('/education_system', [EduacationSystemsController::class, 'get_education_system'])->name('get_education_system');
     Route::post('/education_system', [EduacationSystemsController::class, 'store_education_system'])->name('store_education_system');
