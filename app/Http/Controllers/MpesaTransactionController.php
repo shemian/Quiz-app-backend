@@ -5,6 +5,7 @@ use App\Models\Guardian;
 use App\Models\MpesaTransaction;
 use App\Models\Student;
 use App\Models\ChartOfAccounts;
+use App\Models\SubscriptionPlan;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Response;
@@ -132,7 +133,7 @@ class MpesaTransactionController extends Controller
 
         $user = User::where('centy_plus_id', $centyPlusId)->first();
         $student = Student::where('user_id', $user->id)->first();
-        $plan = Plan::where('name', $planName)->first();
+        $plan = SubscriptionPlan::where('name', $planName)->first();
 
         $chart_of_account = ChartOfAccounts::where('account_name', 'Business Account')->first();
         $chart_of_account->account_balance = $chart_of_account->account_balance + $content->TransAmount/2;
