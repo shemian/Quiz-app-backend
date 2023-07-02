@@ -136,16 +136,15 @@ class MpesaTransactionController extends Controller
         $plan = SubscriptionPlan::where('name', $planName)->first();
 
         $chart_of_account = ChartOfAccounts::where('account_name', 'Business Account')->first();
-        $chart_of_account->account_balance = $chart_of_account->account_balance + $content->TransAmount/2;
+        $chart_of_account->account_balance = $chart_of_account->account_balance + $plan->price/2;
         $chart_of_account->save();
 
-        $student->centy_balance = floatval($student->centy_balance) + $content->TransAmount/2;
+        $student->centy_balance = floatval($student->centy_balance) + $plan->price/2;
         $student->save();
 
         // add surplus to the parent account
         $student->parent->credit = floatval($student->parent->credit) + ($content->TransAmount - $plan->price);
         $student->parent->credit->save();
-
 
         // Responding to the confirmation request
         $response = new Response();
