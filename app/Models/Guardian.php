@@ -13,6 +13,8 @@ class Guardian extends Model
 
     protected $fillable  =[
         'user_id',
+        'credit',
+        'debit',
         'phone_number',
     ];
 
