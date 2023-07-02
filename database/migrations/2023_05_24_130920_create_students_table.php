@@ -20,9 +20,9 @@ return new class extends Migration
             $table->string('Date_of_birth');
             $table->string('school_name');
             $table->string('student_phone_number')->nullable();
-            $table->decimal('credit', 8,2)->nullable();
-            $table->decimal('centy_balance', 8,2)->nullable();
-            $table->decimal('debit', 8,2)->nullable();
+            $table->decimal('credit', 8,2)->nullable()->default(0)  ;
+            $table->decimal('centy_balance', 8,2)->nullable()->default(0);
+            $table->decimal('debit', 8,2)->nullable()->default(0);
             $table->tinyInteger('account_status')->default(AccountStatus::INACTIVE);
             $table->timestamps();
         });
