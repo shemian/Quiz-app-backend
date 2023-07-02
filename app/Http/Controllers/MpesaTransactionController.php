@@ -68,7 +68,7 @@ class MpesaTransactionController extends Controller
             'PartyB' => 4113243,
             'PhoneNumber' => $formattedPhoneNumber, // replace this with your phone number
             'CallBackURL' => 'https://quiz.centyplus.africa/api/v1/quiz/transaction/confirmation/',
-            'AccountReference' => $centyPlusId,
+            'AccountReference' => $centyPlusId.'-'.$planName,
             'TransactionDesc' => "Centy Plus $planName Payment"
         ];
         $data_string = json_encode($curl_post_data);
@@ -77,6 +77,8 @@ class MpesaTransactionController extends Controller
         curl_setopt($curl, CURLOPT_POSTFIELDS, $data_string);
         $curl_response = curl_exec($curl);
         Log::info($curl_response);
+
+        Log::info($planName);
         return $curl_response;
     }
 
@@ -135,7 +137,7 @@ class MpesaTransactionController extends Controller
         $chart_of_account->account_balance = $chart_of_account->account_balance + $content->TransAmount/2;
         $chart_of_account->save();
 
-        $student->guardian->credit = intval($student->guardian->credit) + $content->TransAmount/2;
+        $student->guardian->credit = floatval($student->guardian->credit) + $content->TransAmount/2;
         $student->guardian->save();
 
         // Responding to the confirmation request
