@@ -23,6 +23,8 @@ class Student extends Model
         'student_phone_number',
         'marks_obtained',
         'credit',
+        'centy_balance',
+        'debit',
     ];
 
 
