@@ -18,8 +18,8 @@
                 <div class="card-body">
                     <div class="row align-items-center">
                         <div class="col-6">
-                            <h5 class="text-muted fw-normal mt-0 text-truncate" title="Campaign Sent">Subjects</h5>
-                            <h3 class="my-2 py-1">8</h3>
+                            <h5 class="text-muted fw-normal mt-0 text-truncate" title="Campaign Sent">Wallet Balance</h5>
+                            <h3 class="my-2 py-1"> Ksh 6</h3>
                             <p class="mb-0 text-muted">
                                 <span class="text-success me-2"><i class="mdi mdi-arrow-up-bold"></i> 3.27%</span>
                             </p>
@@ -62,8 +62,8 @@
                 <div class="card-body">
                     <div class="row align-items-center">
                         <div class="col-6">
-                            <h5 class="text-muted fw-normal mt-0 text-truncate" title="Booked Revenue">Reports</h5>
-                            <h3 class="my-2 py-1">Monthly</h3>
+                            <h5 class="text-muted fw-normal mt-0 text-truncate" title="Booked Revenue">Centii Balance</h5>
+                            <h3 class="my-2 py-1">ksh 3</h3>
                             <p class="mb-0 text-muted">
                                 <span class="text-success me-2"><i class="mdi mdi-arrow-up-bold"></i> 3.27%</span>
                             </p>
@@ -92,10 +92,10 @@
                             <table id="datatable-buttons" class="table table-striped dt-responsive nowrap w-100">
                                 <thead>
                                     <tr>
+                                        <th>Exam</th>
                                         <th>Subject</th>
-                                        <th>Topic</th>
                                         <th>Questions</th>
-                                        <th>Centiis</th>
+                                        <th>Centiis </th>
                                         <th>Date</th>
                                     </tr>
                                 </thead>
@@ -103,15 +103,15 @@
 
                                 <tbody>
                                     <tr>
+                                        <td>System Architect</td>
                                         <td>Tiger Nixon</td>
                                         <td>System Architect</td>
-                                        <td>Edinburgh</td>
                                         <td>61</td>
                                         <td>2011/04/25</td>
                                     </tr>
                                     <tr>
-                                        <td>Garrett Winters</td>
                                         <td>Accountant</td>
+                                        <td>Garrett Winters</td>
                                         <td>Tokyo</td>
                                         <td>63</td>
                                         <td>2011/07/25</td>
