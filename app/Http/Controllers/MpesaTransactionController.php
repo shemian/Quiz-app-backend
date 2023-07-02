@@ -106,6 +106,8 @@ class MpesaTransactionController extends Controller
      */
     public function mpesaConfirmation(Request $request)
     {
+        Log::info('Mpesa'.$request);
+
         $content=json_decode($request->getContent());
         $mpesa_transaction = new MpesaTransaction();
         $mpesa_transaction->transaction_type = $content->TransactionType;
@@ -120,7 +122,7 @@ class MpesaTransactionController extends Controller
         $mpesa_transaction->msisdn = $content->MSISDN;
         $mpesa_transaction->first_name = $content->FirstName;
         if (isset($content->MiddleName)) $mpesa_transaction->middle_name = $content->MiddleName;
-        $mpesa_transaction->last_name = $content->LastName;
+        if (isset($content->LastName)) $mpesa_transaction->last_name = $content->LastName;
         $mpesa_transaction->save();
 
         $centyPlusId = $content->BillRefNumber;
@@ -133,15 +135,14 @@ class MpesaTransactionController extends Controller
         $student->guardian->save();
         $chart_of_account->save();
 
-
-        Log::info('Mpesa'.$request);
-
-
         // Responding to the confirmation request
         $response = new Response();
         $response->headers->set("Content-Type","text/xml; charset=utf-8");
         $response->setContent(json_encode(["C2BPaymentConfirmationResult"=>"Success"]));
+
         return $response;
+
+        Log::info($request);
     }
 
 
