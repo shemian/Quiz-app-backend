@@ -63,6 +63,7 @@
                                         <th>School Name</th>
                                         <th>Credit</th>
                                         <th>Account Status</th>
+                                        <th>Active Subscription</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
@@ -72,6 +73,7 @@
                                     <td>{{ $student->user->centy_plus_id }}</td>
                                     <td>{{ $student->school_name }}</td>
                                     <td>{{ $student->credit }}</td>
+                                    <th>{{$student->active_subscription}}</th>
                                     <td>
                                         @if($student->account_status === 1)
                                             Active
