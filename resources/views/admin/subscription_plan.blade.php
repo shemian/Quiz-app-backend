@@ -86,6 +86,20 @@
                             </div>
 
                             <div class="row mb-3">
+                                <label for="validity" class="col-md-4 col-form-label text-md-end">{{ __('Validity Unit') }}</label>
+
+                                <div class="col-md-6">
+                                    <input id="validity" min="0" max="10000" step="1" class="form-control @error('validity') is-invalid @enderror" name="validity"  required placeholder="0">
+
+                                    @error('validity')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                    @enderror
+                                </div>
+                            </div>
+
+                            <div class="row mb-3">
                                 <label for="description" class="col-md-4 col-form-label text-md-end">{{ __('Description') }}</label>
 
                                 <div class="col-md-6">
@@ -173,6 +187,20 @@
                                                                     <input id="name" type="text" class="form-control" name="name" value="{{ $subscriptionPlan->name }}" required>
                                                                 </div>
 
+                                                            </div>
+
+                                                            <div class="row mb-3">
+                                                                <label for="validity" class="col-md-4 col-form-label text-md-end">{{ __('Validity Unit') }}</label>
+
+                                                                <div class="col-md-6">
+                                                                    <input id="validity" min="0" max="10000" step="1" class="form-control @error('validity') is-invalid @enderror" name="validity" value="{{ $subscriptionPlan->validity }}" required>
+
+                                                                    @error('validity')
+                                                                    <span class="invalid-feedback" role="alert">
+                                                                        <strong>{{ $message }}</strong>
+                                                                    </span>
+                                                                    @enderror
+                                                                </div>
                                                             </div>
 
                                                             <div class="row mb-3">
