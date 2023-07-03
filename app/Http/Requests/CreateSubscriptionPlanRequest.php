@@ -23,6 +23,7 @@ class CreateSubscriptionPlanRequest extends FormRequest
     {
         return [
             'name' => 'required',
+            'validity' => 'required| min:0| max:10000',
             'price' => 'required| min:0| max:10000',
         ];
     }
