@@ -26,9 +26,9 @@ class StudentController extends Controller
     {
         $user = Auth::user();
         $student = $user->student;
-        //check if status is active and didplay the exam
+        //check if status is active and display the exam
 
-        if ($student->account_status === AccountStatus::ACTIVE) {
+        if ($student->account_status === 1) {
             $exams = Exam::with(['subject.educationLevel', 'subject.educationSystem'])
                 ->whereHas('subject', function ($query) use ($student) {
                     $query->where('education_level_id', $student->educationLevel->id)
@@ -143,11 +143,13 @@ class StudentController extends Controller
 
         if (!$result->isDirty()) {
             // Divide the number of correct answers by the total number of questions and multiply by  the price of the active subscription
-            Log::info("Active student plan: " . $student->studentSubscriptionPlan->subscriptionPlan->name);
             $centiisObtained = ($correctQuestionCount / $totalMarks) * ($student->studentSubscriptionPlan->subscriptionPlan->price / 2);
 
+            Log::info("centiisObtained: " . $centiisObtained);
             $student->centy_balance = $student->centy_balance - floatval($centiisObtained);
+            Log::info("centy_balance: " . $student->centy_balance);
             $student->debit = $student->debit + floatval($centiisObtained);
+            Log::info("debit: " . $student->debit);
 
             return redirect()->route('students.view_results', ['result' => $result->id])->with('success', 'Answers submitted successfully.');
         } else {
