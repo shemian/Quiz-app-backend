@@ -27,6 +27,8 @@ class StudentController extends Controller
         $user = Auth::user();
         $student = Student::where('user_id', $user->id)->first();
 
+        Log::info("Student: ". $student);
+
         //check if status is active and display the exam
         if ($student->account_status == 1) {
             $exams = Exam::with(['subject.educationLevel', 'subject.educationSystem'])
