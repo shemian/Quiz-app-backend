@@ -144,15 +144,15 @@ class StudentController extends Controller
         $result->save();
 
         if (!$result->isDirty()) {
-            Log::info("Active plan: ". $student->active_subscription);
-
-            $studentSubPlan = StudentSubscriptionPlan::where("id", $student->active_subscription)->first();
-            $studentPlan = SubscriptionPlan::where([
-                "id" => $studentSubPlan->subscription_plan_id,
-                "student_id" => $studentSubPlan->student_id,
+            $studentSubPlan = StudentSubscriptionPlan::where([
+                "id" => $student->active_subscription,
+                "student_id" => $student->id,
             ])->first();
-            // Divide the number of correct answers by the total number of questions and multiply by  the price of the active subscription
+            Log::info("Active plan: ". $studentSubPlan->subscription_plan_id);
 
+            $studentPlan = SubscriptionPlan::where("id", $studentSubPlan->subscription_plan_id)->first();
+
+            // Divide the number of correct answers by the total number of questions and multiply by  the price of the active subscription
             $centiisObtained = ($correctQuestionCount / $totalMarks) * ($studentPlan->subscriptionPlan->price / 2);
 
             Log::info("centiisObtained: " . $centiisObtained);
