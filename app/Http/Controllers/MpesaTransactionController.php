@@ -6,6 +6,7 @@ use App\Models\Guardian;
 use App\Models\MpesaTransaction;
 use App\Models\Student;
 use App\Models\ChartOfAccounts;
+use App\Models\StudentSubscriptionPlan;
 use App\Models\SubscriptionPlan;
 use App\Models\User;
 use Carbon\Carbon;
@@ -161,9 +162,19 @@ class MpesaTransactionController extends Controller
         // update student centy balance
         $student->centy_balance = floatval($student->centy_balance) + $plan->price/2;
         $student->account_status = AccountStatus::ACTIVE;
-        $student->start_date = Carbon::now();
-        $student->active_subscription=$planName;
         $student->save();
+
+        // Create or Update student subscription plan
+        $start_date  = Carbon::now();
+        $end_date = Carbon::now()->addDays($plan->validity);
+        $studentSubscription = StudentSubscriptionPlan::firstOrCreate([
+            ['student_id' => $student->id],
+            [
+                'subscription_plan_id' => $plan->id,
+                'start_date' => $start_date,
+                'end_date' => $end_date,
+            ]
+        ]);
 
         // Responding to the confirmation request
         $response = new Response();
