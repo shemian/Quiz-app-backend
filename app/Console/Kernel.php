@@ -14,7 +14,7 @@ class Kernel extends ConsoleKernel
      * @var array
      */
     protected $commands = [
-        \App\Console\Commands\ChangeAccountStatusCommand::class,
+        \App\Console\Commands\UpdateStudentAccountsCommand::class,
     ];
 
     /**
@@ -25,8 +25,10 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        $schedule->command('account:status')->everyMinute()->withoutOverlapping();
+        $schedule->command('students:update-accounts')
+            ->daily(); // You can adjust the schedule as per your requirement
     }
+
 
     /**
      * Register the commands for the application.
