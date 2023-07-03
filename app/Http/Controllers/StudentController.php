@@ -28,7 +28,7 @@ class StudentController extends Controller
         $student = $user->student;
         //check if status is active and display the exam
 
-        if ($student->account_status === 1) {
+        if ($student->account_status === AccountStatus::ACTIVE()) {
             $exams = Exam::with(['subject.educationLevel', 'subject.educationSystem'])
                 ->whereHas('subject', function ($query) use ($student) {
                     $query->where('education_level_id', $student->educationLevel->id)
