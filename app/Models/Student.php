@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Str;
 
 class Student extends Model
@@ -43,7 +44,7 @@ class Student extends Model
         return $this->belongsTo(EducationLevel::class);
     }
 
-    public function StudentPlan(): HasOne
+    public function studentSubscriptionPlan(): HasOne
     {
         return $this->hasOne(StudentSubscriptionPlan::class);
     }

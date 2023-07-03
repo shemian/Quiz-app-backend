@@ -97,7 +97,6 @@ class StudentController extends Controller
         }
 
         $totalMarks = 0;
-        $marksObtained = 0;
         $resultDetails = [];
 
         foreach ($answers as $questionId => $selectedAnswer) {
@@ -109,40 +108,41 @@ class StudentController extends Controller
             }
 
             $correctAnswer = $question->answer;
-            $isCorrect = $correctAnswer === $selectedAnswer;
+//            $totalMarks += $question->marks;
 
-            $totalMarks += $question->marks; // Accumulate the total marks
-
-            if ($isCorrect) {
-                $marksObtained += $question->marks; // Add the marks for correct answer
+            if ($correctAnswer === $selectedAnswer) {
                 $resultDetails[$questionId] = 'correct';
             } else {
                 $resultDetails[$questionId] = 'incorrect';
             }
         }
 
+        $correctQuestionCount = count(array_filter($resultDetails, fn($value) => $value === 'correct'));
+        $incorrectQuestionCount = count(array_filter($resultDetails, fn($value) => $value === 'incorrect'));
+
+        // Accumulate the total marks
+        $totalMarks = $correctQuestionCount + $incorrectQuestionCount;
+
         $result = Result::create([
             'student_id' => $student->id,
             'exam_id' => $examId,
             'subject_id' => $exam->subject_id,
-            'yes_ans' => count(array_filter($resultDetails, fn($value) => $value === 'correct')), // Count the number of correct answers
-            'no_ans' => count(array_filter($resultDetails, fn($value) => $value === 'incorrect')), // Count the number of incorrect answers
+            'yes_ans' => $correctQuestionCount, // Count the number of correct answers
+            'no_ans' => $incorrectQuestionCount, // Count the number of incorrect answers
             'result_json' => json_encode($resultDetails),
-            'marks_obtained' => $marksObtained, // Store the marks obtained
+            'marks_obtained' => ($correctQuestionCount / $totalMarks) * 100, // Store the marks obtained
             'total_marks' => $totalMarks, // Store the total marks
         ]);
+        $result->save();
 
-        // Number of correct answers for that exam in result table
+        if (!$result->isDirty()) {
+            // Divide the number of correct answers by the total number of questions and multiply by  the price of the active subscription
+            Log::info("Active student plan: " . $student->studentSubscriptionPlan->subscriptionPlan->name);
+            $centiisObtained = ($correctQuestionCount / $totalMarks) * ($student->studentSubscriptionPlan->subscriptionPlan->price / 2);
 
-//        $correct_answers = $result->yes_ans;
-//        // Divide the number of correct answers by the total number of questions and multiply by  the price of the active subscription
-//        $marksObtained = ($correct_answers / $exam->questions->count()) * $student->active_subscription->price;
-//        $active_subscription = $student->active_subscription;
-//
+            $student->centy_balance = $student->centy_balance - floatval($centiisObtained);
+            $student->debit = $student->debit + floatval($centiisObtained);
 
-
-        if ($result) {
-            $result->update(['marks_obtained' => $marksObtained]); // Update the 'marks_obtained' attribute in the database
             return redirect()->route('students.view_results', ['result' => $result->id])->with('success', 'Answers submitted successfully.');
         } else {
             return redirect()->back()->with('error', 'Failed to submit answers. Please try again.');
