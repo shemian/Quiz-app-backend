@@ -132,6 +132,15 @@ class StudentController extends Controller
             'total_marks' => $totalMarks, // Store the total marks
         ]);
 
+        // Number of correct answers for that exam in result table
+
+//        $correct_answers = $result->yes_ans;
+//        // Divide the number of correct answers by the total number of questions and multiply by  the price of the active subscription
+//        $marksObtained = ($correct_answers / $exam->questions->count()) * $student->active_subscription->price;
+//        $active_subscription = $student->active_subscription;
+//
+
+
         if ($result) {
             $result->update(['marks_obtained' => $marksObtained]); // Update the 'marks_obtained' attribute in the database
             return redirect()->route('students.view_results', ['result' => $result->id])->with('success', 'Answers submitted successfully.');
