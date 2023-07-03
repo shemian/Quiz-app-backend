@@ -23,8 +23,6 @@ return new class extends Migration
             $table->decimal('credit', 8,2)->nullable()->default(0)  ;
             $table->decimal('centy_balance', 8,2)->nullable()->default(0);
             $table->decimal('debit', 8,2)->nullable()->default(0);
-            $table->dateTime('start_date', 0)->nullable();
-            $table->string('active_subscription')->nullable();
             $table->tinyInteger('account_status')->default(AccountStatus::INACTIVE);
             $table->timestamps();
         });

@@ -15,8 +15,8 @@ return new class extends Migration
             $table->uuid('id')->primary();
             $table->foreignUuid('student_id')->constrained()->cascadeOnDelete();
             $table->foreignUuid('subscription_plan_id')->constrained()->cascadeOnDelete();
-            $table->timestamp('start_date');
-            $table->dateTime('end_date');
+            $table->timestamp('start_date')->nullable();
+            $table->dateTime('end_date')->nullable();
             $table->tinyInteger('status')->default(StudentSubscriptionPlanStatus::ACTIVE);
             $table->timestamps();
         });
