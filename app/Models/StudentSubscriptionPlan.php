@@ -28,7 +28,7 @@ class StudentSubscriptionPlan extends Model
 
     public function student(): BelongsTo
     {
-        return $this->belongsTo(Student::class);
+        return $this->belongsTo(Student::class, 'active_subscription', 'id');
     }
 
     public function subscriptionPlan(): BelongsTo
