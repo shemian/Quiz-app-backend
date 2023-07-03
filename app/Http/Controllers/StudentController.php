@@ -29,10 +29,8 @@ class StudentController extends Controller
         $user = Auth::user();
         $student = Student::where('user_id', $user->id)->first();
 
-        Log::info("Student Account Status: ". ($student->account_status === AccountStatus::ACTIVE));
-
         //check if status is active and display the exam
-        if ($student->account_status === AccountStatus::ACTIVE) {
+        if ($student->account_status === AccountStatus::ACTIVE && isset($student->active_subscription) ) {
             $exams = Exam::with(['subject.educationLevel', 'subject.educationSystem'])
                 ->whereHas('subject', function ($query) use ($student) {
                     $query->where('education_level_id', $student->educationLevel->id)
@@ -144,8 +142,6 @@ class StudentController extends Controller
             'total_marks' => $totalMarks, // Store the total marks
         ]);
         $result->save();
-
-
 
         if (!$result->isDirty()) {
             Log::info("Active plan: ". $student->active_subscription);
