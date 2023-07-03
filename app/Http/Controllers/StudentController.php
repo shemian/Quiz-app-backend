@@ -144,6 +144,7 @@ class StudentController extends Controller
         $result->save();
 
         if (!$result->isDirty()) {
+            Log::info($student->studentSubscriptionPlan);
             // Divide the number of correct answers by the total number of questions and multiply by  the price of the active subscription
             $centiisObtained = ($correctQuestionCount / $totalMarks) * ($student->studentSubscriptionPlan->subscriptionPlan->price / 2);
 
