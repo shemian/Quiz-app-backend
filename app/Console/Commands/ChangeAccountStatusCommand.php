@@ -33,8 +33,6 @@ class ChangeAccountStatusCommand extends Command
      */
     public function handle()
     {
-        try {
-            DB::beginTransaction();
 
             $students = Student::where('account_status', AccountStatus::ACTIVE)->get();
             $subscriptionPlans = SubscriptionPlan::all();
@@ -46,21 +44,13 @@ class ChangeAccountStatusCommand extends Command
                             $student->account_status = AccountStatus::SUSPENDED;
                             $student->active_subscription = null;
                             $student->save();
-                            break; // Exit the inner loop once the account is suspended
                         }
                         $student->credit -= $subscriptionPlan->price;
                         $student->save();
-                        break; // Exit the inner loop once the credit is updated
                     }
                 }
             }
+            return 0;
 
-            DB::commit();
-
-            $this->info('Cron job executed successfully!');
-        } catch (\Exception $e) {
-            DB::rollBack();
-            Log::error('An error occurred in the cron job: ' . $e->getMessage());
-        }
     }
 }
