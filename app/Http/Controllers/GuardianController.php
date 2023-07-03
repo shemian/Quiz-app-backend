@@ -102,7 +102,7 @@ class GuardianController extends Controller
         dispatch(new SendStudentAccountEmail($user, $password));
 
         // Send sms to the parent with the student's username and password
-        dispatch(new SendStudentAccountSms($student, $password));
+        //dispatch(new SendStudentAccountSms($student, $password));
 
         $guardian = Guardian::where('user_id', auth()->user()->id)->first();
         if ($guardian) {
