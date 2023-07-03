@@ -13,6 +13,7 @@ class SubscriptionPlan extends Model
     protected $fillable = [
         'name',
         'validity_unit',
+        'validity',
         'price',
         'description'
     ];
