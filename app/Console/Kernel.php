@@ -26,7 +26,6 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
         $schedule->command('account:status')->everyMinute();
-        Log::info('Cron job executed successfully!');
     }
 
     /**
