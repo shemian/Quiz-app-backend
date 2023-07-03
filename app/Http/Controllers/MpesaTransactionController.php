@@ -167,7 +167,7 @@ class MpesaTransactionController extends Controller
         // Create or Update student subscription plan
         $start_date  = Carbon::now();
         $end_date = Carbon::now()->addDays($plan->validity);
-        $studentSubscription = StudentSubscriptionPlan::firstOrCreate(
+        $studentSubscription = StudentSubscriptionPlan::updateOrCreate(
             ['student_id' => $student->id],
             [
                 'subscription_plan_id' => $plan->id,
@@ -175,7 +175,6 @@ class MpesaTransactionController extends Controller
                 'end_date' => $end_date,
             ]
         );
-        $studentSubscription->save();
 
         // Responding to the confirmation request
         $response = new Response();
