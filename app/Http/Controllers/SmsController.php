@@ -7,11 +7,14 @@ use App\Models\Student;
 use App\Models\Guardian;
 use App\Models\User;
 use App\Models\Sms;
+use Illuminate\Support\Facades\Log;
 
 
 class SmsController extends Controller
 {
     public function sendSMS(Sms $message){
+        Log::info("Sending message " . $message->text . " to " . $message->recipient . "...");
+
         $curl = curl_init();
 
         $smsBody = json_encode(array(
@@ -43,7 +46,7 @@ class SmsController extends Controller
                 'Content-Type: application/json'
             ),
         ));
-        
+
         $response = curl_exec($curl);
 
         curl_close($curl);
