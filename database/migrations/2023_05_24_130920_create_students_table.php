@@ -15,6 +15,7 @@ return new class extends Migration
             $table->uuid('id')->primary();
             $table->foreignUuid('guardian_id')->constrained('guardians')->cascadeOnDelete();
             $table->foreignUuid('user_id')->constrained('users')->cascadeOnDelete();
+            $table->foreignUuid('active_subscription')->constrained('student_subscription_plans', 'id')->cascadeOnDelete();
             $table->uuid('education_system_id')->constrained('education_systems', 'id')->cascadeOnDelete();
             $table->uuid('education_level_id')->constrained('education_levels', 'id')->cascadeOnDelete();
             $table->string('Date_of_birth');
