@@ -2,9 +2,11 @@
 
 use App\Http\Controllers\GuardianController;
 use App\Http\Controllers\MpesaTransactionController;
+use App\Http\Controllers\SmsController;
 use App\Models\MpesaTransaction;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -42,5 +44,7 @@ Route::prefix('/v1')->group(function() {
     Route::post('/quiz/stk/push', [GuardianController::class, 'activateStudent'])->name('stk_push');
     Route::post('/quiz/validation', [MpesaTransactionController::class, 'mpesaValidation']);
     Route::post('/quiz/transaction/confirmation/', [MpesaTransactionController::class, 'mpesaConfirmation']);
-    Route::post('/quiz/register/url', [MpesaTransactionController::class, 'mpesaRegisterUrls']);
+    Route::post('/quiz/register/url', [MpesaTransactionController::class, 'mpesaRegisterUrls']);    
+
+    Route::post('/sms/send/', [SmsController::class, 'sendSMS']);
 });

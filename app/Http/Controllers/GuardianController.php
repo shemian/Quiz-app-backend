@@ -16,6 +16,7 @@ use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
 use Datatables;
 use App\Jobs\SendStudentAccountEmail;
+use App\Jobs\SendStudentAccountSms;
 class GuardianController extends Controller
 {
 
@@ -69,7 +70,6 @@ class GuardianController extends Controller
      */
     public function store(Request $request)
     {
-
         $request->validate([
             'name' => 'required',
             'date_of_birth' => 'required',
@@ -101,8 +101,10 @@ class GuardianController extends Controller
         // Send email to the parent with the student's username and password
         dispatch(new SendStudentAccountEmail($user, $password));
 
-        $guardian = Guardian::where('user_id', auth()->user()->id)->first();
+        // Send sms to the parent with the student's username and password
+        dispatch(new SendStudentAccountSms($student, $password));
 
+        $guardian = Guardian::where('user_id', auth()->user()->id)->first();
         if ($guardian) {
             $student->guardian_id = $guardian->id;
             $user->student()->save($student);
@@ -110,7 +112,6 @@ class GuardianController extends Controller
             return redirect()->route('get_students')
                 ->with('success', 'Student account created successfully. The account details have been sent to your email.');
         }
-
 
     }
 
