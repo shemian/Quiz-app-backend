@@ -18,8 +18,8 @@ class SmsController extends Controller
             "count" => 1,
             "smslist" => [
                 array(
-                    "partnerID" => config(),
-                    "apikey" => config(),
+                    "partnerID" => config('app.sms.celcom.partener_id'),
+                    "apikey" => config('app.sms.celcom.api_key'),
                     "pass_type" => $message->pass_type,
                     "clientsmsid" => $message->external_ref,
                     "mobile" => $message->recipient,
