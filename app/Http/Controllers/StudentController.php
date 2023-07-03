@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Enums\AccountStatus;
 use App\Models\Exam;
+use App\Models\StudentSubscriptionPlan;
 use Illuminate\Http\Request;
 use App\Models\Question;
 use App\Models\Result;
@@ -144,9 +145,13 @@ class StudentController extends Controller
         $result->save();
 
         if (!$result->isDirty()) {
-            Log::info($student->studentSubscriptionPlan);
+            Log::info($student->active_subscription);
+
+            $studentPlan = StudentSubscriptionPlan::where("id", $student->active_subscription)->first();
             // Divide the number of correct answers by the total number of questions and multiply by  the price of the active subscription
-            $centiisObtained = ($correctQuestionCount / $totalMarks) * ($student->studentSubscriptionPlan->subscriptionPlan->price / 2);
+
+            $centiisObtained = ($correctQuestionCount / $totalMarks) * ($studentPlan->subscriptionPlan->price / 2);
+
 
             Log::info("centiisObtained: " . $centiisObtained);
             $student->centy_balance = $student->centy_balance - floatval($centiisObtained);
