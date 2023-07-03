@@ -46,7 +46,7 @@ class Student extends Model
 
     public function studentSubscriptionPlan(): HasOne
     {
-        return $this->hasOne(StudentSubscriptionPlan::class);
+        return $this->hasOne(StudentSubscriptionPlan::class, 'student_id', 'id');
     }
 
     public function results(): HasMany
