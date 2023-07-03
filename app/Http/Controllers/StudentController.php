@@ -145,8 +145,10 @@ class StudentController extends Controller
         ]);
         $result->save();
 
+
+
         if (!$result->isDirty()) {
-            Log::info($student->active_subscription);
+            Log::info("Active plan: ". $student->active_subscription);
 
             $studentSubPlan = StudentSubscriptionPlan::where("id", $student->active_subscription)->first();
             $studentPlan = SubscriptionPlan::where([
