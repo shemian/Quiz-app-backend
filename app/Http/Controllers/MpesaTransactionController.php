@@ -175,6 +175,7 @@ class MpesaTransactionController extends Controller
                 'end_date' => $end_date,
             ]
         );
+        $studentSubscription->save();
 
         // Responding to the confirmation request
         $response = new Response();
