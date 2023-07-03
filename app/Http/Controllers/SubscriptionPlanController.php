@@ -27,6 +27,7 @@ class SubscriptionPlanController extends Controller
         $newPlan = new SubscriptionPlan();
         $newPlan->name = $data['name'];
         $newPlan->price = $data['price'];
+        $newPlan->validity = $data['validity'];
         $newPlan->save();
 
         return redirect()->route('subscriptions.index')->with('success', 'Subscription Plan  Created successfully!');
@@ -51,6 +52,7 @@ class SubscriptionPlanController extends Controller
         $subscriptionPlan = SubscriptionPlan::findOrFail($id);
         $subscriptionPlan->name = $data['name'];
         $subscriptionPlan->price = $data['price'];
+        $subscriptionPlan->validity = $data['validity'];
         $subscriptionPlan->save();
 
         return redirect()->route('subscriptions.index')->with('success', 'Subscription Plan Updated successfully!');
