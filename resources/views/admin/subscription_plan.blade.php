@@ -89,7 +89,7 @@
                                 <label for="validity" class="col-md-4 col-form-label text-md-end">{{ __('Validity Unit') }}</label>
 
                                 <div class="col-md-6">
-                                    <input id="validity" min="0" max="10000" step="1" class="form-control @error('validity') is-invalid @enderror" name="validity"  required placeholder="0">
+                                    <input id="validity" min="0" max="10000" step="1" class="form-control @error('validity') is-invalid @enderror" name="validity"  required placeholder="Number of Days">
 
                                     @error('validity')
                                     <span class="invalid-feedback" role="alert">
