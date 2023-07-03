@@ -3,6 +3,7 @@
 namespace App\Console;
 
 use App\Enums\AccountStatus;
+use App\Http\Controllers\AccountStatusController;
 use App\Models\Student;
 use App\Models\SubscriptionPlan;
 use Carbon\Carbon;
@@ -17,23 +18,10 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule): void
     {
+        $schedule->call(function () {
+            (new AccountStatusController)->changeAccountStatus();
+        })->everyMinute();
 
-        $students = Student::where('account_status', AccountStatus::ACTIVE)->first();
-        $subscription_plans = SubscriptionPlan::all();
-
-        foreach ($students as $student) {
-            foreach ($subscription_plans as $subscription_plan) {
-                if ($student->active_subscription == $subscription_plan->name) {
-                    if(Carbon::parse( $student->start_date)->addDays($subscription_plan->validity) <= Carbon::now()){
-                        $student->account_status = AccountStatus::SUSPENDED;
-                        $student->active_subscription = null;
-                        $student->save();
-                    }
-                    $student->credit = $student->credit - $subscription_plan->price;
-                    $student->save();
-                }
-            }
-        }
     }
 
     /**
