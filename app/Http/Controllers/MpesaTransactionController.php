@@ -159,11 +159,6 @@ class MpesaTransactionController extends Controller
         $student->guardian->credit = floatval($student->guardian->credit) + ($content->TransAmount - $plan->price);
         $student->guardian->save();
 
-        // update student centy balance
-        $student->centy_balance = floatval($student->centy_balance) + $plan->price/2;
-        $student->account_status = AccountStatus::ACTIVE;
-        $student->save();
-
         // Create or Update student subscription plan
         $start_date  = Carbon::now();
         $end_date = Carbon::now()->addDays($plan->validity);
@@ -175,6 +170,12 @@ class MpesaTransactionController extends Controller
                 'end_date' => $end_date,
             ]
         );
+
+        // update student centy balance
+        $student->centy_balance = floatval($student->centy_balance) + $plan->price/2;
+        $student->account_status = AccountStatus::ACTIVE;
+        $student->active_subscription = $studentSubscription->id;
+        $student->save();
 
         // Responding to the confirmation request
         $response = new Response();
