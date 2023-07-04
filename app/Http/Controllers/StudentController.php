@@ -21,7 +21,27 @@ class StudentController extends Controller
      */
     public function index()
     {
-        return view('students.dashboard');
+        $user = Auth::user();
+        $student = Student::where('user_id', $user->id)->first();
+        $exam_count = Exam::where('student_id', $student->id)->count();
+        // Get the result of the student and display it on the dashboard because results has the exam_id and the student_id and exams has question so will dipslay the number of exams, questions in that exam and date of that result
+        $results = Result::where('student_id', $student->id)->with('exam')->get();
+        $results_count = $results->count();
+        $questions_count = 0;
+        $exams_count = 0;
+        $exams = [];
+        //
+        foreach ($results as $result) {
+            $questions_count += $result->exam->questions->count();
+            $exams_count += 1;
+            $exams[] = $result->exam;
+        }
+
+        // Get the centy_balance of the student and account_balance and centiisObtained and display it on the dashboard
+        $centy_balance = $student->centy_balance;
+        $account_balance = $student->credit - $student->debit;
+        $centiisObtained = $student->centiisObtained;
+        return view('students.dashboard', compact('subject_count', 'exam_count', 'centy_balance', 'account_balance', 'centiisObtained', 'results_count', 'questions_count', 'exams_count', 'exams'));
     }
 
     public function getExams()

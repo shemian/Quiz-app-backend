@@ -19,7 +19,7 @@
                     <div class="row align-items-center">
                         <div class="col-6">
                             <h5 class="text-muted fw-normal mt-0 text-truncate" title="Campaign Sent">Wallet Balance</h5>
-                            <h3 class="my-2 py-1"> Ksh 6</h3>
+                            <h3 class="my-2 py-1"> {{ $account_balance }}</h3>
                             <p class="mb-0 text-muted">
                                 <span class="text-success me-2"><i class="mdi mdi-arrow-up-bold"></i> 3.27%</span>
                             </p>
@@ -40,7 +40,7 @@
                     <div class="row align-items-center">
                         <div class="col-6">
                             <h5 class="text-muted fw-normal mt-0 text-truncate" title="New Leads">Questions</h5>
-                            <h3 class="my-2 py-1">4000</h3>
+                            <h3 class="my-2 py-1">{{ $questions_count }}</h3>
                             <p class="mb-0 text-muted">
                                 <span class="text-danger me-2"><i class="mdi mdi-arrow-down-bold"></i> 5.38%</span>
                             </p>
@@ -63,7 +63,7 @@
                     <div class="row align-items-center">
                         <div class="col-6">
                             <h5 class="text-muted fw-normal mt-0 text-truncate" title="Booked Revenue">Centii Balance</h5>
-                            <h3 class="my-2 py-1">ksh 3</h3>
+                            <h3 class="my-2 py-1">{{ $centy_balance }}</h3>
                             <p class="mb-0 text-muted">
                                 <span class="text-success me-2"><i class="mdi mdi-arrow-up-bold"></i> 3.27%</span>
                             </p>
@@ -102,20 +102,15 @@
 
 
                                 <tbody>
+                                    @foreach ($results as $result)
                                     <tr>
-                                        <td>System Architect</td>
-                                        <td>Tiger Nixon</td>
-                                        <td>System Architect</td>
-                                        <td>61</td>
-                                        <td>2011/04/25</td>
+                                        <td>{{ $result->exam->name }}</td>
+                                        <td>{{ $result->exam->subject->name }}</td>
+                                        <td>{{ $result->exam->questions->count() }}</td>
+                                        <td>{{ $result->yes_ans }}</td>
+                                        <td>{{ $result->created_at }}</td>
                                     </tr>
-                                    <tr>
-                                        <td>Accountant</td>
-                                        <td>Garrett Winters</td>
-                                        <td>Tokyo</td>
-                                        <td>63</td>
-                                        <td>2011/07/25</td>
-                                    </tr>
+                                    @endforeach
 
                                 </tbody>
                             </table>
