@@ -38,7 +38,7 @@ class UpdateStudentsAccountStatus extends Command
                 foreach ($subscriptionPlans as $subscriptionPlan) {
                     if ($student->studentSubscriptionPlan->subscriptionPlan->id === $subscriptionPlan->id) {
                         $end_date = Carbon::parse($student->studentSubscriptionPlan->start_date)->addDays($subscriptionPlan->validity);
-                        if ($end_date <= Carbon::now()) {
+                        if ($end_date >= Carbon::now()) {
                             Log::info("Account should be suspended");
                             $student->account_status = AccountStatus::SUSPENDED;
                             $student->active_subscription = null;
