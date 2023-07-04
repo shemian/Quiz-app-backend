@@ -40,14 +40,8 @@ class StudentController extends Controller
                 ->get();
             return view('students.get_exams', compact('exams'));
         } else {
-            $exams = Exam::with(['subject.educationLevel', 'subject.educationSystem'])
-                ->whereHas('subject', function ($query) use ($student) {
-                    $query->where('education_level_id', $student->educationLevel->id)
-                        ->where('education_system_id', $student->educationSystem->id);
-                })
-                ->select('id', 'name', 'subject_id', 'created_at')
-                ->get();
-            return view('students.get_exams', compact('exams'));
+
+            return view('students.get_exams');
         }
 
     }
