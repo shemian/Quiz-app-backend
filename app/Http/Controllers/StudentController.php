@@ -23,7 +23,6 @@ class StudentController extends Controller
     {
         $user = Auth::user();
         $student = Student::where('user_id', $user->id)->first();
-        $exam_count = Exam::where('student_id', $student->id)->count();
         // Get the result of the student and display it on the dashboard because results has the exam_id and the student_id and exams has question so will dipslay the number of exams, questions in that exam and date of that result
         $results = Result::where('student_id', $student->id)->with('exam')->get();
         $results_count = $results->count();
