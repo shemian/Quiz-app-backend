@@ -40,7 +40,7 @@ class StudentController extends Controller
         $centy_balance = $student->centy_balance;
         $account_balance = $student->credit - $student->debit;
         $centiisObtained = $student->centiisObtained;
-        return view('students.dashboard', compact('centy_balance', 'account_balance', 'centiisObtained', 'results_count', 'questions_count', 'exams_count', 'exams'));
+        return view('students.dashboard', compact('centy_balance', 'account_balance', 'centiisObtained', 'results_count', 'questions_count', 'exams_count', 'exams', 'results'));
     }
 
     public function getExams()
