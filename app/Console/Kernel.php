@@ -26,8 +26,7 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
         $schedule->command('app:update-students-account-status')
-            ->everyMinute()
-            ->appendOutputTo(storage_path('logs/cron.log'));
+            ->cron('1 * * * *');
     }
 
 
