@@ -44,7 +44,6 @@ class UpdateStudentsAccountStatus extends Command
                             $student->active_subscription = null;
                             $student->save();
                         }
-                        $student->credit -= $subscriptionPlan->price;
                         $student->save();
                     }
                 }
