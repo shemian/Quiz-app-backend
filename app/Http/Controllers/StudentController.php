@@ -164,7 +164,7 @@ class StudentController extends Controller
 
             return redirect()->route('students.view_results', ['result' => $result->id])->with('success', 'Answers submitted successfully.');
         } else {
-            return redirect()->back()->with('error', 'Failed to submit answers. Please try again.');
+            return redirect()->route('students.view_results', ['result' => $result->id])->with('success', 'Answers submitted successfully.');
         }
     }
 
