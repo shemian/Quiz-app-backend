@@ -40,8 +40,7 @@ class StudentController extends Controller
                 ->get();
             return view('students.get_exams', compact('exams'));
         } else {
-
-            return view('students.get_exams');
+            return redirect()->back()->with('error', 'Your account is not active. Please contact the administrator.');
         }
 
     }
