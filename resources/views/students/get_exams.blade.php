@@ -3,6 +3,11 @@
 @section('content')
 
     <div class="container">
+        @error('error')
+        <div class="alert alert-danger">
+            {{ $message }}
+        </div>
+        @enderror
         <div class="row">
             @foreach ($exams as $exam)
                 <div class="col-md-4">
