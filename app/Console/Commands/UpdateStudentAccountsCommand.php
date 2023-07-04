@@ -17,7 +17,7 @@ class UpdateStudentAccountsCommand extends Command
 
     public function handle()
     {
-        Log::info("My Schedule Task");
+        Log::info("My Schedule is running");
         return 0;
     }
 }
