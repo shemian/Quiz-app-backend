@@ -24,18 +24,19 @@ class StudentController extends Controller
         $user = Auth::user();
         $student = Student::where('user_id', $user->id)->first();
         // Get the result of the student and display it on the dashboard because results has the exam_id and the student_id and exams has question so will dipslay the number of exams, questions in that exam and date of that result
+        $question_exams_counts = Result::where('student_id', $student->id)->with('exam')->get();
         $results = Result::where('student_id', $student->id)->with('exam')->get();
+
+        //create a variable to count the number of questions and exams a student has done depending on the results
         $questions_count = 0;
         $exams_count = 0;
         $exams = [];
-        //
-        foreach ($results as $result) {
+
+        foreach ($question_exams_counts as $result) {
             $questions_count += $result->exam->questions->count();
             $exams_count += 1;
             $exams[] = $result->exam;
         }
-
-        dd($results);
 
         // Get the centy_balance of the student and account_balance and centiisObtained and display it on the dashboard
         $centy_balance = $student->centy_balance;
