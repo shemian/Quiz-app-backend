@@ -160,6 +160,7 @@ class StudentController extends Controller
             Log::info("centy_balance: " . $student->centy_balance);
             $student->debit = $student->debit + floatval($centiisObtained);
             Log::info("debit: " . $student->debit);
+            $student->save();
 
             return redirect()->route('students.view_results', ['result' => $result->id])->with('success', 'Answers submitted successfully.');
         } else {
