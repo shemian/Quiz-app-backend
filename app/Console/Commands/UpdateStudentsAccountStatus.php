@@ -37,6 +37,7 @@ class UpdateStudentsAccountStatus extends Command
             foreach ($students as $student) {
                 foreach ($subscriptionPlans as $subscriptionPlan) {
                     if ($student->active_subscription === $subscriptionPlan->name) {
+                        Log::info("Checking if " . $student->user->name . ":" . Carbon::parse($student->start_date)->addDays($subscriptionPlan->validity)->isPast() . " has an active subscription");
                         if (Carbon::parse($student->start_date)->addDays($subscriptionPlan->validity)->isPast()) {
                             $student->account_status = AccountStatus::SUSPENDED;
                             $student->active_subscription = null;
@@ -47,8 +48,6 @@ class UpdateStudentsAccountStatus extends Command
                     }
                 }
             }
-
-            Log::info('Cron job executed successfully!');
         } catch (\Exception $e) {
             Log::error('An error occurred in the cron job: ' . $e->getMessage());
         }
