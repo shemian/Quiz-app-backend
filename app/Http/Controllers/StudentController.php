@@ -40,7 +40,14 @@ class StudentController extends Controller
                 ->get();
             return view('students.get_exams', compact('exams'));
         } else {
-            return redirect()->back()->with('error', 'Your account is not active. Please contact the administrator.');
+            $exams = Exam::with(['subject.educationLevel', 'subject.educationSystem'])
+                ->whereHas('subject', function ($query) use ($student) {
+                    $query->where('education_level_id', $student->educationLevel->id)
+                        ->where('education_system_id', $student->educationSystem->id);
+                })
+                ->select('id', 'name', 'subject_id', 'created_at')
+                ->get();
+            return view('students.get_exams', compact('exams'));
         }
 
     }
@@ -164,7 +171,7 @@ class StudentController extends Controller
 
             return redirect()->route('students.view_results', ['result' => $result->id])->with('success', 'Answers submitted successfully.');
         } else {
-            return redirect()->route('students.view_results', ['result' => $result->id])->with('success', 'Answers submitted successfully.');
+            return redirect()->back()->with('error', 'Failed to submit answers. Please try again.');
         }
     }
 
