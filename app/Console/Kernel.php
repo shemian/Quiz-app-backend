@@ -26,7 +26,7 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
         $schedule->command('students:update-accounts')
-            ->everyMinute();
+            ->cron('1 * * * *');
     }
 
 
