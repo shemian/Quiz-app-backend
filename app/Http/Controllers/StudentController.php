@@ -148,12 +148,13 @@ class StudentController extends Controller
                 "id" => $student->active_subscription,
                 "student_id" => $student->id,
             ])->first();
-            Log::info("Active plan: ". $studentSubPlan->subscription_plan_id);
+            Log::info("Active plan: " . $studentSubPlan->subscription_plan_id);
 
-            $studentPlan = SubscriptionPlan::where("id", $studentSubPlan->subscription_plan_id)->first();
+            $subscriptionPlan = $studentSubPlan->subscriptionPlan;
+            Log::info("Subscription plan: " . $subscriptionPlan);
 
-            // Divide the number of correct answers by the total number of questions and multiply by  the price of the active subscription
-            $centiisObtained = ($correctQuestionCount / $totalMarks) * ($studentPlan->subscriptionPlan->price / 2);
+            // Divide the number of correct answers by the total number of questions and multiply by the price of the active subscription
+            $centiisObtained = ($correctQuestionCount / $totalMarks) * ($subscriptionPlan->price / 2);
 
             Log::info("centiisObtained: " . $centiisObtained);
             $student->centy_balance = $student->centy_balance - floatval($centiisObtained);
