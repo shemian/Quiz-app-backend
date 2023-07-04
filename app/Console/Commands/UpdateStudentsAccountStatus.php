@@ -36,7 +36,7 @@ class UpdateStudentsAccountStatus extends Command
 
             foreach ($students as $student) {
                 foreach ($subscriptionPlans as $subscriptionPlan) {
-                    Log::info("Current subscription plan is ". $student->studentSubscriptionPlan->subscriptionPlan->id);
+                    Log::info("Current subscription plan is ". $student->studentSubscriptionPlan);
                     if ($student->studentSubscriptionPlan->subscriptionPlan->id === $subscriptionPlan->id) {
                         Log::info("Checking if " . $student->user->name . ":" . Carbon::parse($student->studentSubscriptionPlan->start_date)->addDays($subscriptionPlan->validity)->isPast() . " has an active subscription");
                         if (Carbon::parse($student->studentSubscriptionPlan->start_date)->addDays($subscriptionPlan->validity)->isPast()) {
