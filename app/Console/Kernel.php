@@ -14,7 +14,7 @@ class Kernel extends ConsoleKernel
      * @var array
      */
     protected $commands = [
-        \App\Console\Commands\UpdateStudentAccountsCommand::class,
+        \App\Console\Commands\UpdateStudentsAccountStatus::class,
     ];
 
     /**
@@ -25,7 +25,7 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        $schedule->command('students:update-accounts')
+        $schedule->command('app:update-students-account-status')
             ->everyMinute()
             ->appendOutputTo(storage_path('logs/cron.log'));
     }
