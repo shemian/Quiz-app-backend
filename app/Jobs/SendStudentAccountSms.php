@@ -50,8 +50,8 @@ class SendStudentAccountSms implements ShouldQueue
         $result = (new SmsController)->sendSms($sms);
 
         // Update SMS status
-//        $result = json_decode($result);
-        Log::info("Response from SMS API: " . $result);
+        $result = json_decode($result);
+        Log::info("Response from SMS API: " . $result->responses[0]);
 
         if ($result["responses"][0]["response-code"] === "200") {
             $sms->status = DeliveryStatusEnum::SENT;
