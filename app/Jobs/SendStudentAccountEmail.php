@@ -17,14 +17,16 @@ class SendStudentAccountEmail implements ShouldQueue
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
     public $user;
+    public $guardian_email;
     public $password;
 
     /**
      * Create a new job instance.
      */
-    public function __construct(User $user, string $password)
+    public function __construct(User $user, string $guardian_email, string $password)
     {
         $this->user = $user;
+        $this->guardian_email = $guardian_email;
         $this->password = $password;
     }
 
@@ -34,12 +36,8 @@ class SendStudentAccountEmail implements ShouldQueue
 
     public function handle()
     {
-        // Retrieve the user and password from the job payload
-        $user = $this->user;
-        $password = $this->password;
-
         // Send the email
-        Mail::to($user->email)->send(new StudentAccountCreated($user, $password));
+        Mail::to($this->guardian_email)->send(new StudentAccountCreated($this->user, $this->password));
     }
 
 }

@@ -29,8 +29,7 @@ class StudentAccountCreated extends Mailable
     public function build()
     {
         $ccEmail = 'centyplusexample@example.com';
-        return $this->to($this->user->email)
-            ->cc($ccEmail)
+        return $this->cc($ccEmail)
             ->markdown('emails.student_account_details')
             ->subject('Your Student Account has been Created');
     }
