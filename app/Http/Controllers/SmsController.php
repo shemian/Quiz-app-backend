@@ -15,18 +15,13 @@ class SmsController extends Controller
         $curl = curl_init();
 
         $smsBody = json_encode(array(
-            "count" => 1,
-            "smslist" => [
-                array(
-                    "partnerID" => config('app.sms.celcom.partner_id'),
-                    "apikey" => config('app.sms.celcom.api_key'),
-                    "pass_type" => SmsPassType::getDescription($message->pass_type),
-                    "clientsmsid" => $message->external_ref,
-                    "mobile" => $message->recipient,
-                    "message" => $message->text,
-                    "shortcode" => $message->short_code
-                )
-            ]
+            "partnerID" => config('app.sms.celcom.partner_id'),
+            "apikey" => config('app.sms.celcom.api_key'),
+            "pass_type" => SmsPassType::getDescription($message->pass_type),
+            "clientsmsid" => $message->external_ref,
+            "mobile" => $message->recipient,
+            "message" => $message->text,
+            "shortcode" => $message->short_code
         ));
         Log::info("SMS Body: " . $smsBody);
 

@@ -88,6 +88,7 @@ class StudentController extends Controller
 
         // Retrieve the corresponding student record based on the user's ID
         $student = Student::where('user_id', $user->id)->first();
+        Log::info('Student: ' . $student);
 
         if (!$student) {
             // Handle the case where the student record does not exist
