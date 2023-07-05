@@ -46,9 +46,9 @@
                                     <thead>
                                     <tr>
                                         <th>Phone Number</th>
-                                        <th>Message</th>
                                         <th>Status</th>
                                         <th>Description</th>
+                                        <th>Message</th>
                                         <th>Action</th>
                                     </tr>
                                     </thead>
@@ -57,9 +57,9 @@
                                         @foreach ($messages as $message)
                                             <tr>
                                                 <td>{{ $message->recipient }}</td>
-                                                <td>{{ $message->text }}</td>
                                                 <td>{{ $message->delivery_status }}</td>
                                                 <td>{{ $message->status_description }}</td>
+                                                <td>{{ $message->text }}</td>
                                                 <td>
                                                     <a href="" title="View"><i class="mdi mdi-eye"></i></a>
                                                 </td>
