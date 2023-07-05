@@ -45,8 +45,8 @@ class SendStudentAccountSms implements ShouldQueue
 
         Log::info("Message " . $sms->text . " saved successfully!");
 
-        (new SmsController)->sendSms($sms);
+        $result = (new SmsController)->sendSms($sms);
 
-        Log::info("Message " . $sms->text . " queued successfully!");
+        Log::info("Response from SMS API: " . $result);
     }
 }

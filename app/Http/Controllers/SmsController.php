@@ -13,8 +13,6 @@ use Illuminate\Support\Facades\Log;
 class SmsController extends Controller
 {
     public function sendSMS(Sms $message){
-        Log::info("Sending message " . $message->text . " to " . $message->recipient . "...");
-
         $curl = curl_init();
 
         $smsBody = json_encode(array(
