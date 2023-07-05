@@ -87,8 +87,6 @@ class GuardianController extends Controller
         $user->role = 'student';
         $user->save();
 
-        Log::info('User ' .$user->id. ' created successfully!');
-
         // Create a new student
         $student = new Student();
         $student->date_of_birth = $request->date_of_birth;
@@ -96,7 +94,6 @@ class GuardianController extends Controller
         $student->guardian_id = auth()->user()->id;
         $student->education_system_id = $request->education_system_id;
         $student->education_level_id = $request->education_level_id;
-
 
         $guardian = Guardian::where('user_id', auth()->user()->id)->first();
         if ($guardian) {

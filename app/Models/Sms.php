@@ -2,10 +2,11 @@
 
 namespace App\Models;
 
+use App\Enums\DeliveryStatusEnum;
+use App\Enums\SmsPassTypeEnum;
+use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Enums\SmsPassTypeEnum;
-use Enums\DeliveryStatusEnum;
 
 class Sms extends Model
 {
