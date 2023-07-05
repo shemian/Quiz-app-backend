@@ -3,7 +3,7 @@
 namespace App\Models;
 
 use App\Enums\DeliveryStatusEnum;
-use App\Enums\SmsPassTypeEnum;
+use App\Enums\SmsPassType;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -21,7 +21,7 @@ class Sms extends Model
     ];
 
     protected $casts = [
-        'pass_type' => SmsPassTypeEnum::class,
+        'pass_type' => SmsPassType::class,
         'delivery_status' => DeliveryStatusEnum::class,
     ];
 }

@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 use App\Enums\AccountStatus;
-use App\Models\Guardian;
+use App\Helpers\GeneralHelper;
 use App\Models\MpesaTransaction;
 use App\Models\Student;
 use App\Models\ChartOfAccounts;
@@ -19,10 +19,7 @@ class MpesaTransactionController extends Controller
 {
     public function generateAccessToken()
     {
-        $consumer_key="kherIDoJ1N8eHMdqnAhpfZ8HIU0NcmfO";
-        $consumer_secret="bOtjBSgX943NrScy";
-
-        $credentials = base64_encode($consumer_key.":".$consumer_secret);
+        $credentials = base64_encode(config('app.mpesa.consumer_key').":".config('app.mpesa.consumer_secret'));
         $url = "https://api.safaricom.co.ke/oauth/v1/generate?grant_type=client_credentials";
         $curl = curl_init();
         curl_setopt($curl, CURLOPT_URL, $url);
@@ -57,7 +54,8 @@ class MpesaTransactionController extends Controller
         curl_setopt($curl, CURLOPT_HTTPHEADER, array('Content-Type:application/json','Authorization:Bearer '.$this->generateAccessToken()));
 
         $formattedAmount = number_format($amount, 0, '', '');
-        $formattedPhoneNumber = '254' . substr($phone_number, 1);
+//        $formattedPhoneNumber = '254' . substr($phone_number, 1);
+        $formattedPhoneNumber = GeneralHelper::phoneNumberToInternational($phone_number);
         Log::info($formattedPhoneNumber);
 
         $curl_post_data = [

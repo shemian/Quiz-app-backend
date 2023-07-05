@@ -185,8 +185,14 @@ return [
         // 'Example' => App\Facades\Example::class,
     ])->toArray(),
 
+    'mpesa' => [
+        "consumer_key" => env('MPESA_CONSUMER_KEY', 'kherIDoJ1N8eHMdqnAhpfZ8HIU0NcmfO'),
+        "consumer_secret" => env('MPESA_CONSUMER_KEY', 'bOtjBSgX943NrScy'),
+    ],
+
     'sms' => [
         'celcom' =>  [
+            'short_code' => env('CELCOM_SENDER_ID', 'CELCOM'),
             'partner_id' => env('CELCOM_PARTNER_ID', 1049),
             'api_key' => env('CELCOM_API_KEY', 'dffd1525f148c4267a8d5a0c05550f68'),
         ]
