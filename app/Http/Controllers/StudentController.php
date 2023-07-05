@@ -233,7 +233,7 @@ class StudentController extends Controller
         return view('students.view_result', compact('result', 'exam', 'answersDetails'));
     }
 
-    public function startExam($examId)
+    public function randomGame($examId)
     {
         $user = Auth::user();
         $student = Student::where('user_id', $user->id)->first();
