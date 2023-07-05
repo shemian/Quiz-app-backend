@@ -233,14 +233,17 @@ class StudentController extends Controller
         return view('students.view_result', compact('result', 'exam', 'answersDetails'));
     }
 
-    public function randomGame($examId)
+    public function randomGame(Request $request)
     {
+        $request->validate([
+            "subject_id" => "required",
+        ]);
+
         $user = Auth::user();
         $student = Student::where('user_id', $user->id)->first();
 
         // Retrieve the exam and its associated questions
-        $exam = Exam::findOrFail($examId);
-        $questions = Question::where('subject_id', $exam->subject_id)
+        $questions = Question::where('subject_id', $request->subject_id)
             ->where('education_level_id', $student->educationLevel->id)
             ->where('education_system_id', $student->educationSystem->id)
             ->inRandomOrder()

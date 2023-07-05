@@ -2,6 +2,7 @@
 
 namespace App\Jobs;
 
+use App\Enums\DeliveryStatusEnum;
 use App\Helpers\GeneralHelper;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -47,7 +48,17 @@ class SendStudentAccountSms implements ShouldQueue
         Log::info("Message " . $sms->text . " saved successfully!");
 
         $result = (new SmsController)->sendSms($sms);
-
         Log::info("Response from SMS API: " . $result);
+
+        // Update SMS status
+        $result = json_decode($result);
+
+        if ($result["response-code"] === "200") {
+            $sms->status = DeliveryStatusEnum::SENT;
+        } else {
+            $sms->status = DeliveryStatusEnum::UNDELIVERED;
+        }
+        $sms->status_description = $result["response-description"];
+        $sms->save();
     }
 }

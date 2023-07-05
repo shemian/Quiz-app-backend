@@ -16,9 +16,10 @@ return new class extends Migration
             $table->uuid('external_ref')->unique();
             $table->string('recipient');
             $table->string('text');
-            $table->string('short_code')->default('Centy Plus');
+            $table->string('short_code')->default('CENTY');
             $table->string('pass_type')->default(0);
             $table->string('delivery_status')->default(0);
+            $table->string('status_description')->nullable();
             $table->timestamps();
         });
     }

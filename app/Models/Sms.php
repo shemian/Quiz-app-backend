@@ -18,6 +18,7 @@ class Sms extends Model
         "text",
         "short_code",
         "pass_type",
+        "status_description",
     ];
 
     protected $casts = [

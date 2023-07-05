@@ -76,7 +76,6 @@ class GuardianController extends Controller
             'school_name' => 'required',
             'education_system_id' => 'required',
             'education_level_id' => 'required',
-
         ]);
 
         // Create a new user
