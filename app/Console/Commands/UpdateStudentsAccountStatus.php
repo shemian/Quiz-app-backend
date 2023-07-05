@@ -39,7 +39,7 @@ class UpdateStudentsAccountStatus extends Command
                     if ($student->studentSubscriptionPlan->subscriptionPlan->id === $subscriptionPlan->id) {
                         $end_date = Carbon::parse($student->studentSubscriptionPlan->start_date)->addDays($subscriptionPlan->validity);
                         Log::info("Subscription started on " . $student->studentSubscriptionPlan->start_date . " to " . $end_date);
-                        if ($end_date >= Carbon::now()) {
+                        if ($end_date <= Carbon::now()) {
                             Log::info("Account " . $student->user->name . " should be deactivated");
                             $student->account_status = AccountStatus::INACTIVE;
                             $student->active_subscription = null;
