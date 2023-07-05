@@ -87,12 +87,11 @@ class GuardianController extends Controller
         $user->role = 'student';
         $user->save();
 
+        Log::info('User ' .$user->id. ' created successfully!');
 
         // Create a new student
         $student = new Student();
         $student->user_id = $user->id;
-        $student->credit = 0.00;
-        $student->student_phone_number = '07122345678';
         $student->date_of_birth = $request->date_of_birth;
         $student->school_name = $request->school_name;
         $student->guardian_id = auth()->user()->id;
