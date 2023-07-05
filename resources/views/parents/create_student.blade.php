@@ -259,8 +259,8 @@
                                             <td>{{ $student->user->centy_plus_id }}</td>
                                             <td>{{ $student->EducationLevel->name }}</td>
                                             <td>{{ $student->school_name }}</td>
-                                            <td>{{ $student->credit }}</td>
-                                            <td>{{ $student->credit }}</td>
+                                            <td>{{ $student->debit }}</td>
+                                            <td>{{ $student->centy_balance }}</td>
                                             @if($student->account_status == 1)
                                                 <td>Active</td>
                                             @elseif($student->account_status == 0 || $student->account_status == 2)
