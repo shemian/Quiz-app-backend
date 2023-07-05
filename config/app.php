@@ -187,7 +187,7 @@ return [
 
     'sms' => [
         'celcom' =>  [
-            'partener_id' => env('CELCOM_PARTNER_ID', 1049),
+            'partner_id' => env('CELCOM_PARTNER_ID', 1049),
             'api_key' => env('CELCOM_API_KEY', 'dffd1525f148c4267a8d5a0c05550f68'),
         ]
     ],

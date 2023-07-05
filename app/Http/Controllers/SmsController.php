@@ -13,13 +13,14 @@ use Illuminate\Support\Facades\Log;
 class SmsController extends Controller
 {
     public function sendSMS(Sms $message){
-        $curl = curl_init();
+        Log::info("SMS Config: ", config("app.sms"));
 
+        $curl = curl_init();
         $smsBody = json_encode(array(
             "count" => 1,
             "smslist" => [
                 array(
-                    "partnerID" => config('app.sms.celcom.partener_id'),
+                    "partnerID" => config('app.sms.celcom.partner_id'),
                     "apikey" => config('app.sms.celcom.api_key'),
                     "pass_type" => $message->pass_type,
                     "clientsmsid" => $message->external_ref,
