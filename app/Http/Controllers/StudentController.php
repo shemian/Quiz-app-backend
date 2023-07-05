@@ -233,7 +233,7 @@ class StudentController extends Controller
         return view('students.view_result', compact('result', 'exam', 'answersDetails'));
     }
 
-    public function randomGame(Request $request)
+    public function brainGame(Request $request)
     {
         $request->validate([
             "subject_id" => "required",
