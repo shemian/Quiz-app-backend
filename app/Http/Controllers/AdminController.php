@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\MpesaTransaction;
+use App\Models\Sms;
 use Illuminate\Http\Request;
 use App\Http\Requests\CreateTeacherRequest;
 use App\Models\User;
@@ -27,6 +28,11 @@ class AdminController extends Controller
         $studentCount = Student::count();
         $teacherCount = User::where('role', 'teacher')->count();
         return view ('admin.dashboard', compact('customerCount','studentCount','teacherCount'));
+    }
+
+    public function get_sms(){
+        $messages = Sms::all();
+        return view('admin.sms', compact('messages'));
     }
 
     //Display Transaction Details

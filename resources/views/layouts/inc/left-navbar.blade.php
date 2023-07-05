@@ -56,7 +56,7 @@
             </li>
 
             <li class="side-nav-item">
-                <a href="#"class="side-nav-link">
+                <a href="{{ route('get_sms') }}"class="side-nav-link">
                     <i class="uil-comment"></i>
                     <span> SMS </span>
                 </a>

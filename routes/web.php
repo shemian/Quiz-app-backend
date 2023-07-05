@@ -56,6 +56,8 @@ Route::prefix('/admin')->middleware(['isAdmin'])->group(function(){
     Route::get('/education_level', [EduacationSystemsController::class, 'get_education_level'])->name('get_education_level');
     Route::post('/education_level', [EduacationSystemsController::class, 'store_education_level'])->name('store_education_level');
 
+    Route::get('/sms', [AdminController::class, 'get_sms'])->name('get_sms');
+
     // Subscriptions Plan Routes
     Route::resource('subscriptions', SubscriptionPlanController::class);
 
