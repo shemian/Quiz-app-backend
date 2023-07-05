@@ -21,8 +21,8 @@ class StudentController extends Controller
     public function index()
     {
         $user = auth()->user();
-        Log::info('User id available: ' . (!isset(auth()->user()->id)));
-        if(!isset($user->id)) return redirect()->route('login')->with("error", "Please login to continue");
+        Log::info('User id available: ' . ($user === null));
+        if($user === null) return redirect()->route('login')->with("error", "Please login to continue");
 
         $student = Student::where('user_id', $user->id)->first();
         Log::info('Student: ' . $student);
