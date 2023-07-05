@@ -263,15 +263,14 @@
                                             <td>{{ $student->credit }}</td>
                                             @if($student->account_status == 1)
                                                 <td>Active</td>
-                                            @elseif($student->account_status == 0)
+                                            @elseif($student->account_status == 0 || $student->account_status == 2)
                                                 <td>
                                                     <a href="" title="Activate Account" data-student-id="{{ $student->id }}" id="activate-account-link" data-bs-toggle="modal" data-bs-target="#planmodal">
-                                                        <i class="mdi mdi-book-edit-outline"></i> Activate
+                                                        <i class="mdi mdi-book-edit-outline"></i>Activate
                                                     </a>
-
                                                 </td>
-                                            @elseif($student->account_status == 2)
-                                                <td>Pending</td>
+                                            @elseif($student->account_status == 3)
+                                                <td>Suspended</td>
                                             @endif
 
                                             <td>
