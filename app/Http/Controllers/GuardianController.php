@@ -91,25 +91,24 @@ class GuardianController extends Controller
 
         // Create a new student
         $student = new Student();
-//        $student->user_id = $user->id;
         $student->date_of_birth = $request->date_of_birth;
         $student->school_name = $request->school_name;
         $student->guardian_id = auth()->user()->id;
         $student->education_system_id = $request->education_system_id;
         $student->education_level_id = $request->education_level_id;
-//        $student->save();
 
-        // Send email to the parent with the student's username and password
-        dispatch(new SendStudentAccountEmail($user, $password));
-
-        // Send sms to the parent with the student's username and password
-        dispatch(new SendStudentAccountSms($student, $password));
 
         $guardian = Guardian::where('user_id', auth()->user()->id)->first();
         if ($guardian) {
             $student->guardian_id = $guardian->id;
             $user->student()->save($student);
         }
+
+        // Send email to the parent with the student's username and password
+        dispatch(new SendStudentAccountEmail($guardian->user, $password));
+
+        // Send sms to the parent with the student's username and password
+        dispatch(new SendStudentAccountSms($student, $password));
 
         return redirect()->route('get_students')
             ->with('success', 'Student account created successfully. The account details have been sent to your email.');
