@@ -13,9 +13,8 @@ use Illuminate\Support\Facades\Log;
 class SmsController extends Controller
 {
     public function sendSMS(Sms $message){
-        Log::info("SMS Config: ", config("app.sms"));
-
         $curl = curl_init();
+
         $smsBody = json_encode(array(
             "count" => 1,
             "smslist" => [
@@ -30,6 +29,7 @@ class SmsController extends Controller
                 )
             ]
         ));
+        Log::info("SMS Body: " . $smsBody);
 
         curl_setopt_array($curl, array(
             CURLOPT_URL => 'https://mysms.celcomafrica.com/api/services/sendsms/',
