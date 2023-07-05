@@ -45,14 +45,11 @@ class SendStudentAccountSms implements ShouldQueue
         $sms->short_code = config('app.sms.celcom.short_code');
         $sms->save();
 
-        Log::info("Message " . $sms->text . " saved successfully!");
-
         $result = (new SmsController)->sendSms($sms);
+        Log::info("Response from SMS API: " . $result);
 
         // Update SMS status
         $result = json_decode($result);
-        Log::info("Response from SMS API: " . $result);
-
         if (intval($result->responses[0]->{"response-code"}) === 200) {
             $sms->status = DeliveryStatusEnum::SENT;
         } else {
