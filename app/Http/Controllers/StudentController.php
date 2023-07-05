@@ -250,7 +250,7 @@ class StudentController extends Controller
             ->take(50) // Change the number to the desired amount of questions
             ->get();
 
-        return view('students.brain_game', compact('exam', 'questions'));
+        return view('students.brain_game', compact( 'questions'));
     }
 
 
