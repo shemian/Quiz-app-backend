@@ -80,7 +80,6 @@ class StudentController extends Controller
         return view('students.get_subjects', compact('subjects'));
     }
 
-
     public function showQuestions($examId)
     {
         // Retrieve the authenticated user
@@ -191,8 +190,6 @@ class StudentController extends Controller
         }
     }
 
-
-
     public function viewResult(Result $result)
     {
         // Retrieve the exam related to the result
@@ -234,6 +231,23 @@ class StudentController extends Controller
         }
 
         return view('students.view_result', compact('result', 'exam', 'answersDetails'));
+    }
+
+    public function startExam($examId)
+    {
+        $user = Auth::user();
+        $student = Student::where('user_id', $user->id)->first();
+
+        // Retrieve the exam and its associated questions
+        $exam = Exam::findOrFail($examId);
+        $questions = Question::where('subject_id', $exam->subject_id)
+            ->where('education_level_id', $student->educationLevel->id)
+            ->where('education_system_id', $student->educationSystem->id)
+            ->inRandomOrder()
+            ->take(50) // Change the number to the desired amount of questions
+            ->get();
+
+        return view('students.start_exam', compact('exam', 'questions'));
     }
 
 
