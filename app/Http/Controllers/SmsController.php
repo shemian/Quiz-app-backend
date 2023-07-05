@@ -2,10 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use App\Models\Student;
-use App\Models\Guardian;
-use App\Models\User;
+use App\Enums\SmsPassType;
 use App\Models\Sms;
 use Illuminate\Support\Facades\Log;
 
@@ -23,7 +20,7 @@ class SmsController extends Controller
                 array(
                     "partnerID" => config('app.sms.celcom.partner_id'),
                     "apikey" => config('app.sms.celcom.api_key'),
-                    "pass_type" => $message->pass_type,
+                    "pass_type" => SmsPassType::getDescription($message->pass_type),
                     "clientsmsid" => $message->external_ref,
                     "mobile" => $message->recipient,
                     "message" => $message->text,

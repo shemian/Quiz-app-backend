@@ -2,7 +2,6 @@
 
 namespace App\Jobs;
 
-use App\Enums\SmsPassType;
 use App\Helpers\GeneralHelper;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -42,7 +41,6 @@ class SendStudentAccountSms implements ShouldQueue
         $sms->external_ref = Str::uuid();
         $sms->recipient = GeneralHelper::phoneNumberToInternational($this->student->guardian->user->phone_number);
         $sms->text = "You have successfully created an account for " . $this->student->user->name . " Please use below credentials to log in to student account\nUsername: " . $this->student->user->centy_plus_id . "\n" . "Password: " . $this->password;
-        $sms->pass_type = SmsPassType::getDescription(SmsPassType::PLAIN);
         $sms->short_code = config('app.sms.celcom.short_code');
         $sms->save();
 
