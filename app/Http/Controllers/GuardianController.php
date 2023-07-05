@@ -90,6 +90,7 @@ class GuardianController extends Controller
 
         // Create a new student
         $student = new Student();
+        $student->user_id = $user->id;
         $student->credit = 0.00;
         $student->student_phone_number = '07122345678';
         $student->date_of_birth = $request->date_of_birth;
