@@ -33,7 +33,7 @@ class SendStudentAccountSms implements ShouldQueue
     /**
      * Execute the job.
      */
-    public function handle(): void
+    public function handle()
     {
         Log::info('Executing SendStudentAccountSms job for ' . $this->student->user->name);
 
