@@ -100,7 +100,7 @@ class GuardianController extends Controller
 //        $student->save();
 
         // Send email to the parent with the student's username and password
-        dispatch(new SendStudentAccountEmail($student->guardian->user, $password));
+        dispatch(new SendStudentAccountEmail($user, $password));
 
         // Send sms to the parent with the student's username and password
         dispatch(new SendStudentAccountSms($student, $password));
