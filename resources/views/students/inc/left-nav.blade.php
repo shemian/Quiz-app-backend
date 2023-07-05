@@ -43,7 +43,7 @@
             </li>
 
             <li class="side-nav-item">
-                <a href="{{ route('random_game') }}" class="side-nav-link">
+                <a href="{{ route('student_brain_game') }}" class="side-nav-link">
                     <i class="uil-game-structure"></i>
                     <span> Brain Game </span>
                 </a>

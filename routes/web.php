@@ -111,7 +111,7 @@ Route::prefix('teacher')->middleware([ 'isTeacher'])->group(function(){
 Route::prefix('student')->middleware(['auth', 'isStudent'])->group(function(){
     Route::get('/', [StudentController::class, 'index'])->name('student.dashboard');
     Route::get('/view_exams', [StudentController::class, 'getExams'])->name('view_exams');
-    Route::get('/random_game', [StudentController::class, 'randomGame'])->name('random_game');
+    Route::get('/brain_game', [StudentController::class, 'brainGame'])->name('student_brain_game');
     Route::get('/view_questions', [StudentController::class, 'getSubjects'])->name('view_questions');
     Route::get('/questions/{exam}', [StudentController::class, 'showQuestions'])->name('show_questions');
     Route::post('/questions/{exam}', [StudentController::class, 'submitAnswers'])->name('questions.submit');
