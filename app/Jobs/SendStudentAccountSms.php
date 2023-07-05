@@ -53,7 +53,7 @@ class SendStudentAccountSms implements ShouldQueue
         // Update SMS status
         $result = json_decode($result);
 
-        if ($result["response-code"] === "200") {
+        if ($result["responses"][0]["response-code"] === "200") {
             $sms->status = DeliveryStatusEnum::SENT;
         } else {
             $sms->status = DeliveryStatusEnum::UNDELIVERED;
