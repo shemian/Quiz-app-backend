@@ -241,7 +241,7 @@ class StudentController extends Controller
         // Retrieve questions
         $questions = Question::where('education_level_id', $student->educationLevel->id)
             ->inRandomOrder()
-            ->take(10) // Change the number to the desired amount of questions
+            ->take(3) // Change the number to the desired amount of questions
             ->get();
 
         Log::info($questions);
