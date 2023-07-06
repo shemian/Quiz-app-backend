@@ -7,7 +7,15 @@
         @if ($questions->isEmpty())
             <p>No questions available for this exam.</p>
         @else
-            <form method="POST" >
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Brain Game</h5>
+                    <p class="card-text">Click the button below to start the brain game.</p>
+                    <button type="button" class="btn btn-primary" id="startButton">Start Game</button>
+                </div>
+            </div>
+
+            <form method="POST" id="gameForm" style="display: none;">
                 @csrf
 
                 @foreach ($questions as $key => $question)
@@ -59,6 +67,14 @@
     </div>
 
     <script>
+        const startButton = document.getElementById('startButton');
+        const gameForm = document.getElementById('gameForm');
+
+        startButton.addEventListener('click', () => {
+            startButton.style.display = 'none';
+            gameForm.style.display = 'block';
+        });
+
         const questions = {!! json_encode($questions->pluck('id')->toArray()) !!};
         let currentQuestion = 0;
         const previousButton = document.getElementById('previousButton');
@@ -72,8 +88,6 @@
             nextButton.style.display = currentQuestion < questions.length - 1 ? 'inline-block' : 'none';
             submitButton.style.display = currentQuestion === questions.length - 1 ? 'inline-block' : 'none';
         }
-
-
 
         // Show the current question and update the buttons
         function showQuestion(index) {
