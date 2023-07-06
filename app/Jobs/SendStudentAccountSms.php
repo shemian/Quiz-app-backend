@@ -41,7 +41,7 @@ class SendStudentAccountSms implements ShouldQueue
         $sms = new Sms();
         $sms->external_ref = Str::uuid();
         $sms->recipient = GeneralHelper::phoneNumberToInternational($this->student->guardian->user->phone_number);
-        $sms->text = "You have successfully created an account for " . $this->student->user->name . " Please use below credentials to log in to student account\nUsername: " . $this->student->user->centy_plus_id . "\n" . "Password: " . $this->password;
+        $sms->text = "You have successfully created an account for " . $this->student->user->name . " Please use below credentials to log in to student account\nCenty-Plus-ID: " . $this->student->user->centy_plus_id . "\n" . "PIN: " . $this->password . "\n" . "Login LinK: " . config('app.url') . "/login" . "\n" . "Thank you for using Centy Plus";
         $sms->short_code = config('app.sms.celcom.short_code');
         $sms->save();
 
