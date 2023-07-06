@@ -244,7 +244,7 @@ class StudentController extends Controller
             ->take(10) // Change the number to the desired amount of questions
             ->get();
 
-
+        Log::info($questions);
 
         return view('students.brain_game', compact( 'questions'));
     }
