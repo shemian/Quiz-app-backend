@@ -55,9 +55,10 @@ class LoginController extends Controller
 
     protected function authenticated(Request $request, $user)
     {
-//        if ($user->first_login) {
-//            return redirect()->route('change.password');
-//        }
+        if ($user->first_login) {
+            return redirect()->route('change.password');
+        }
+
         if ($user->role === 'parent') {
             return redirect()->route('parent.dashboard');
         } elseif ($user->role === 'teacher') {
@@ -69,6 +70,26 @@ class LoginController extends Controller
         } else {
             return redirect()->route('home');
         }
+
+    }
+
+    public function showPasswordResetForm()
+    {
+        return view('auth.passwords.reset');
+    }
+
+    public function resetPassword(Request $request)
+    {
+        $request->validate([
+            'password' => 'required', 'digits:4', 'confirmed',
+        ]);
+
+        $user = Auth::user();
+        $user->password = Hash::make($request->password);
+        $user->first_login = false;
+        $user->save();
+
+        return redirect()->route('login')->with('status', 'Password reset successfully! Please Login with new password.');
     }
 
 }

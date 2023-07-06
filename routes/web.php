@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\ExamController;
 use App\Http\Controllers\SubscriptionPlanController;
 use App\Http\Controllers\SubTopicSubStrandController;
@@ -33,6 +34,8 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/password/reset', [LoginController::class, 'showPasswordResetForm'])->name('password.reset');
+Route::post('/password/reset', [LoginController::class, 'resetPassword'])->name('password.update');
 
 
 Route::prefix('/admin')->middleware(['isAdmin'])->group(function(){
