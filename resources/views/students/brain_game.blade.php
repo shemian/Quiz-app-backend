@@ -10,10 +10,8 @@
             <button type="button" id="startQuizButton" class="btn btn-primary">Start Quiz</button>
 
             <div id="questionFormContainer" style="display: none;">
-                <form method="POST">
+                <form method="POST" >
                     @csrf
-
-
                 @foreach ($questions as $key => $question)
                     <div class="card {{ $key > 0 ? 'd-none' : '' }}" id="question{{ $key }}">
                         <div class="card-body">
