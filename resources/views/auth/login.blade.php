@@ -25,8 +25,8 @@
                                         <input id="centy_plus_id" type="text" class="form-control @error('centy_plus_id') is-invalid @enderror" name="centy_plus_id" value="{{ old('centy_plus_id') }}" required autocomplete="centy_plus_id" autofocus>
                                         @error('centy_plus_id')
                                         <span class="invalid-feedback" role="alert">
-                <strong>{{ $message }}</strong>
-            </span>
+                                            <strong>{{ $message }}</strong>
+                                        </span>
                                         @enderror
                                     </div>
                                 </div>
