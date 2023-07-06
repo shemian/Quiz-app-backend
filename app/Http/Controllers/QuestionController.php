@@ -112,10 +112,7 @@ class QuestionController extends Controller
 
     public function getSubjects(Request $request)
     {
-        //$educationLevelId = $request->input('educationLevelId');
-        //$educationLevel = EducationLevel::with('subjects')->find($educationLevelId);
         $subjects = Subject::with('educationLevel', 'educationSystem')->get();
-
         return response()->json(['subjects' => $subjects]);
     }
 
