@@ -63,27 +63,6 @@
                             </div>
 
                             <div class="row mb-3">
-                                <label for="education_system" class="col-md-4 col-form-label text-md-end">Education System</label>
-                                <div class="col-md-6">
-                                    <select id="education_system" name="education_system_id" class="form-control">
-                                        <option value="">Select Education System</option>
-                                        @foreach($education_systems as $education_system)
-                                            <option value="{{ $education_system->id }}">{{ $education_system->name }}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                            </div>
-
-                            <div class="row mb-3">
-                                <label for="education_level" class="col-md-4 col-form-label text-md-end">Education Level</label>
-                                <div class="col-md-6">
-                                    <select id="education_level" name="education_level_id" class="form-control">
-                                        <option value="">Select Education Level</option>
-                                    </select>
-                                </div>
-                            </div>
-
-                            <div class="row mb-3">
                                 <label for="subject" class="col-md-4 col-form-label text-md-end">Subject</label>
                                 <div class="col-md-6">
                                     <select id="subject" name="subject_id" class="form-control">
@@ -289,25 +268,19 @@
         });
     });
 
-    // Populate subjects based on education system and education level selection
-    $('#education_level').on('change', function () {
-        var educationSystemId = $('#education_system').val();
-        var educationLevelId = $(this).val();
-        $.ajax({
-            url: '/teacher/get-subjects',
-            type: 'GET',
-            data: {
-                educationSystemId: educationSystemId,
-                educationLevelId: educationLevelId
-            },
-            success: function (data) {
-                var options = '<option value="">Select Subject</option>';
-                $.each(data.subjects, function (key, subject) {
-                    options += '<option value="' + subject.id + '">' + subject.name + '</option>';
-                });
-                $('#subject').html(options);
-            }
-        });
+    // Populate subjects based on education level selection
+    $.ajax({
+        url: '/teacher/get-subjects',
+        type: 'GET',
+        success: function (data) {
+            console.log(data);
+            var options = '<option value="">Select Subject</option>';
+            $.each(data.subjects, function (key, subject) {
+                options = `<option value="${subject.id}">${subject.name} - </option>`;
+                // options += '<option value="' + subject.id + '">' + subject.name + '</option>';
+            });
+            $('#subject').html(options);
+        }
     });
 
     function deleteStudent(deleteUrl) {
