@@ -7,16 +7,12 @@
         @if ($questions->isEmpty())
             <p>No questions available for this exam.</p>
         @else
-            <div class="card">
-                <div class="card-body">
-                    <h5 class="card-title">Brain Game</h5>
-                    <p class="card-text">Click the button below to start the brain game.</p>
-                    <button type="button" class="btn btn-primary" id="startButton">Start Game</button>
-                </div>
-            </div>
+            <button type="button" id="startQuizButton" class="btn btn-primary">Start Quiz</button>
 
-            <form method="POST" id="gameForm" style="display: none;">
-                @csrf
+            <div id="questionFormContainer" style="display: none;">
+                <form method="POST">
+                    @csrf
+
 
                 @foreach ($questions as $key => $question)
                     <div class="card {{ $key > 0 ? 'd-none' : '' }}" id="question{{ $key }}">
@@ -63,18 +59,17 @@
                     <button type="submit" class="btn btn-primary" id="submitButton">Submit</button>
                 @endif
             </form>
+            </div>
         @endif
     </div>
 
     <script>
-        const startButton = document.getElementById('startButton');
-        const gameForm = document.getElementById('gameForm');
-        const questionElements = document.querySelectorAll('.card:not(:first-child)');
+        const startQuizButton = document.getElementById('startQuizButton');
+        const questionFormContainer = document.getElementById('questionFormContainer');
 
-        startButton.addEventListener('click', () => {
-            startButton.style.display = 'none';
-            gameForm.style.display = 'block';
-            showQuestion(0);
+        startQuizButton.addEventListener('click', () => {
+            startQuizButton.style.display = 'none';
+            questionFormContainer.style.display = 'block';
         });
 
         const questions = {!! json_encode($questions->pluck('id')->toArray()) !!};
@@ -82,6 +77,7 @@
         const previousButton = document.getElementById('previousButton');
         const nextButton = document.getElementById('nextButton');
         const submitButton = document.getElementById('submitButton');
+        const questionElements = document.querySelectorAll('.card');
 
         // Show the appropriate buttons based on the current question index
         function showButtons() {
@@ -90,13 +86,17 @@
             submitButton.style.display = currentQuestion === questions.length - 1 ? 'inline-block' : 'none';
         }
 
+
+
         // Show the current question and update the buttons
         function showQuestion(index) {
             questionElements.forEach((element, i) => {
-                element.classList.add('d-none');
+                if (i === index) {
+                    element.classList.remove('d-none');
+                } else {
+                    element.classList.add('d-none');
+                }
             });
-
-            questionElements[index].classList.remove('d-none');
 
             currentQuestion = index;
             showButtons();
@@ -117,7 +117,7 @@
                 const errorElement = document.createElement('span');
                 errorElement.className = 'text-danger';
                 errorElement.innerText = 'Please select an answer.';
-                const currentCard = questionElements[currentQuestion];
+                const currentCard = document.getElementById(`question${currentQuestion}`);
                 currentCard.appendChild(errorElement);
             }
         });
@@ -129,8 +129,7 @@
         });
 
         // Initialize the first question and buttons
-        showButtons();
-
+        showQuestion(0);
     </script>
 
 @endsection
