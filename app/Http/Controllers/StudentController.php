@@ -235,9 +235,17 @@ class StudentController extends Controller
 
     public function brainGame(Request $request)
     {
+        $user = Auth::user();
+        $student = Student::where('user_id', $user->id)->first();
 
+        // Retrieve the exam and its associated questions
+        $questions = Question::where('education_level_id', $student->educationLevel->id)
+            ->where('education_system_id', $student->educationSystem->id)
+            ->inRandomOrder()
+            ->take(50) // Change the number to the desired amount of questions
+            ->get();
 
-        return view('students.brain_game');
+        return view('students.brain_game', compact( 'questions'));
     }
 
 
