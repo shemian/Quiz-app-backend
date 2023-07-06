@@ -8,9 +8,9 @@
             <p>No questions available for this exam.</p>
         @else
             <div class="col-md-4">
-                <div class="card">
-                    <div class="card-body">
-                        <h5 class="card-title">New Brain Game Challenge</h5>
+                <div class="card"  id="startQuizButton">
+                    <div class="card-body"  id="startQuizButton">
+                        <h5 class="card-title"  id="startQuizButton">New Brain Game Challenge</h5>
                         <button type="button" id="startQuizButton" class="btn btn-primary">Start Quiz</button>
                     </div>
                 </div>
