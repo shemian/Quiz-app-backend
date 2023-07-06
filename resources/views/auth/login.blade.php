@@ -20,13 +20,15 @@
 
                                 <div class="mb-3">
                                     <label for="centy_plus_id" class="form-label">Centy Plus ID or Email</label>
-                                    <input id="centy_plus_id" type="text" class="form-control @error('centy_plus_id') is-invalid @enderror" name="centy_plus_id" value="{{ old('centy_plus_id') }}" required autocomplete="centy_plus_id" autofocus>
-
-                                    @error('centy_plus_id')
-                                    <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                    @enderror
+                                    <div class="input-group">
+                                        <span class="input-group-text">CNT-</span>
+                                        <input id="centy_plus_id" type="text" class="form-control @error('centy_plus_id') is-invalid @enderror" name="centy_plus_id" value="{{ old('centy_plus_id') }}" required autocomplete="centy_plus_id" autofocus>
+                                        @error('centy_plus_id')
+                                        <span class="invalid-feedback" role="alert">
+                <strong>{{ $message }}</strong>
+            </span>
+                                        @enderror
+                                    </div>
                                 </div>
 
                                 <div class="mb-3">
