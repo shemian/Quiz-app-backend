@@ -9,7 +9,6 @@
         @else
             <form method="POST" >
                 @csrf
-                <input type="hidden" name="exam_id" value="{{ $exam->id }}">
 
                 @foreach ($questions as $key => $question)
                     <div class="card {{ $key > 0 ? 'd-none' : '' }}" id="question{{ $key }}">
