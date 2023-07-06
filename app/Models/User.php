@@ -65,7 +65,7 @@ class User extends Authenticatable
             if ($user->role === 'parent') {
                 $user->centy_plus_id = 'CNT' . self::generateParentSequence($user->phone_number) . '-' . $user->phone_number;
             } elseif ($user->role === 'student' || $user->role === 'teacher') {
-                $user->centy_plus_id = '' . self::generateStudentTeacherSequence();
+                $user->centy_plus_id = 'CNT-' . self::generateStudentTeacherSequence();
             }
         });
     }
