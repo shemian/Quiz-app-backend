@@ -7,7 +7,6 @@
         @if ($questions->isEmpty())
             <p>No questions available for this exam.</p>
         @else
-            // wrap this button in  card
             <div class="col-md-4">
                 <div class="card">
                     <div class="card-body">
