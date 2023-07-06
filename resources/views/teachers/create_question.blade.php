@@ -190,10 +190,10 @@
                              <div class="row mb-3">-
                                 <label for="Belongs To Education Level" class="col-md-4 col-form-label text-md-end">{{ __('Belongs To Eduction Level') }}</label>
                                 <div class="col-md-6">
-                                    <select id="belongs_to_education_level" name="topic_id" class="topicq_${questionCount} form-control" >
+                                    <select id="education_level_id"  name="topic_id" class="topicq_${questionCount} form-control" >
                                         ${education_level_options}
                                     </select>
-                                    @error('belongs_to_education_level')
+                                    @error('education_level_id')
                                        <span class="invalid-feedback" role="alert">
                                              <strong>{{ $message }}</strong>
                                        </span>

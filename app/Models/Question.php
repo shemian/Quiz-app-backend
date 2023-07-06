@@ -14,6 +14,7 @@ class Question extends Model
 
     protected $fillable = [
         'exam_id',
+        'education_level_id',
         'sub_topic_sub_strand_id',
         'topic_strand_id',
         'question',
@@ -23,7 +24,6 @@ class Question extends Model
         'option4',
         'answer',
         'image',
-
     ];
 
     public function exam(): BelongsTo
@@ -49,6 +49,11 @@ class Question extends Model
     public function topicStrand(): BelongsTo
     {
         return $this->belongsTo(TopicStrand::class);
+    }
+
+    public function educationLevel(): BelongsTo
+    {
+        return $this->belongsTo(EducationLevel::class);
     }
 
     public function teachers(): BelongsTo

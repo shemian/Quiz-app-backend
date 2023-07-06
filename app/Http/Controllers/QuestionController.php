@@ -40,18 +40,16 @@ class QuestionController extends Controller
         return view('teachers.create_question',compact('subjects',  'education_systems', 'exam'));
     }
 
-
-
-
     /**
      * Store a newly created resource in storage.
      */
-
 
     public function store(Request $request)
     {
         $validatedData = $request->validate([
             'exam_id' => 'required',
+            'education_level_id' => 'required|array',
+            'education_level_id.*' => 'required',
             'subtopic_id' => 'required',
             'topic_id' => 'required',
             'questions' => 'required|array',
@@ -74,6 +72,7 @@ class QuestionController extends Controller
         foreach ($validatedData['questions'] as $index => $question) {
             $newQuestionData = [
                 'exam_id' => $validatedData['exam_id'],
+                'education_level_id' => $validatedData['education_level_id'],
                 'sub_topic_sub_strand_id' => $validatedData['subtopic_id'],
                 'topic_strand_id' => $validatedData['topic_id'],
                 'question' => $question,
