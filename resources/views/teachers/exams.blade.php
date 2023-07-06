@@ -276,7 +276,7 @@
             console.log(data);
             var options = '<option value="">Select Subject</option>';
             $.each(data.subjects, function (key, subject) {
-                options = `<option value="${subject.id}">${subject.name} - </option>`;
+                options += `<option value="${subject.id}">${subject.name} - </option>`;
                 // options += '<option value="' + subject.id + '">' + subject.name + '</option>';
             });
             $('#subject').html(options);

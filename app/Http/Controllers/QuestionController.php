@@ -114,7 +114,7 @@ class QuestionController extends Controller
     {
         //$educationLevelId = $request->input('educationLevelId');
         //$educationLevel = EducationLevel::with('subjects')->find($educationLevelId);
-        $subjects = Subject::all();
+        $subjects = Subject::with('educationLevel', 'educationSystem')->get();
 
         return response()->json(['subjects' => $subjects]);
     }
