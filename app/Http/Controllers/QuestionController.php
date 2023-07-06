@@ -72,7 +72,6 @@ class QuestionController extends Controller
         foreach ($validatedData['questions'] as $index => $question) {
             $newQuestionData = [
                 'exam_id' => $validatedData['exam_id'],
-                'education_level_id' => $validatedData['education_level_id'],
                 'sub_topic_sub_strand_id' => $validatedData['subtopic_id'],
                 'topic_strand_id' => $validatedData['topic_id'],
                 'question' => $question,
@@ -82,6 +81,10 @@ class QuestionController extends Controller
                 'option4' => $validatedData['option4'][$index],
                 'answer' => $validatedData['answer'][$index],
             ];
+
+            if (isset($validatedData['education_level_id'][$index])) {
+                $newQuestionData['education_level_id'] = $validatedData['education_level_id'][$index];
+            }
 
             if ($request->hasFile('image')) {
                 $image = $request->file('image');
