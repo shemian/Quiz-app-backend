@@ -7,13 +7,7 @@
         @if ($questions->isEmpty())
             <p>No questions available for this exam.</p>
         @else
-            <div class="card">
-                <div class="card-body">
-                    <h5 class="card-title">Start Quiz</h5>
-                    <p class="card-text">Click the button below to start the quiz.</p>
-                    <button type="button" id="startQuizButton" class="btn btn-primary">Start Quiz</button>
-                </div>
-            </div>
+            <button type="button" id="startQuizButton" class="btn btn-primary">Start Quiz</button>
 
             <div id="questionFormContainer" style="display: none;">
                 <form method="POST">
