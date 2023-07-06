@@ -69,10 +69,12 @@
     <script>
         const startButton = document.getElementById('startButton');
         const gameForm = document.getElementById('gameForm');
+        const questionElements = document.querySelectorAll('.card:not(:first-child)');
 
         startButton.addEventListener('click', () => {
             startButton.style.display = 'none';
             gameForm.style.display = 'block';
+            showQuestion(0);
         });
 
         const questions = {!! json_encode($questions->pluck('id')->toArray()) !!};
@@ -80,7 +82,6 @@
         const previousButton = document.getElementById('previousButton');
         const nextButton = document.getElementById('nextButton');
         const submitButton = document.getElementById('submitButton');
-        const questionElements = document.querySelectorAll('.card');
 
         // Show the appropriate buttons based on the current question index
         function showButtons() {
@@ -92,12 +93,10 @@
         // Show the current question and update the buttons
         function showQuestion(index) {
             questionElements.forEach((element, i) => {
-                if (i === index) {
-                    element.classList.remove('d-none');
-                } else {
-                    element.classList.add('d-none');
-                }
+                element.classList.add('d-none');
             });
+
+            questionElements[index].classList.remove('d-none');
 
             currentQuestion = index;
             showButtons();
@@ -118,7 +117,7 @@
                 const errorElement = document.createElement('span');
                 errorElement.className = 'text-danger';
                 errorElement.innerText = 'Please select an answer.';
-                const currentCard = document.getElementById(`question${currentQuestion}`);
+                const currentCard = questionElements[currentQuestion];
                 currentCard.appendChild(errorElement);
             }
         });
@@ -130,7 +129,8 @@
         });
 
         // Initialize the first question and buttons
-        showQuestion(0);
+        showButtons();
+
     </script>
 
 @endsection
