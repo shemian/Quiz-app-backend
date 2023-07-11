@@ -108,7 +108,6 @@ class StudentController extends Controller
 
         return view('students.display_questions', compact('exam', 'questions'));
     }
-
     public function submitAnswers(Request $request, $examId)
     {
         $answers = $request->input('answer');
@@ -137,13 +136,17 @@ class StudentController extends Controller
             }
 
             $correctAnswer = $question->answer;
-//            $totalMarks += $question->marks;
 
             if ($correctAnswer === $selectedAnswer) {
                 $resultDetails[$questionId] = 'correct';
             } else {
                 $resultDetails[$questionId] = 'incorrect';
             }
+
+            // Add the selected answer to the result details
+            $resultDetails[$questionId]['selectedAnswer'] = $selectedAnswer;
+
+            $totalMarks += $question->marks;
         }
 
         $correctQuestionCount = count(array_filter($resultDetails, fn($value) => $value === 'correct'));
@@ -232,6 +235,7 @@ class StudentController extends Controller
 
         return view('students.view_result', compact('result', 'exam', 'answersDetails'));
     }
+
 
     public function brainGame(Request $request)
     {
