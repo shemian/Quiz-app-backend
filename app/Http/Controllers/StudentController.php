@@ -97,8 +97,10 @@ class StudentController extends Controller
         $result = Result::where('student_id', $student->id)->where('exam_id', $examId)->first();
 
         if ($result) {
-            // Redirect to the view_result route with the result ID parameter
-            return redirect()->route('students.view_results', ['result' => $result]);
+            // Retrieve the result details from the result object
+            $resultDetails = json_decode($result->result_json, true);
+        } else {
+            $resultDetails = [];
         }
 
         $exam = Exam::findOrFail($examId);
@@ -106,8 +108,9 @@ class StudentController extends Controller
         Log::info($questions);
         // Add any additional logic to retrieve the subtopic for the exam
 
-        return view('students.display_questions', compact('exam', 'questions'));
+        return view('students.display_questions', compact('exam', 'questions', 'resultDetails'));
     }
+
     public function submitAnswers(Request $request, $examId)
     {
         $answers = $request->input('answer');
