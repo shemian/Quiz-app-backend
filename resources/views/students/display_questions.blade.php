@@ -21,27 +21,29 @@
                             <p class="card-text">{{ $question->question }}</p>
 
                             <div class="form-check">
-                                <input class="form-check-input" type="radio" name="answer[{{ $question->id }}]" id="option1_{{ $question->id }}" value="option1">
-                                <label class="form-check-label" for="option1_{{ $question->id }}">{{ $question->option1 }}</label>
+                                <input class="form-check-input" type="radio" name="answer[{{ $question->id }}]" id="option1_{{ $question->id }}" value="option1" {{ old('answer.'.$question->id) === 'option1' ? 'checked' : '' }}>
+                                <label class="form-check-label {{ $resultDetails[$question->id]['selectedAnswer'] === 'option1' ? ($resultDetails[$question->id] === 'correct' ? 'text-success' : 'text-danger') : '' }}" for="option1_{{ $question->id }}">{{ $question->option1 }}</label>
                             </div>
 
                             <div class="form-check">
-                                <input class="form-check-input" type="radio" name="answer[{{ $question->id }}]" id="option2_{{ $question->id }}" value="option2">
-                                <label class="form-check-label" for="option2_{{ $question->id }}">{{ $question->option2 }}</label>
+                                <input class="form-check-input" type="radio" name="answer[{{ $question->id }}]" id="option2_{{ $question->id }}" value="option2" {{ old('answer.'.$question->id) === 'option2' ? 'checked' : '' }}>
+                                <label class="form-check-label {{ $resultDetails[$question->id]['selectedAnswer'] === 'option2' ? ($resultDetails[$question->id] === 'correct' ? 'text-success' : 'text-danger') : '' }}" for="option2_{{ $question->id }}">{{ $question->option2 }}</label>
                             </div>
 
                             <div class="form-check">
-                                <input class="form-check-input" type="radio" name="answer[{{ $question->id }}]" id="option3_{{ $question->id }}" value="option3">
-                                <label class="form-check-label" for="option3_{{ $question->id }}">{{ $question->option3 }}</label>
+                                <input class="form-check-input" type="radio" name="answer[{{ $question->id }}]" id="option3_{{ $question->id }}" value="option3" {{ old('answer.'.$question->id) === 'option3' ? 'checked' : '' }}>
+                                <label class="form-check-label {{ $resultDetails[$question->id]['selectedAnswer'] === 'option3' ? ($resultDetails[$question->id] === 'correct' ? 'text-success' : 'text-danger') : '' }}" for="option3_{{ $question->id }}">{{ $question->option3 }}</label>
                             </div>
 
                             <div class="form-check">
-                                <input class="form-check-input" type="radio" name="answer[{{ $question->id }}]" id="option4_{{ $question->id }}" value="option4">
-                                <label class="form-check-label" for="option4_{{ $question->id }}">{{ $question->option4 }}</label>
+                                <input class="form-check-input" type="radio" name="answer[{{ $question->id }}]" id="option4_{{ $question->id }}" value="option4" {{ old('answer.'.$question->id) === 'option4' ? 'checked' : '' }}>
+                                <label class="form-check-label {{ $resultDetails[$question->id]['selectedAnswer'] === 'option4' ? ($resultDetails[$question->id] === 'correct' ? 'text-success' : 'text-danger') : '' }}" for="option4_{{ $question->id }}">{{ $question->option4 }}</label>
                             </div>
 
-                            @if ($errors->has('answer.'.$question->id))
-                                <span class="text-danger">{{ $errors->first('answer.'.$question->id) }}</span>
+                            @if ($resultDetails[$question->id] === 'incorrect')
+                                <div class="text-danger">
+                                    <small>Incorrect. The correct answer is: {{ $question->answer }}</small>
+                                </div>
                             @endif
                         </div>
                     </div>
@@ -61,6 +63,7 @@
 
     <script>
         const questions = {!! json_encode($questions->pluck('id')->toArray()) !!};
+        const resultDetails = {!! json_encode($resultDetails) !!};
         let currentQuestion = 0;
         const previousButton = document.getElementById('previousButton');
         const nextButton = document.getElementById('nextButton');
@@ -73,8 +76,6 @@
             nextButton.style.display = currentQuestion < questions.length - 1 ? 'inline-block' : 'none';
             submitButton.style.display = currentQuestion === questions.length - 1 ? 'inline-block' : 'none';
         }
-
-
 
         // Show the current question and update the buttons
         function showQuestion(index) {
