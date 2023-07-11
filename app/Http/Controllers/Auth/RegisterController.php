@@ -55,6 +55,7 @@ class RegisterController extends Controller
 
     protected function registered(Request $request, $user)
     {
+
         if ($user->role === 'parent') {
             return redirect()->route('parent.dashboard');
         } elseif ($user->role === 'teacher') {

@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Support\Facades\Hash;
 
 class LoginController extends Controller
 {
@@ -55,20 +56,20 @@ class LoginController extends Controller
 
     protected function authenticated(Request $request, $user)
     {
-        if ($user->first_login) {
-            return redirect()->route('change.password');
-        }
-
-        if ($user->role === 'parent') {
-            return redirect()->route('parent.dashboard');
-        } elseif ($user->role === 'teacher') {
-            return redirect()->route('teacher.dashboard');
-        } elseif ($user->role === 'admin') {
-            return redirect()->route('admin.dashboard');
-        } elseif ($user->role === 'student') {
-            return redirect()->route('student.dashboard');
+        if ($user->first_login === true) {
+            return redirect()->route('password.reset');
         } else {
-            return redirect()->route('home');
+            if ($user->role === 'parent') {
+                return redirect()->route('parent.dashboard');
+            } elseif ($user->role === 'teacher') {
+                return redirect()->route('teacher.dashboard');
+            } elseif ($user->role === 'admin') {
+                return redirect()->route('admin.dashboard');
+            } elseif ($user->role === 'student') {
+                return redirect()->route('student.dashboard');
+            } else {
+                return redirect()->route('home');
+            }
         }
 
     }
@@ -81,7 +82,7 @@ class LoginController extends Controller
     public function resetPassword(Request $request)
     {
         $request->validate([
-            'password' => 'required', 'digits:4', 'confirmed',
+            'password' => ['required', 'digits:4', 'confirmed'],
         ]);
 
         $user = Auth::user();
