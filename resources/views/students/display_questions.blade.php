@@ -22,25 +22,25 @@
 
                             <div class="form-check">
                                 <input class="form-check-input" type="radio" name="answer[{{ $question->id }}]" id="option1_{{ $question->id }}" value="option1" {{ old('answer.'.$question->id) === 'option1' ? 'checked' : '' }}>
-                                <label class="form-check-label {{ $resultDetails[$question->id]['selectedAnswer'] === 'option1' ? ($resultDetails[$question->id] === 'correct' ? 'text-success' : 'text-danger') : '' }}" for="option1_{{ $question->id }}">{{ $question->option1 }}</label>
+                                <label class="form-check-label {{ isset($resultDetails[$question->id]['selectedAnswer']) && $resultDetails[$question->id]['selectedAnswer'] === 'option1' ? ($resultDetails[$question->id] === 'correct' ? 'text-success' : 'text-danger') : '' }}" for="option1_{{ $question->id }}">{{ $question->option1 }}</label>
                             </div>
 
                             <div class="form-check">
                                 <input class="form-check-input" type="radio" name="answer[{{ $question->id }}]" id="option2_{{ $question->id }}" value="option2" {{ old('answer.'.$question->id) === 'option2' ? 'checked' : '' }}>
-                                <label class="form-check-label {{ $resultDetails[$question->id]['selectedAnswer'] === 'option2' ? ($resultDetails[$question->id] === 'correct' ? 'text-success' : 'text-danger') : '' }}" for="option2_{{ $question->id }}">{{ $question->option2 }}</label>
+                                <label class="form-check-label {{ isset($resultDetails[$question->id]['selectedAnswer']) && $resultDetails[$question->id]['selectedAnswer'] === 'option2' ? ($resultDetails[$question->id] === 'correct' ? 'text-success' : 'text-danger') : '' }}" for="option2_{{ $question->id }}">{{ $question->option2 }}</label>
                             </div>
 
                             <div class="form-check">
                                 <input class="form-check-input" type="radio" name="answer[{{ $question->id }}]" id="option3_{{ $question->id }}" value="option3" {{ old('answer.'.$question->id) === 'option3' ? 'checked' : '' }}>
-                                <label class="form-check-label {{ $resultDetails[$question->id]['selectedAnswer'] === 'option3' ? ($resultDetails[$question->id] === 'correct' ? 'text-success' : 'text-danger') : '' }}" for="option3_{{ $question->id }}">{{ $question->option3 }}</label>
+                                <label class="form-check-label {{ isset($resultDetails[$question->id]['selectedAnswer']) && $resultDetails[$question->id]['selectedAnswer'] === 'option3' ? ($resultDetails[$question->id] === 'correct' ? 'text-success' : 'text-danger') : '' }}" for="option3_{{ $question->id }}">{{ $question->option3 }}</label>
                             </div>
 
                             <div class="form-check">
                                 <input class="form-check-input" type="radio" name="answer[{{ $question->id }}]" id="option4_{{ $question->id }}" value="option4" {{ old('answer.'.$question->id) === 'option4' ? 'checked' : '' }}>
-                                <label class="form-check-label {{ $resultDetails[$question->id]['selectedAnswer'] === 'option4' ? ($resultDetails[$question->id] === 'correct' ? 'text-success' : 'text-danger') : '' }}" for="option4_{{ $question->id }}">{{ $question->option4 }}</label>
+                                <label class="form-check-label {{ isset($resultDetails[$question->id]['selectedAnswer']) && $resultDetails[$question->id]['selectedAnswer'] === 'option4' ? ($resultDetails[$question->id] === 'correct' ? 'text-success' : 'text-danger') : '' }}" for="option4_{{ $question->id }}">{{ $question->option4 }}</label>
                             </div>
 
-                            @if ($resultDetails[$question->id] === 'incorrect')
+                            @if (isset($resultDetails[$question->id]) && $resultDetails[$question->id] === 'incorrect')
                                 <div class="text-danger">
                                     <small>Incorrect. The correct answer is: {{ $question->answer }}</small>
                                 </div>
