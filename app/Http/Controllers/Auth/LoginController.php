@@ -2,8 +2,6 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\Jobs\SendOtpOnLogin;
-use App\Models\Student;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
@@ -56,25 +54,19 @@ class LoginController extends Controller
             ->withErrors($errors);
     }
 
-    protected function authenticated(Request $request, $user, $studentId)
+    protected function authenticated(Request $request, $user)
     {
         if ($user->first_login === true) {
             return redirect()->route('password.reset');
         } else {
 
-
-
             if ($user->role === 'parent') {
-                $student = Student::find($studentId);
-                SendOtpOnLogin::dispatch($student);
                 return redirect()->route('parent.dashboard');
             } elseif ($user->role === 'teacher') {
                 return redirect()->route('teacher.dashboard');
             } elseif ($user->role === 'admin') {
                 return redirect()->route('admin.dashboard');
             } elseif ($user->role === 'student') {
-                $student = Student::find($studentId);
-                SendOtpOnLogin::dispatch($student);
                 return redirect()->route('student.dashboard');
             } else {
                 return redirect()->route('home');
