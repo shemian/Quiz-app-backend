@@ -28,6 +28,7 @@ class SendOtpOnLogin implements ShouldQueue
     public function __construct(Student $student )
     {
         $this->student = $student;
+        $this->otp = $this->generateOTP();
     }
 
     /**
@@ -37,8 +38,6 @@ class SendOtpOnLogin implements ShouldQueue
     {
         Log::info('Executing OTP job for ' . $this->student->user->name);
 
-        // Generate OTP
-        $otp = $this->generateOTP();
 
         // Send OTP via SMS to the parent
         $parentPhoneNumber = $this->student->guardian->user->phone_number;
@@ -90,7 +89,7 @@ class SendOtpOnLogin implements ShouldQueue
      */
     private function getParentSmsContent(string $otp): string
     {
-        return "Your OTP for logging in to your parent account: " . $otp . ". Thank you for using Centy Plus";
+        Log::info( "Your OTP for logging in to your parent account: " . $otp . ". Thank you for using Centy Plus");
     }
 
 
