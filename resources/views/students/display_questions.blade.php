@@ -21,23 +21,59 @@
                             <p class="card-text">{{ $question->question }}</p>
 
                             <div class="form-check">
-                                <input class="form-check-input" type="radio" name="answer[{{ $question->id }}]" id="option1_{{ $question->id }}" value="option1">
-                                <label class="form-check-label" for="option1_{{ $question->id }}">{{ $question->option1 }}</label>
+                                <input class="form-check-input {{ $question->isCorrect('option1') ? 'correct-answer' : '' }}" type="radio" name="answer[{{ $question->id }}]" id="option1_{{ $question->id }}" value="option1">
+                                <label class="form-check-label {{ $question->isSelected('option1') ? ($question->isCorrect('option1') ? 'selected-correct-answer' : 'selected-incorrect-answer') : '' }}" for="option1_{{ $question->id }}">
+                                    {{ $question->option1 }}
+                                    @if ($question->isSelected('option1'))
+                                        @if ($question->isCorrect('option1'))
+                                            <i class="fas fa-check"></i> <!-- Replace with the appropriate tick icon -->
+                                        @else
+                                            <i class="fas fa-times"></i> <!-- Replace with the appropriate cross icon -->
+                                        @endif
+                                    @endif
+                                </label>
                             </div>
 
                             <div class="form-check">
-                                <input class="form-check-input" type="radio" name="answer[{{ $question->id }}]" id="option2_{{ $question->id }}" value="option2">
-                                <label class="form-check-label" for="option2_{{ $question->id }}">{{ $question->option2 }}</label>
+                                <input class="form-check-input {{ $question->isCorrect('option2') ? 'correct-answer' : '' }}" type="radio" name="answer[{{ $question->id }}]" id="option2_{{ $question->id }}" value="option2">
+                                <label class="form-check-label {{ $question->isSelected('option2') ? ($question->isCorrect('option2') ? 'selected-correct-answer' : 'selected-incorrect-answer') : '' }}" for="option2_{{ $question->id }}">
+                                    {{ $question->option2 }}
+                                    @if ($question->isSelected('option2'))
+                                        @if ($question->isCorrect('option2'))
+                                            <i class="fas fa-check"></i> <!-- Replace with the appropriate tick icon -->
+                                        @else
+                                            <i class="fas fa-times"></i> <!-- Replace with the appropriate cross icon -->
+                                        @endif
+                                    @endif
+                                </label>
                             </div>
 
                             <div class="form-check">
-                                <input class="form-check-input" type="radio" name="answer[{{ $question->id }}]" id="option3_{{ $question->id }}" value="option3">
-                                <label class="form-check-label" for="option3_{{ $question->id }}">{{ $question->option3 }}</label>
+                                <input class="form-check-input {{ $question->isCorrect('option3') ? 'correct-answer' : '' }}" type="radio" name="answer[{{ $question->id }}]" id="option3_{{ $question->id }}" value="option3">
+                                <label class="form-check-label {{ $question->isSelected('option3') ? ($question->isCorrect('option3') ? 'selected-correct-answer' : 'selected-incorrect-answer') : '' }}" for="option3_{{ $question->id }}">
+                                    {{ $question->option3 }}
+                                    @if ($question->isSelected('option3'))
+                                        @if ($question->isCorrect('option3'))
+                                            <i class="fas fa-check"></i> <!-- Replace with the appropriate tick icon -->
+                                        @else
+                                            <i class="fas fa-times"></i> <!-- Replace with the appropriate cross icon -->
+                                        @endif
+                                    @endif
+                                </label>
                             </div>
 
                             <div class="form-check">
-                                <input class="form-check-input" type="radio" name="answer[{{ $question->id }}]" id="option4_{{ $question->id }}" value="option4">
-                                <label class="form-check-label" for="option4_{{ $question->id }}">{{ $question->option4 }}</label>
+                                <input class="form-check-input {{ $question->isCorrect('option4') ? 'correct-answer' : '' }}" type="radio" name="answer[{{ $question->id }}]" id="option4_{{ $question->id }}" value="option4">
+                                <label class="form-check-label {{ $question->isSelected('option4') ? ($question->isCorrect('option4') ? 'selected-correct-answer' : 'selected-incorrect-answer') : '' }}" for="option4_{{ $question->id }}">
+                                    {{ $question->option4 }}
+                                    @if ($question->isSelected('option4'))
+                                        @if ($question->isCorrect('option4'))
+                                            <i class="fas fa-check"></i> <!-- Replace with the appropriate tick icon -->
+                                        @else
+                                            <i class="fas fa-times"></i> <!-- Replace with the appropriate cross icon -->
+                                        @endif
+                                    @endif
+                                </label>
                             </div>
 
                             @if ($errors->has('answer.'.$question->id))
@@ -73,8 +109,6 @@
             nextButton.style.display = currentQuestion < questions.length - 1 ? 'inline-block' : 'none';
             submitButton.style.display = currentQuestion === questions.length - 1 ? 'inline-block' : 'none';
         }
-
-
 
         // Show the current question and update the buttons
         function showQuestion(index) {
@@ -119,5 +153,26 @@
         // Initialize the first question and buttons
         showQuestion(0);
     </script>
+@endsection
 
+@section('styles')
+    <style>
+        .correct-answer {
+            /* Style for correct answers */
+            color: green;
+            /* Add any additional styling you desire */
+        }
+
+        .selected-correct-answer {
+            /* Style for selected correct answers */
+            color: green;
+            /* Add any additional styling you desire */
+        }
+
+        .selected-incorrect-answer {
+            /* Style for selected incorrect answers */
+            color: red;
+            /* Add any additional styling you desire */
+        }
+    </style>
 @endsection
