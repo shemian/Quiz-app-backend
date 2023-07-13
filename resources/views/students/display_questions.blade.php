@@ -69,8 +69,7 @@
                 <!-- Here I've inserted Score Result from JavaScript -->
             </div>
             <div class="buttons">
-                <button class="restart">Replay Quiz</button>
-                <button class="quit">Quit Quiz</button>
+                <button class="quit">Exit </button>
             </div>
         </div>
 
