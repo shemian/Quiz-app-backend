@@ -7,6 +7,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta content="A fully featured admin theme which can be used to build CRM, CMS, etc." name="description">
         <meta content="Coderthemes" name="author">
+        <meta name="csrf-token" content="{{ csrf_token() }}">
 
         <link rel="stylesheet" href="{{ asset('assets/css/vendor/dataTables.bootstrap5.css') }}" type="text/css">
         <link rel="stylesheet" href="{{ asset('assets/css/vendor/responsive.bootstrap5.css') }}" type="text/css">
@@ -86,6 +87,10 @@
         <script src="{{ asset('assets/js/vendor/dataTables.keyTable.min.js') }}"></script>
         <script src="{{ asset('assets/js/vendor/dataTables.select.min.js') }}"></script>
         <script src="{{ asset('assets/js/pages/demo.datatable-init.js') }}"></script>
+
+
+
+
 
         @yield('scripts')
 

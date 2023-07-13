@@ -75,12 +75,28 @@ class QuestionController extends Controller
                 'sub_topic_sub_strand_id' => $validatedData['subtopic_id'],
                 'topic_strand_id' => $validatedData['topic_id'],
                 'question' => $question,
-                'option1' => $validatedData['option1'][$index],
-                'option2' => $validatedData['option2'][$index],
-                'option3' => $validatedData['option3'][$index],
-                'option4' => $validatedData['option4'][$index],
-                'answer' => $validatedData['answer'][$index],
+                'option1' => $request->input('option1')[$index],
+                'option2' => $request->input('option2')[$index],
+                'option3' => $request->input('option3')[$index],
+                'option4' => $request->input('option4')[$index],
             ];
+
+            // Set the answer based on the selected option
+            $answer = $request->input('answer')[$index];
+            switch ($answer) {
+                case 'option1':
+                    $newQuestionData['answer'] = $request->input('option1')[$index];
+                    break;
+                case 'option2':
+                    $newQuestionData['answer'] = $request->input('option2')[$index];
+                    break;
+                case 'option3':
+                    $newQuestionData['answer'] = $request->input('option3')[$index];
+                    break;
+                case 'option4':
+                    $newQuestionData['answer'] = $request->input('option4')[$index];
+                    break;
+            }
 
             if (isset($validatedData['education_level_id'][$index])) {
                 $newQuestionData['education_level_id'] = $validatedData['education_level_id'][$index];

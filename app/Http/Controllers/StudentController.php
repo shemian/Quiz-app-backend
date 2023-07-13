@@ -46,27 +46,6 @@ class StudentController extends Controller
         return view('students.dashboard', compact('centy_balance', 'account_balance', 'centiisObtained', 'questions_count', 'exams_count', 'exams', 'results'));
     }
 
-    public function getExams()
-    {
-        $user = Auth::user();
-        $student = Student::where('user_id', $user->id)->first();
-
-        //check if status is active and display the exam
-        if ($student->account_status === AccountStatus::ACTIVE && isset($student->active_subscription) ) {
-            $exams = Exam::with(['subject.educationLevel', 'subject.educationSystem'])
-                ->whereHas('subject', function ($query) use ($student) {
-                    $query->where('education_level_id', $student->educationLevel->id)
-                        ->where('education_system_id', $student->educationSystem->id);
-                })
-                ->select('id', 'name', 'subject_id', 'created_at')
-                ->get();
-            return view('students.get_exams', compact('exams'));
-        } else {
-            return redirect()->back()->with('error', 'Your account is not active. Please contact the administrator.');
-        }
-
-    }
-
     public function getSubjects()
     {
         $user = Auth::user();
@@ -78,6 +57,27 @@ class StudentController extends Controller
             ->select('id', 'name', 'education_level_id', 'education_system_id', 'created_at')
             ->get();
         return view('students.get_subjects', compact('subjects'));
+    }
+
+    public function getExams()
+    {
+        $user = Auth::user();
+        $student = Student::where('user_id', $user->id)->first();
+
+        //check if status is active and display the exam
+        if ($student->account_status === AccountStatus::ACTIVE && isset($student->active_subscription) ) {
+        $exams = Exam::with(['subject.educationLevel', 'subject.educationSystem'])
+            ->whereHas('subject', function ($query) use ($student) {
+                $query->where('education_level_id', $student->educationLevel->id)
+                    ->where('education_system_id', $student->educationSystem->id);
+            })
+            ->select('id', 'name', 'subject_id', 'created_at')
+            ->get();
+        return view('students.get_exams', compact('exams'));
+        } else {
+            return redirect()->back()->with('error', 'Your account is not active. Please contact the administrator.');
+        }
+
     }
 
     public function showQuestions($examId)
@@ -103,15 +103,31 @@ class StudentController extends Controller
 
         $exam = Exam::findOrFail($examId);
         $questions = $exam->questions;
-        Log::info($questions);
-        // Add any additional logic to retrieve the subtopic for the exam
 
-        return view('students.display_questions', compact('exam', 'questions'));
+        $formatedQuestions = [];
+
+        foreach ($questions as $key => $question) {
+            $question = [
+                'numb' => $key + 1,
+                'question' => $question['question'],
+                'answer' => $question['answer'],
+                'options' => [
+                    $question['option1'],
+                    $question['option2'],
+                    $question['option3'],
+                    $question['option4']
+                ]
+            ];
+
+            $formatedQuestions[] = $question;
+        }
+        Log::info($formatedQuestions);
+        return view('students.display_questions', compact('exam', 'formatedQuestions', 'questions', 'student'));
     }
 
     public function submitAnswers(Request $request, $examId)
     {
-        $answers = $request->input('answer');
+        $answers = $request->input('result_json');
         $exam = Exam::findOrFail($examId);
 
         // Retrieve the authenticated user
@@ -128,29 +144,30 @@ class StudentController extends Controller
         $totalMarks = 0;
         $resultDetails = [];
 
-        foreach ($answers as $questionId => $selectedAnswer) {
-            $question = Question::find($questionId);
+//        foreach ($answers as $questionId => $selectedAnswer) {
+//            $question = Question::find($questionId);
+//
+//            if (!$question || $question->exam_id !== $exam->id) {
+//                // Handle the case where the question does not exist or does not belong to the exam
+//                continue;
+//            }
+//
+//            $correctAnswer = $question->answer;
+////            $totalMarks += $question->marks;
+//
+//            if ($correctAnswer === $selectedAnswer) {
+//                $resultDetails[$questionId] = 'correct';
+//            } else {
+//                $resultDetails[$questionId] = 'incorrect';
+//            }
+//        }
 
-            if (!$question || $question->exam_id !== $exam->id) {
-                // Handle the case where the question does not exist or does not belong to the exam
-                continue;
-            }
-
-            $correctAnswer = $question->answer;
-//            $totalMarks += $question->marks;
-
-            if ($correctAnswer === $selectedAnswer) {
-                $resultDetails[$questionId] = 'correct';
-            } else {
-                $resultDetails[$questionId] = 'incorrect';
-            }
-        }
-
-        $correctQuestionCount = count(array_filter($resultDetails, fn($value) => $value === 'correct'));
-        $incorrectQuestionCount = count(array_filter($resultDetails, fn($value) => $value === 'incorrect'));
+        $correctQuestionCount = intval($request->input('yes_ans')) ;
+        $incorrectQuestionCount = intval($request->input('no_ans'));
 
         // Accumulate the total marks
         $totalMarks = $correctQuestionCount + $incorrectQuestionCount;
+        $marksObtained = $totalMarks > 0 ? ($correctQuestionCount / $totalMarks) * 100 : 0;
 
         $result = Result::create([
             'student_id' => $student->id,
@@ -159,9 +176,9 @@ class StudentController extends Controller
             'yes_ans' => $correctQuestionCount, // Count the number of correct answers
             'no_ans' => $incorrectQuestionCount, // Count the number of incorrect answers
             'result_json' => json_encode($resultDetails),
-            'marks_obtained' => ($correctQuestionCount / $totalMarks) * 100, // Store the marks obtained
-            'total_marks' => $totalMarks, // Store the total marks
+            'marks_obtained' => $marksObtained, // Store the marks obtained
         ]);
+
         $result->save();
 
         if (!$result->isDirty()) {
@@ -169,6 +186,7 @@ class StudentController extends Controller
                 "id" => $student->active_subscription,
                 "student_id" => $student->id,
             ])->first();
+
             Log::info("Active plan: " . $studentSubPlan->subscription_plan_id);
 
             $subscriptionPlan = $studentSubPlan->subscriptionPlan;
