@@ -36,6 +36,8 @@ Auth::routes();
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::get('/password/reset', [LoginController::class, 'showPasswordResetForm'])->name('password.reset');
 Route::post('/password/reset', [LoginController::class, 'resetPassword'])->name('password.update');
+Route::get('/auth/otp/enter', [LoginController::class, 'enterOTP'])->middleware('auth')->name('otp.enter');
+Route::post('/auth/otp/validate', [LoginController::class, 'validateOTP'])->middleware('auth')->name('otp.validate');
 
 
 Route::prefix('/admin')->middleware(['isAdmin'])->group(function(){
@@ -63,9 +65,6 @@ Route::prefix('/admin')->middleware(['isAdmin'])->group(function(){
 
     // Subscriptions Plan Routes
     Route::resource('subscriptions', SubscriptionPlanController::class);
-
-
-
 });
 
 Route::prefix('parent')->middleware(['isParent'])->group(function(){
@@ -119,15 +118,4 @@ Route::prefix('student')->middleware(['auth', 'isStudent'])->group(function(){
     Route::get('/questions/{exam}', [StudentController::class, 'showQuestions'])->name('show_questions');
     Route::post('/questions/{exam}', [StudentController::class, 'submitAnswers'])->name('questions.submit');
     Route::get('/view_result/{result}', [StudentController::class, 'viewResult'])->name('students.view_results');
-
-
 });
-
-
-Auth::routes();
-
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-
-Auth::routes();
-
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

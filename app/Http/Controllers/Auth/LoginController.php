@@ -6,10 +6,13 @@ use App\Jobs\SendOtpOnLogin;
 use App\Models\Student;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use App\Http\Controllers\Controller;
+ use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Support\Facades\Hash;
+use App\Enums\CentyOtpVerified;
+use App\Jobs\SendUserOtp;
+use App\Models\User;
 
 class LoginController extends Controller
 {
@@ -58,12 +61,28 @@ class LoginController extends Controller
 
     protected function authenticated(Request $request, $user, $studentId)
     {
-        if ($user->first_login === true) {
-            return redirect()->route('password.reset');
+        if ($user->first_login) {
+            return redirect()->route('change.password');
+        }
+        if ($user->centy_plus_otp_verified->value == CentyOtpVerified::INACTIVE || $user->centy_plus_otp_verified->value === CentyOtpVerified::SENT){
+            $user = User::find($user->id);
+            $user->centy_plus_otp = rand(1000, 9999);
+            $user->save();
+
+            // Send OTP to users phone number
+            dispatch(new SendUserOtp($user));
+
+            // Redirect user to verify otp view             
+            return redirect()->route('otp.enter');
+        } elseif ($user->role === 'parent') {
+            return redirect()->route('parent.dashboard');
+        } elseif ($user->role === 'teacher') {
+            return redirect()->route('teacher.dashboard');
+        } elseif ($user->role === 'admin') {
+            return redirect()->route('admin.dashboard');
+        } elseif ($user->role === 'student') {
+            return redirect()->route('student.dashboard');
         } else {
-
-
-
             if ($user->role === 'parent') {
                 $student = Student::find($studentId);
                 SendOtpOnLogin::dispatch($student);
@@ -100,6 +119,35 @@ class LoginController extends Controller
         $user->save();
 
         return redirect()->route('login')->with('status', 'Password reset successfully! Please Login with new password.');
+    }
+
+    public function enterOTP()
+    {
+        return view('auth.otp');
+    }
+
+    public function validateOTP(Request $request)
+    {
+        $request->validate([
+            'centy_plus_otp' => 'required', 'digits:4', 'confirmed',
+        ]);
+
+        $user = Auth::user();
+        
+        if ($user->centy_plus_otp === $request->centy_plus_otp){
+            $user->centy_plus_otp = null;
+            $user->centy_plus_otp_status = CentyOtpVerified::VERIFIED;
+            $user->centy_plus_otp_verified_at = Carbon::now();
+            $user->save();
+
+            return redirect()->route('login')->with('status', 'Login Successful!!');
+        } else {
+            $user->centy_plus_otp = null;
+            $user->centy_plus_otp_status = CentyOtpVerified::INACTIVE;
+            $user->save();
+
+            return redirect()->route('login')->with('status', 'Login again to get new OTP!.');
+        }
     }
 
 }
