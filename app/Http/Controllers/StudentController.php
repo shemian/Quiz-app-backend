@@ -127,7 +127,12 @@ class StudentController extends Controller
 
     public function submitAnswers(Request $request, $examId)
     {
-        $answers = $request->input('result_json');
+        $request->validate([
+            'yes_ans' => 'required',
+            'no_ans' => 'required',
+            'result_json' => 'required'
+        ]);
+
         $exam = Exam::findOrFail($examId);
 
         // Retrieve the authenticated user
@@ -175,7 +180,7 @@ class StudentController extends Controller
             'subject_id' => $exam->subject_id,
             'yes_ans' => $correctQuestionCount, // Count the number of correct answers
             'no_ans' => $incorrectQuestionCount, // Count the number of incorrect answers
-            'result_json' => json_encode($resultDetails),
+            'result_json' => json_encode($request->input('result_json')), // Store the answers in JSON format
             'marks_obtained' => $marksObtained, // Store the marks obtained
         ]);
 
