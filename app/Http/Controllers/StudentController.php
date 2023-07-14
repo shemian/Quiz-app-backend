@@ -292,7 +292,7 @@ class StudentController extends Controller
 
         Log::info($formatedQuestions);
 
-        return view('students.brain_game', compact('formatedQuestions', 'questions', 'user'));
+        return view('students.brain_game', compact('formatedQuestions', 'questions', 'user', 'student'));
     }
 
     public function submitBrainGame(Request $request){
