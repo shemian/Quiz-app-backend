@@ -17,12 +17,12 @@ return new class extends Migration
             $table->foreignUuid('subject_id')->constrained('subjects')->cascadeOnDelete();
             $table->string('yes_ans');
             $table->string('no_ans');
-            $table->string('result_json');
+            $table->string('result_json', 10000);
             $table->decimal('marks_obtained', 5, 2)->default(0);
             $table->timestamps();
         });
     }
-   
+
 
 
     /**
