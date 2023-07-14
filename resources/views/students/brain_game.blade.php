@@ -223,53 +223,6 @@
             quiz_box.classList.remove("activeQuiz"); //hide quiz box
             result_box.classList.add("activeResult"); //show result box
             const scoreText = result_box.querySelector(".score_text");
-            // Retrieve the CSRF token from a meta tag in your HTML layout or from a JavaScript variable
-            const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
-
-            const studentId = {!! json_encode($student->id) !!};
-            const subjectId = {!! json_encode($exam->subject->id) !!};
-            const examId = {!! json_encode($exam->id) !!};
-            const yesAns = userScore;
-            const noAns = test_questions.length - userScore;
-            const questionId = {!! json_encode($exam->questions->pluck('id')) !!};
-            const resultJson = {
-                student_id: studentId,
-                subject_id: subjectId,
-                yes_ans: yesAns,
-                no_ans: noAns,
-                answers: answers,
-            };
-            const marksObtained = yesAns;
-
-            const resultData = {
-                student_id: studentId,
-                subject_id: subjectId,
-                yes_ans: yesAns,
-                no_ans: noAns,
-                result_json: resultJson,
-
-                marks_obtained: marksObtained,
-            };
-
-            // Make an AJAX request to the Laravel endpoint
-            fetch(`/student/questions/${examId}`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'X-CSRF-TOKEN': csrfToken, // Include the CSRF token in the request header
-                },
-                body: JSON.stringify(resultData),
-            })
-                .then(response => response.json())
-                .then(data => {
-                    // Handle the response from the server
-                    console.log(data);
-                    // You can perform further actions based on the response
-                })
-                .catch(error => {
-                    // Handle any errors that occurred during the request
-                    console.error(error);
-                });
 
 
             if (userScore > 3){ // if user scored more than 3
