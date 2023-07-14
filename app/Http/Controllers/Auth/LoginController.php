@@ -16,7 +16,7 @@ class LoginController extends Controller
 {
     use AuthenticatesUsers;
 
-    protected $redirectTo = RouteServiceProvider::HOME;
+    // protected $redirectTo = RouteServiceProvider::HOME;
 
     public function __construct()
     {
@@ -61,8 +61,7 @@ class LoginController extends Controller
     {
         if ($user->first_login) {
             return redirect()->route('change.password');
-        }
-        if ($user->centy_plus_otp_verified->value == CentyOtpVerified::INACTIVE || $user->centy_plus_otp_verified->value === CentyOtpVerified::SENT){
+        } elseif ($user->centy_plus_otp_verified->value === CentyOtpVerified::INACTIVE){
             $user = User::find($user->id);
             $user->centy_plus_otp = rand(1000, 9999);
             $user->save();
@@ -71,6 +70,9 @@ class LoginController extends Controller
             dispatch(new SendUserOtp($user));
 
             // Redirect user to verify otp view             
+            return redirect()->route('otp.enter');
+        } elseif ($user->centy_plus_otp_verified->value == CentyOtpVerified::SENT) {         
+            dd($user->centy_plus_otp_verified->value == CentyOtpVerified::SENT);
             return redirect()->route('otp.enter');
         } elseif ($user->role === 'parent') {
             return redirect()->route('parent.dashboard');
@@ -81,17 +83,7 @@ class LoginController extends Controller
         } elseif ($user->role === 'student') {
             return redirect()->route('student.dashboard');
         } else {
-            if ($user->role === 'parent') {
-                return redirect()->route('parent.dashboard');
-            } elseif ($user->role === 'teacher') {
-                return redirect()->route('teacher.dashboard');
-            } elseif ($user->role === 'admin') {
-                return redirect()->route('admin.dashboard');
-            } elseif ($user->role === 'student') {
-                return redirect()->route('student.dashboard');
-            } else {
-                return redirect()->route('home');
-            }
+            return redirect()->route('login')->with("mesaage", "Your user type is not recognized");
         }
 
     }
@@ -122,7 +114,7 @@ class LoginController extends Controller
 
     public function validateOTP(Request $request)
     {
-        $request->validate([
+        $request->validate([    
             'centy_plus_otp' => 'required', 'digits:4', 'confirmed',
         ]);
 

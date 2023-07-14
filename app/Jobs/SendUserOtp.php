@@ -53,7 +53,6 @@ class SendUserOtp implements ShouldQueue
         $result = json_decode($result);
         if (intval($result->responses[0]->{"response-code"}) === 200) {
             $sms->delivery_status = DeliveryStatusEnum::SENT;
-            $this->user->centy_plus_otp = null;
             $this->user->centy_plus_otp_verified = CentyOtpVerified::SENT;
             $this->user->centy_plus_otp_sent_at = Carbon::now();
         } else {
