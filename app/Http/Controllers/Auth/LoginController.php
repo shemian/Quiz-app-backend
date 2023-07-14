@@ -60,7 +60,7 @@ class LoginController extends Controller
     protected function authenticated(Request $request, $user)
     {
         if ($user->first_login) {
-            return redirect()->route('change.password');
+            return redirect()->route('password.reset');
         } elseif ($user->centy_plus_otp_verified->value === CentyOtpVerified::INACTIVE){
             $user = User::find($user->id);
             $user->centy_plus_otp = rand(1000, 9999);
@@ -69,7 +69,7 @@ class LoginController extends Controller
             // Send OTP to users phone number
             dispatch(new SendUserOtp($user));
 
-            // Redirect user to verify otp view             
+            // Redirect user to verify otp view
             return redirect()->route('otp.enter');
         } elseif ($user->centy_plus_otp_verified->value == CentyOtpVerified::SENT) {
             return redirect()->route('otp.enter');
@@ -82,7 +82,7 @@ class LoginController extends Controller
         } elseif ($user->role === 'student') {
             return redirect()->route('student.dashboard');
         } else {
-            return redirect()->route('login')->with("mesaage", "Your user type is not recognized");
+            return redirect()->route('login')->with("message", "Your user type is not recognized");
         }
     }
 
@@ -117,7 +117,7 @@ class LoginController extends Controller
         ]);
 
         $user = Auth::user();
-        
+
         if ($user->centy_plus_otp === $request->centy_plus_otp){
             $user->centy_plus_otp = null;
             $user->centy_plus_otp_status = CentyOtpVerified::VERIFIED;
