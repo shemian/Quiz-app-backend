@@ -11,7 +11,7 @@
     @if ($questions->isEmpty())
         <p>No questions available for this exam.</p>
     @else
-        <div class="start_btn"><button>Start Quiz</button></div>
+        <div class="start_btn"><button>Start Game</button></div>
         <!-- Info Box -->
         <div class="info_box">
             <div class="info-title"><span>Some Rules of this Brain Game</span></div>
@@ -23,7 +23,7 @@
                 <div class="info">5. You'll get points on the basis of your correct answers.</div>
             </div>
             <div class="buttons">
-                <button class="quit">Exit Brain Game</button>
+                <button class="quit">Exit Game</button>
                 <button class="restart">Continue</button>
             </div>
         </div>
