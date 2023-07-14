@@ -72,7 +72,7 @@ Route::prefix('parent')->middleware(['isParent'])->group(function(){
     Route::get('/create_students', [GuardianController::class, 'createStudent'])->name('get_students');
     Route::post('/students', [GuardianController::class, 'store'])->name('store_student');
     Route::post('/education-levels', [EduacationSystemsController::class, 'getEducationLevels'])->name('get_education_levels');
-
+    Route::post('/stk-push', [GuardianController::class, 'activateStudent'])->name('stk_push');
     Route::post('/edit-students/{id}', [GuardianController::class, 'update'])->name('update_student');
     Route::delete('/delete-students/{id}', [GuardianController::class, 'destroy'])->name('delete_student');
 
