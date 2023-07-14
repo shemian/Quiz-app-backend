@@ -301,6 +301,7 @@
               <option value="option3">Option 3</option>
               <option value="option4">Option 4</option>
             </select>
+
             @error('answer')
                 <span class="invalid-feedback" role="alert">
                   <strong>{{ $message }}</strong>
