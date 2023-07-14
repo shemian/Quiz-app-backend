@@ -112,15 +112,7 @@ class LoginController extends Controller
 
     public function validateOTP(Request $request)
     {
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-        $request->validate([    
-=======
         $request->validate([
->>>>>>> Stashed changes
-=======
-        $request->validate([
->>>>>>> Stashed changes
             'centy_plus_otp' => 'required', 'digits:4', 'confirmed',
         ]);
 
