@@ -3,8 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Enums\AccountStatus;
+use App\Enums\ExamType;
+use App\Models\BrainGame;
 use App\Models\Exam;
 use App\Models\StudentSubscriptionPlan;
+use App\Models\Teacher;
+use App\Models\User;
 use Illuminate\Http\Request;
 use App\Models\Question;
 use App\Models\Result;
@@ -288,10 +292,35 @@ class StudentController extends Controller
 
         Log::info($formatedQuestions);
 
-        return view('students.brain_game', compact('formatedQuestions', 'questions'));
+        return view('students.brain_game', compact('formatedQuestions', 'questions', 'user'));
     }
 
     public function submitBrainGame(Request $request){
+
+        $user = Auth::user();
+        $student = Student::where('user_id', $user->id)->first();
+
+        // fetch the users whose email is teacher@admin.com
+        $teacher_user = User::where('email', 'teacher@admin.com')->first();
+        $admin_teacher = Teacher::where('user_id', $teacher_user->id)->first();
+
+        $correctQuestionCount = intval($request->input('yes_ans')) ;
+        $incorrectQuestionCount = intval($request->input('no_ans'));
+
+        // Accumulate the total marks
+        $totalMarks = $correctQuestionCount + $incorrectQuestionCount;
+        $marksObtained = $totalMarks > 0 ? ($correctQuestionCount / $totalMarks) * 100 : 0;
+
+        $brain_result = BrainGame::create([
+            'name' => $user->name ." 's Brain Game on ". date('m-d-Y'),
+            'student_id' => $student->id,
+            'yes_ans' => $correctQuestionCount, // Count the number of correct answers
+            'no_ans' => $incorrectQuestionCount, // Count the number of incorrect answers
+            'result_json' => json_encode($request->input('result_json')), // Store the answers in JSON format
+            'marks_obtained' => $marksObtained, // Store the marks obtained
+        ]);
+
+        $brain_result->save();
 
 
     }

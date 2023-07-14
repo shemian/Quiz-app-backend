@@ -11,7 +11,7 @@
     @if ($questions->isEmpty())
         <p>No questions available for this exam.</p>
     @else
-        <div class="start_btn"><button>Start Game</button></div>
+        <div class="start_btn"><button>Start Quiz</button></div>
         <!-- Info Box -->
         <div class="info_box">
             <div class="info-title"><span>Some Rules of this Brain Game</span></div>
@@ -23,7 +23,7 @@
                 <div class="info">5. You'll get points on the basis of your correct answers.</div>
             </div>
             <div class="buttons">
-                <button class="quit">Exit Game</button>
+                <button class="quit">Exit Brain Game</button>
                 <button class="restart">Continue</button>
             </div>
         </div>
@@ -223,6 +223,52 @@
             quiz_box.classList.remove("activeQuiz"); //hide quiz box
             result_box.classList.add("activeResult"); //show result box
             const scoreText = result_box.querySelector(".score_text");
+            // Retrieve the CSRF token from a meta tag in your HTML layout or from a JavaScript variable
+            const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+
+            const studentId = {!! json_encode($student->id) !!};
+            const name = {!! json_encode($user->name ." 's Brain Game on ". date('m-d-Y')) !!};
+            const yesAns = userScore;
+            const noAns = test_questions.length - userScore;
+            const questionId = {!! json_encode($exam->questions->pluck('id')) !!};
+            const resultJson = {
+                student_id: studentId,
+                name: name,
+                yes_ans: yesAns,
+                no_ans: noAns,
+                answers: answers,
+            };
+            const marksObtained = yesAns;
+
+            const resultData = {
+                student_id: studentId,
+                name: name,
+                yes_ans: yesAns,
+                no_ans: noAns,
+                result_json: resultJson,
+
+                marks_obtained: marksObtained,
+            };
+
+            // Make an AJAX request to the Laravel endpoint
+            fetch(`/student/brain_game`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': csrfToken, // Include the CSRF token in the request header
+                },
+                body: JSON.stringify(resultData),
+            })
+                .then(response => response.json())
+                .then(data => {
+                    // Handle the response from the server
+                    console.log(data);
+                    // You can perform further actions based on the response
+                })
+                .catch(error => {
+                    // Handle any errors that occurred during the request
+                    console.error(error);
+                });
 
 
             if (userScore > 3){ // if user scored more than 3

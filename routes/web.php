@@ -4,6 +4,7 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\ExamController;
 use App\Http\Controllers\SubscriptionPlanController;
 use App\Http\Controllers\SubTopicSubStrandController;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TeacherController;
 use App\Http\Controllers\GuardianController;
@@ -33,12 +34,11 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::get('/password/reset', [LoginController::class, 'showPasswordResetForm'])->name('password.reset');
 Route::post('/password/reset', [LoginController::class, 'resetPassword'])->name('password.update');
-Route::post('/auth/otp', [LoginController::class, 'enterOTP'])->name('otp.enter');
-Route::post('/auth/otp/verify', [LoginController::class, 'validateOTP'])->name('otp.validate');
-
+    Route::get('/otp', [LoginController::class, 'enterOTP'])->name('otp.enter');
+    Route::post('/otp/verify', [LoginController::class, 'validateOTP'])->name('otp.validate');
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 Route::prefix('/admin')->middleware(['isAdmin'])->group(function(){
     Route::get('/', [AdminController::class, 'index'])->name('admin.dashboard');
@@ -78,7 +78,6 @@ Route::prefix('parent')->middleware(['isParent'])->group(function(){
 
 });
 
-
 Route::prefix('teacher')->middleware([ 'isTeacher'])->group(function(){
     Route::get('/', [TeacherController::class, 'index'])->name('teacher.dashboard');
     Route::get('/subjects', [SubjectController::class, 'index'])->name('get_subjects');
@@ -109,7 +108,6 @@ Route::prefix('teacher')->middleware([ 'isTeacher'])->group(function(){
     Route::post('/exams', [ExamController::class, 'store'])->name('store_exams');
 });
 
-
 Route::prefix('student')->middleware(['auth', 'isStudent'])->group(function(){
     Route::get('/', [StudentController::class, 'index'])->name('student.dashboard');
     Route::get('/view_exams', [StudentController::class, 'getExams'])->name('view_exams');
@@ -118,4 +116,6 @@ Route::prefix('student')->middleware(['auth', 'isStudent'])->group(function(){
     Route::get('/questions/{exam}', [StudentController::class, 'showQuestions'])->name('show_questions');
     Route::post('/questions/{exam}', [StudentController::class, 'submitAnswers'])->name('questions.submit');
     Route::get('/view_result/{result}', [StudentController::class, 'viewResult'])->name('students.view_results');
+
+    Route::post('/brain_game', [StudentController::class, 'submitBrainGame'])->name('brain_game.submit');
 });

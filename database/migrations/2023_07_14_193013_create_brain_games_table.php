@@ -1,6 +1,5 @@
 <?php
 
-use App\Enums\ExamType;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -12,12 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('exams', function (Blueprint $table) {
+        Schema::create('brain_games', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->foreignUuid('teacher_id')->constrained('teachers')->cascadeOnDelete();
             $table->string('name');
-            $table->foreignUuid('subject_id')->nullable()->references('id')->on('subjects')->cascadeOnDelete();
-            $table->tinyInteger('exam_type')->default(ExamType::NORMAL);
+            $table->foreignUuid('student_id')->constrained('students')->cascadeOnDelete();
+            $table->string('yes_ans');
+            $table->string('no_ans');
+            $table->string('result_json', 10000);
+            $table->decimal('marks_obtained', 5, 2)->default(0);
             $table->timestamps();
         });
     }
@@ -27,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('exams');
+        Schema::dropIfExists('brain_games');
     }
 };
