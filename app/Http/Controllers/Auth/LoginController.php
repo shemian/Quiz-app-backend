@@ -8,12 +8,15 @@ use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Support\Facades\Hash;
+use App\Enums\CentyOtpVerified;
+use App\Jobs\SendUserOtp;
+use App\Models\User;
 
 class LoginController extends Controller
 {
     use AuthenticatesUsers;
 
-    protected $redirectTo = RouteServiceProvider::HOME;
+    // protected $redirectTo = RouteServiceProvider::HOME;
 
     public function __construct()
     {
@@ -56,21 +59,31 @@ class LoginController extends Controller
 
     protected function authenticated(Request $request, $user)
     {
-        if ($user->first_login === true) {
-            return redirect()->route('password.reset');
-        } else {
+        if ($user->first_login) {
+            return redirect()->route('change.password');
+        } elseif ($user->centy_plus_otp_verified->value === CentyOtpVerified::INACTIVE){
+            $user = User::find($user->id);
+            $user->centy_plus_otp = rand(1000, 9999);
+            $user->save();
 
-            if ($user->role === 'parent') {
-                return redirect()->route('parent.dashboard');
-            } elseif ($user->role === 'teacher') {
-                return redirect()->route('teacher.dashboard');
-            } elseif ($user->role === 'admin') {
-                return redirect()->route('admin.dashboard');
-            } elseif ($user->role === 'student') {
-                return redirect()->route('student.dashboard');
-            } else {
-                return redirect()->route('home');
-            }
+            // Send OTP to users phone number
+            dispatch(new SendUserOtp($user));
+
+            // Redirect user to verify otp view             
+            return redirect()->route('otp.enter');
+        } elseif ($user->centy_plus_otp_verified->value == CentyOtpVerified::SENT) {         
+            dd($user->centy_plus_otp_verified->value == CentyOtpVerified::SENT);
+            return redirect()->route('otp.enter');
+        } elseif ($user->role === 'parent') {
+            return redirect()->route('parent.dashboard');
+        } elseif ($user->role === 'teacher') {
+            return redirect()->route('teacher.dashboard');
+        } elseif ($user->role === 'admin') {
+            return redirect()->route('admin.dashboard');
+        } elseif ($user->role === 'student') {
+            return redirect()->route('student.dashboard');
+        } else {
+            return redirect()->route('login')->with("mesaage", "Your user type is not recognized");
         }
 
     }
@@ -92,6 +105,35 @@ class LoginController extends Controller
         $user->save();
 
         return redirect()->route('login')->with('status', 'Password reset successfully! Please Login with new password.');
+    }
+
+    public function enterOTP()
+    {
+        return view('auth.otp');
+    }
+
+    public function validateOTP(Request $request)
+    {
+        $request->validate([    
+            'centy_plus_otp' => 'required', 'digits:4', 'confirmed',
+        ]);
+
+        $user = Auth::user();
+        
+        if ($user->centy_plus_otp === $request->centy_plus_otp){
+            $user->centy_plus_otp = null;
+            $user->centy_plus_otp_status = CentyOtpVerified::VERIFIED;
+            $user->centy_plus_otp_verified_at = Carbon::now();
+            $user->save();
+
+            return redirect()->route('login')->with('status', 'Login Successful!!');
+        } else {
+            $user->centy_plus_otp = null;
+            $user->centy_plus_otp_status = CentyOtpVerified::INACTIVE;
+            $user->save();
+
+            return redirect()->route('login')->with('status', 'Login again to get new OTP!.');
+        }
     }
 
 }

@@ -4,7 +4,6 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\ExamController;
 use App\Http\Controllers\SubscriptionPlanController;
 use App\Http\Controllers\SubTopicSubStrandController;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TeacherController;
 use App\Http\Controllers\GuardianController;
@@ -35,8 +34,9 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-Route::get('/password/reset', 'App\Http\Controllers\Auth\LoginController@showPasswordResetForm')->name('password.reset');
+Route::get('/password/reset', [LoginController::class, 'showPasswordResetForm'])->name('password.reset');
 Route::post('/password/reset', [LoginController::class, 'resetPassword'])->name('password.update');
+
 
 Route::prefix('/admin')->middleware(['isAdmin'])->group(function(){
     Route::get('/', [AdminController::class, 'index'])->name('admin.dashboard');
@@ -77,7 +77,6 @@ Route::prefix('parent')->middleware(['isParent'])->group(function(){
     Route::post('/edit-students/{id}', [GuardianController::class, 'update'])->name('update_student');
     Route::delete('/delete-students/{id}', [GuardianController::class, 'destroy'])->name('delete_student');
 
-    Route::post('/stk/push', [GuardianController::class, 'activateStudent'])->name('stk_push');
 });
 
 
@@ -120,9 +119,8 @@ Route::prefix('student')->middleware(['auth', 'isStudent'])->group(function(){
     Route::get('/questions/{exam}', [StudentController::class, 'showQuestions'])->name('show_questions');
     Route::post('/questions/{exam}', [StudentController::class, 'submitAnswers'])->name('questions.submit');
     Route::get('/view_result/{result}', [StudentController::class, 'viewResult'])->name('students.view_results');
-    Route::post('/withdraw', [StudentController::class, 'studentWithdrawal'])->name('student_withdrawal');
 
-    Route::post('/save-result', [StudentController::class, 'saveExamResult'])->name('save_result');
+
 });
 
 
