@@ -267,9 +267,33 @@ class StudentController extends Controller
             ->take(3) // Change the number to the desired amount of questions
             ->get();
 
-        Log::info($questions);
 
-        return view('students.brain_game', compact( 'questions'));
+        $formatedQuestions = [];
+
+        foreach ($questions as $key => $question) {
+            $question = [
+                'numb' => $key + 1,
+                'question' => $question['question'],
+                'answer' => $question['answer'],
+                'options' => [
+                    $question['option1'],
+                    $question['option2'],
+                    $question['option3'],
+                    $question['option4']
+                ]
+            ];
+
+            $formatedQuestions[] = $question;
+        }
+
+        Log::info($formatedQuestions);
+
+        return view('students.brain_game', compact('formatedQuestions', 'questions'));
+    }
+
+    public function submitBrainGame(Request $request){
+
+
     }
 
 
