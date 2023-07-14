@@ -267,7 +267,7 @@ class StudentController extends Controller
             ->take(10) // Change the number to the desired amount of questions
             ->get();
 
-
+        Log::info('random questions'. $questions);
         $formatedQuestions = [];
 
         foreach ($questions as $key => $question) {
