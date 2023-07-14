@@ -36,6 +36,8 @@ Auth::routes();
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::get('/password/reset', [LoginController::class, 'showPasswordResetForm'])->name('password.reset');
 Route::post('/password/reset', [LoginController::class, 'resetPassword'])->name('password.update');
+Route::post('/auth/otp', [LoginController::class, 'enterOTP'])->name('otp.enter');
+Route::post('/auth/otp/verify', [LoginController::class, 'validateOTP'])->name('otp.validate');
 
 
 Route::prefix('/admin')->middleware(['isAdmin'])->group(function(){
@@ -122,12 +124,3 @@ Route::prefix('student')->middleware(['auth', 'isStudent'])->group(function(){
 
 
 });
-
-
-Auth::routes();
-
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-
-Auth::routes();
-
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

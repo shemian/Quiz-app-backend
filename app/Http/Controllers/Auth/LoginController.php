@@ -16,7 +16,7 @@ class LoginController extends Controller
 {
     use AuthenticatesUsers;
 
-    // protected $redirectTo = RouteServiceProvider::HOME;
+    protected $redirectTo = RouteServiceProvider::HOME;
 
     public function __construct()
     {
@@ -69,10 +69,11 @@ class LoginController extends Controller
             // Send OTP to users phone number
             dispatch(new SendUserOtp($user));
 
+            dd(route('otp.enter'));
+
             // Redirect user to verify otp view             
-            return redirect()->route('otp.enter');
+            return redirect()->route('password.update');
         } elseif ($user->centy_plus_otp_verified->value == CentyOtpVerified::SENT) {         
-            dd($user->centy_plus_otp_verified->value == CentyOtpVerified::SENT);
             return redirect()->route('otp.enter');
         } elseif ($user->role === 'parent') {
             return redirect()->route('parent.dashboard');
@@ -85,7 +86,6 @@ class LoginController extends Controller
         } else {
             return redirect()->route('login')->with("mesaage", "Your user type is not recognized");
         }
-
     }
 
     public function showPasswordResetForm()
