@@ -4,20 +4,20 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "021a920272bf8d6ae5d5eec21c180e80",
+    "content-hash": "f522d89cacefe9c2605bfcd1417fc49b",
     "packages": [
         {
             "name": "bensampo/laravel-enum",
-            "version": "v6.3.3",
+            "version": "v6.4.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/BenSampo/laravel-enum.git",
-                "reference": "680355c9533594852a088bf21fb209124258d705"
+                "reference": "22e9faff7f34a95ff6cd96bbc3fb4395d6ffbf4d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/BenSampo/laravel-enum/zipball/680355c9533594852a088bf21fb209124258d705",
-                "reference": "680355c9533594852a088bf21fb209124258d705",
+                "url": "https://api.github.com/repos/BenSampo/laravel-enum/zipball/22e9faff7f34a95ff6cd96bbc3fb4395d6ffbf4d",
+                "reference": "22e9faff7f34a95ff6cd96bbc3fb4395d6ffbf4d",
                 "shasum": ""
             },
             "require": {
@@ -31,14 +31,14 @@
             "require-dev": {
                 "doctrine/dbal": "^3.4",
                 "ergebnis/composer-normalize": "^2.28.3",
+                "mll-lab/php-cs-fixer-config": "^5.4",
                 "mockery/mockery": "^1.5",
                 "nunomaduro/larastan": "^2.1.12",
                 "orchestra/testbench": "^7.6.1 || ^8",
                 "phpstan/phpstan": "^1.8.2",
                 "phpstan/phpstan-mockery": "^1.1",
                 "phpstan/phpstan-phpunit": "^1.1.1",
-                "phpunit/phpunit": "^9.5.21",
-                "squizlabs/php_codesniffer": "^3.7.1"
+                "phpunit/phpunit": "^9.5.21"
             },
             "type": "library",
             "extra": {
@@ -67,6 +67,11 @@
                     "name": "Ben Sampson",
                     "homepage": "https://sampo.co.uk",
                     "role": "Developer"
+                },
+                {
+                    "name": "Benedikt Franke",
+                    "homepage": "https://franke.tech",
+                    "role": "Developer"
                 }
             ],
             "description": "Simple, extensible and powerful enumeration implementation for Laravel.",
@@ -80,7 +85,7 @@
             ],
             "support": {
                 "issues": "https://github.com/BenSampo/laravel-enum/issues",
-                "source": "https://github.com/BenSampo/laravel-enum/tree/v6.3.3"
+                "source": "https://github.com/BenSampo/laravel-enum/tree/v6.4.0"
             },
             "funding": [
                 {
@@ -88,7 +93,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2023-05-18T09:13:17+00:00"
+            "time": "2023-07-05T08:16:59+00:00"
         },
         {
             "name": "brick/math",
@@ -2216,16 +2221,16 @@
         },
         {
             "name": "nesbot/carbon",
-            "version": "2.67.0",
+            "version": "2.68.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/briannesbitt/Carbon.git",
-                "reference": "c1001b3bc75039b07f38a79db5237c4c529e04c8"
+                "reference": "4f991ed2a403c85efbc4f23eb4030063fdbe01da"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/briannesbitt/Carbon/zipball/c1001b3bc75039b07f38a79db5237c4c529e04c8",
-                "reference": "c1001b3bc75039b07f38a79db5237c4c529e04c8",
+                "url": "https://api.github.com/repos/briannesbitt/Carbon/zipball/4f991ed2a403c85efbc4f23eb4030063fdbe01da",
+                "reference": "4f991ed2a403c85efbc4f23eb4030063fdbe01da",
                 "shasum": ""
             },
             "require": {
@@ -2314,7 +2319,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2023-05-25T22:09:47+00:00"
+            "time": "2023-06-20T18:29:04+00:00"
         },
         {
             "name": "nette/schema",
@@ -5861,16 +5866,16 @@
         },
         {
             "name": "yajra/laravel-datatables-oracle",
-            "version": "v10.6.0",
+            "version": "v10.6.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/yajra/laravel-datatables.git",
-                "reference": "66299d930c1dd626e9d264cd8b0cfa0ddee13366"
+                "reference": "cd684c1827c6540a911226e77779477cbb86fc25"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/yajra/laravel-datatables/zipball/66299d930c1dd626e9d264cd8b0cfa0ddee13366",
-                "reference": "66299d930c1dd626e9d264cd8b0cfa0ddee13366",
+                "url": "https://api.github.com/repos/yajra/laravel-datatables/zipball/cd684c1827c6540a911226e77779477cbb86fc25",
+                "reference": "cd684c1827c6540a911226e77779477cbb86fc25",
                 "shasum": ""
             },
             "require": {
@@ -5933,7 +5938,7 @@
             ],
             "support": {
                 "issues": "https://github.com/yajra/laravel-datatables/issues",
-                "source": "https://github.com/yajra/laravel-datatables/tree/v10.6.0"
+                "source": "https://github.com/yajra/laravel-datatables/tree/v10.6.1"
             },
             "funding": [
                 {
@@ -5941,7 +5946,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2023-06-29T10:05:01+00:00"
+            "time": "2023-07-05T01:30:07+00:00"
         }
     ],
     "packages-dev": [
@@ -8005,16 +8010,16 @@
         },
         {
             "name": "spatie/flare-client-php",
-            "version": "1.4.0",
+            "version": "1.4.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/spatie/flare-client-php.git",
-                "reference": "82138174d5fe2829a7f085a6bdb2a06f6def9f7a"
+                "reference": "943894c6a6b00501365ac0b91ae0dce56f2226fa"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/spatie/flare-client-php/zipball/82138174d5fe2829a7f085a6bdb2a06f6def9f7a",
-                "reference": "82138174d5fe2829a7f085a6bdb2a06f6def9f7a",
+                "url": "https://api.github.com/repos/spatie/flare-client-php/zipball/943894c6a6b00501365ac0b91ae0dce56f2226fa",
+                "reference": "943894c6a6b00501365ac0b91ae0dce56f2226fa",
                 "shasum": ""
             },
             "require": {
@@ -8063,7 +8068,7 @@
             ],
             "support": {
                 "issues": "https://github.com/spatie/flare-client-php/issues",
-                "source": "https://github.com/spatie/flare-client-php/tree/1.4.0"
+                "source": "https://github.com/spatie/flare-client-php/tree/1.4.1"
             },
             "funding": [
                 {
@@ -8071,7 +8076,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2023-06-28T11:08:09+00:00"
+            "time": "2023-07-06T09:29:49+00:00"
         },
         {
             "name": "spatie/ignition",
@@ -8376,7 +8381,8 @@
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
-        "php": "^8.1"
+        "php": "^8.1",
+        "ext-curl": "*"
     },
     "platform-dev": [],
     "plugin-api-version": "2.3.0"
