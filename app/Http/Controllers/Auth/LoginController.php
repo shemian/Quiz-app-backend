@@ -7,7 +7,10 @@ use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+<<<<<<< Updated upstream
 use Illuminate\Support\Facades\Hash;
+=======
+>>>>>>> Stashed changes
 use App\Enums\CentyOtpVerified;
 use App\Jobs\SendUserOtp;
 use App\Models\User;
@@ -69,8 +72,6 @@ class LoginController extends Controller
             // Send OTP to users phone number
             dispatch(new SendUserOtp($user));
 
-            dd(route('otp.enter'));
-
             // Redirect user to verify otp view             
             return redirect()->route('password.update');
         } elseif ($user->centy_plus_otp_verified->value == CentyOtpVerified::SENT) {         
@@ -114,7 +115,11 @@ class LoginController extends Controller
 
     public function validateOTP(Request $request)
     {
+<<<<<<< Updated upstream
         $request->validate([    
+=======
+        $request->validate([
+>>>>>>> Stashed changes
             'centy_plus_otp' => 'required', 'digits:4', 'confirmed',
         ]);
 
