@@ -15,9 +15,9 @@
         @if ($result->no_ans > 0)
             <h4>Incorrect Answer Details</h4>
             @foreach (json_decode($result->result_json, true)['answers'] as $answer)
-                @if ($answer['answer'] !== $answer['correct_answer'])
+                @if ($answer['answer'] !== $answer['yes_answer'])
                     <p>Question: {{ $answer['question'] }}</p>
-                    <p>Correct Answer: {{ $answer['correct_answer'] }}</p>
+                    <p>Correct Answer: {{ $answer['yes_answer'] }}</p>
                     <p>Your Answer: {{ $answer['answer'] }}</p>
                 @endif
             @endforeach
