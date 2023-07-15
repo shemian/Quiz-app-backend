@@ -310,7 +310,6 @@ class StudentController extends Controller
         // Accumulate the total marks
         $totalMarks = $correctQuestionCount + $incorrectQuestionCount;
         $marksObtained = $totalMarks > 0 ? ($correctQuestionCount / $totalMarks) * 100 : 0;
-        dd($user);
 
         $brain_result = BrainGame::create([
             'name' => $user->name ." 's Brain Game on ". date('m-d-Y'),
