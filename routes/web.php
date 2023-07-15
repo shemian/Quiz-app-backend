@@ -34,10 +34,7 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('/password/reset', [LoginController::class, 'showPasswordResetForm'])->name('password.reset');
-Route::post('/password/reset', [LoginController::class, 'resetPassword'])->name('password.update');
-    Route::get('/otp', [LoginController::class, 'enterOTP'])->name('otp.enter');
-    Route::post('/otp/verify', [LoginController::class, 'validateOTP'])->name('otp.validate');
+
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 Route::prefix('/admin')->middleware(['isAdmin'])->group(function(){
@@ -116,6 +113,5 @@ Route::prefix('student')->middleware(['auth', 'isStudent'])->group(function(){
     Route::get('/questions/{exam}', [StudentController::class, 'showQuestions'])->name('show_questions');
     Route::post('/questions/{exam}', [StudentController::class, 'submitAnswers'])->name('questions.submit');
     Route::get('/view_result/{result}', [StudentController::class, 'viewResult'])->name('students.view_results');
-
     Route::post('/brain_game', [StudentController::class, 'submitBrainGame'])->name('brain_game.submit');
 });
