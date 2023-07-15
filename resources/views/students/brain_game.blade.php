@@ -250,7 +250,7 @@
             };
 
             // Make an AJAX request to the Laravel endpoint
-            fetch(`/student/brain_game`, {
+            fetch('/student/brain_game', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
