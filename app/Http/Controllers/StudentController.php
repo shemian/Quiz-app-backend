@@ -301,8 +301,8 @@ class StudentController extends Controller
         $student = Student::where('user_id', $user->id)->first();
 
         // fetch the users whose email is teacher@admin.com
-        $teacher_user = User::where('email', 'teacher@admin.com')->first();
-        $admin_teacher = Teacher::where('user_id', $teacher_user->id)->first();
+//        $teacher_user = User::where('email', 'teacher@admin.com')->first();
+//        $admin_teacher = Teacher::where('user_id', $teacher_user->id)->first();
 
         $correctQuestionCount = intval($request->input('yes_ans')) ;
         $incorrectQuestionCount = intval($request->input('no_ans'));
@@ -310,6 +310,7 @@ class StudentController extends Controller
         // Accumulate the total marks
         $totalMarks = $correctQuestionCount + $incorrectQuestionCount;
         $marksObtained = $totalMarks > 0 ? ($correctQuestionCount / $totalMarks) * 100 : 0;
+        dd($user);
 
         $brain_result = BrainGame::create([
             'name' => $user->name ." 's Brain Game on ". date('m-d-Y'),
