@@ -12,18 +12,6 @@
         <h3>Incorrectly Answered Questions</h3>
         <p>{{ $result->no_ans }}</p>
 
-        @if ($result->no_ans > 0)
-            <h4>Incorrect Answer Details</h4>
-            @foreach ($result->result_json['answers'] as $answer)
-                @if ($answer['answer'] !== $answer['correct_answer'])
-                    <p>Question: {{ $answer['question'] }}</p>
-                    <p>Correct Answer: {{ $answer['correct_answer'] }}</p>
-                    <p>Your Answer: {{ $answer['answer'] }}</p>
-                @endif
-            @endforeach
-        @else
-            <p>No questions answered incorrectly.</p>
-        @endif
     </div>
 
 @endsection
