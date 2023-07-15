@@ -7,36 +7,23 @@
         <p>Marks Obtained: {{ $result->marks_obtained }}</p>
 
         <h3>Correctly Answered Questions</h3>
-        @if(count($answersDetails['correct']) > 0)
-            <ul>
-                @foreach($answersDetails['correct'] as $question)
-                    <li>
-                        <strong>{{ $question->question }}</strong><br>
-                        Your Answer: {{ $question->{$question->answer} }}<br>
-                        Value: {{ $question->value }}
-                        <span class="text-success">Correct!</span>
-                    </li>
-                @endforeach
-            </ul>
-        @else
-            <p>No questions answered correctly.</p>
-        @endif
+        <p>{{ $result->yes_ans }}</p>
 
         <h3>Incorrectly Answered Questions</h3>
-        @if(count($answersDetails['incorrect']) > 0)
-            <ul>
-                @foreach($answersDetails['incorrect'] as $answer)
-                    <li>
-                        <strong>{{ $answer['question']->question }}</strong><br>
-                        Your Answer: {{ $answer['question']->selectedAnswer }}<br>
-                        Correct Answer: {{ $answer['correctAnswer'] }}<br>
-                        Value: {{ $answer['question']->value }}
-                        <span class="text-danger">Incorrect!</span>
-                    </li>
-                @endforeach
-            </ul>
+        <p>{{ $result->no_ans }}</p>
+
+        @if ($result->no_ans > 0)
+            <h4>Incorrect Answer Details</h4>
+            @foreach ($result->result_json['answers'] as $answer)
+                @if ($answer['answer'] !== $answer['correct_answer'])
+                    <p>Question: {{ $answer['question'] }}</p>
+                    <p>Correct Answer: {{ $answer['correct_answer'] }}</p>
+                    <p>Your Answer: {{ $answer['answer'] }}</p>
+                @endif
+            @endforeach
         @else
             <p>No questions answered incorrectly.</p>
         @endif
     </div>
+
 @endsection
