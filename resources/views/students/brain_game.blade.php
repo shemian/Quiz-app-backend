@@ -230,7 +230,6 @@
             const name = {!! json_encode($user->name ." 's Brain Game on ". date('m-d-Y')) !!};
             const yesAns = userScore;
             const noAns = test_questions.length - userScore;
-            const questionId = {!! json_encode($exam->questions->pluck('id')) !!};
             const resultJson = {
                 student_id: studentId,
                 name: name,
