@@ -69,7 +69,7 @@ class StudentController extends Controller
         $student = Student::where('user_id', $user->id)->first();
 
         //check if status is active and display the exam
-//        if ($student->account_status === AccountStatus::ACTIVE && isset($student->active_subscription) ) {
+        if ($student->account_status === AccountStatus::ACTIVE && isset($student->active_subscription) ) {
         $exams = Exam::with(['subject.educationLevel', 'subject.educationSystem'])
             ->whereHas('subject', function ($query) use ($student) {
                 $query->where('education_level_id', $student->educationLevel->id)
@@ -78,9 +78,9 @@ class StudentController extends Controller
             ->select('id', 'name', 'subject_id', 'created_at')
             ->get();
         return view('students.get_exams', compact('exams'));
-//        } else {
-//            return redirect()->back()->with('error', 'Your account is not active. Please contact the administrator.');
-//        }
+        } else {
+            return redirect()->back()->with('error', 'Your account is not active. Please contact the administrator.');
+        }
 
     }
 
