@@ -1,9 +1,9 @@
 @extends('students.master')
 
 @section('content')
-    <div class="container text-center">
-        <h1>View Results</h1>
-        <h2>Subject: {{ $exam->name }}</h2>
+    <div class="container">
+        <h4>View Results</h4>
+        <h4>Exam: {{ $exam->name }}</h4>
 
         <div class="card mx-auto" style="width: 18rem;">
             <div class="card-body">
