@@ -265,11 +265,6 @@ class StudentController extends Controller
         $user = Auth::user();
         $student = Student::where('user_id', $user->id)->first();
 
-        // Check if the student has already completed the brain game
-        $hasCompleted = BrainGame::where('student_id', $student->id)->exists();
-        if ($hasCompleted) {
-            return redirect()->route('brain_game.submit', ['result' => $student->id]);
-        }
 
         // Retrieve questions
         $questions = Question::where('education_level_id', $student->educationLevel->id)
