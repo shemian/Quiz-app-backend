@@ -38,10 +38,12 @@ class SendUserOtp implements ShouldQueue
     public function handle(): void
     {
         Log::info('Executing SendUserOtp job for ' . $this->user->name);
+        $formattedPhoneNumber = GeneralHelper::phoneNumberToInternational($this->user->phone_number);
+        if (empty($formattedPhoneNumber)) return;
 
         $sms = new Sms();
         $sms->external_ref = Str::uuid();
-        $sms->recipient = GeneralHelper::phoneNumberToInternational($this->user->phone_number);
+        $sms->recipient = $formattedPhoneNumber;
         $sms->text = "<#> Verification code CNT-" . intval($this->user->centy_plus_otp) . "\nDo not share with anyone. Thank you for using Centy Plus";
         $sms->short_code = config('app.sms.celcom.short_code');
         $sms->save();

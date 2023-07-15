@@ -56,6 +56,12 @@ class MpesaTransactionController extends Controller
         $formattedAmount = number_format($amount, 0, '', '');
 //        $formattedPhoneNumber = '254' . substr($phone_number, 1);
         $formattedPhoneNumber = GeneralHelper::phoneNumberToInternational($phone_number);
+        if (empty($formattedPhoneNumber)) {
+            return response()->json([
+                'ResponseCode' => '01',
+                'ResponseDescription' => 'Invalid phone number'
+            ], Response::HTTP_BAD_REQUEST);
+        }
         Log::info($formattedPhoneNumber);
 
         $curl_post_data = [

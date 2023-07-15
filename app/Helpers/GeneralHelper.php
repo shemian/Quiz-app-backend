@@ -6,6 +6,8 @@ class GeneralHelper
 {
     public static function phoneNumberToInternational(string $phoneNumber): string
     {
+        if(empty($phoneNumber)) return '';
+
         $phoneNumber = preg_replace('/[^0-9]/', '', $phoneNumber);
 
         if (strlen($phoneNumber) === 10) {
