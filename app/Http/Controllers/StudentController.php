@@ -321,7 +321,7 @@ class StudentController extends Controller
         ]);
 
         $brain_result->save();
-        return redirect()->route('students.dashboard')->with('success', 'Answers submitted successfully.');
+        return redirect()->route('student.dashboard')->with('success', 'Answers submitted successfully.');
 
     }
 
