@@ -57,7 +57,7 @@
                                 <tr>
                                     <td>{{ $customer->user->name }}</td>
                                     <td>{{ $customer->user->email }}</td>
-                                    <td>{{ $customer->phone_number }}</td>
+                                    <td>{{ $customer->user->phone_number }}</td>
                                     <td>{{ $customer->credit }}</td>
                                     <td>{{ $customer->user->role }}</td>
                                     <td>
