@@ -316,58 +316,16 @@
                     </div>
                     <h4 class="header-title mb-4">Recent Clients</h4>
 
+                    @foreach ($latestCustomers as $customer)
                     <div class="d-flex align-items-start">
                         <img class="me-3 rounded-circle" src="{{ asset('assets/images/users/avatar-2.jpg') }}" width="40" alt="Generic placeholder image">
                         <div class="w-100 overflow-hidden">
-                            <span class="badge badge-warning-lighten float-end">Cold lead</span>
-                            <h5 class="mt-0 mb-1">Risa Pearson</h5>
-                            <span class="font-13">richard.john@mail.com</span>
+                            <h5 class="mt-0 mb-1">{{ $customer->user->name }}</h5>
+                            <span class="font-13">{{ $customer->user->email }}</span>
                         </div>
                     </div>
+                    @endforeach
 
-                    <div class="d-flex align-items-start mt-3">
-                        <img class="me-3 rounded-circle" src="{{ asset('assets/images/users/avatar-3.jpg') }}" width="40" alt="Generic placeholder image">
-                        <div class="w-100 overflow-hidden">
-                            <span class="badge badge-danger-lighten float-end">Lost lead</span>
-                            <h5 class="mt-0 mb-1">Margaret D. Evans</h5>
-                            <span class="font-13">margaret.evans@rhyta.com</span>
-                        </div>
-                    </div>
-
-                    <div class="d-flex align-items-start mt-3">
-                        <img class="me-3 rounded-circle" src="{{ asset('assets/images/users/avatar-4.jpg') }}" width="40" alt="Generic placeholder image">
-                        <div class="w-100 overflow-hidden">
-                            <span class="badge badge-success-lighten float-end">Won lead</span>
-                            <h5 class="mt-0 mb-1">Bryan J. Luellen</h5>
-                            <span class="font-13">bryuellen@dayrep.com</span>
-                        </div>
-                    </div>
-
-                    <div class="d-flex align-items-start mt-3">
-                        <img class="me-3 rounded-circle" src="{{ asset('assets/images/users/avatar-5.jpg') }}" width="40" alt="Generic placeholder image">
-                        <div class="w-100 overflow-hidden">
-                            <span class="badge badge-warning-lighten float-end">Cold lead</span>
-                            <h5 class="mt-0 mb-1">Kathryn S. Collier</h5>
-                            <span class="font-13">collier@jourrapide.com</span>
-                        </div>
-                    </div>
-
-                    <div class="d-flex align-items-start mt-3">
-                        <img class="me-3 rounded-circle" src="{{ asset('assets/images/users/avatar-1.jpg') }}" width="40" alt="Generic placeholder image">
-                        <div class="w-100 overflow-hidden">
-                            <span class="badge badge-warning-lighten float-end">Cold lead</span>
-                            <h5 class="mt-0 mb-1">Timothy Kauper</h5>
-                            <span class="font-13">thykauper@rhyta.com</span>
-                        </div>
-                    </div>
-
-                    <div class="d-flex align-items-start mt-3">
-                        <img class="me-3 rounded-circle" src="{{ asset('assets/images/users/avatar-6.jpg') }}" width="40" alt="Generic placeholder image">
-                        <div class="w-100 overflow-hidden">
-                            <span class="badge badge-success-lighten float-end">Won lead</span>
-                            <h5 class="mt-0 mb-1">Zara Raws</h5>
-                            <span class="font-13">austin@dayrep.com</span>
-                        </div>
                     </div>
 
                 </div>

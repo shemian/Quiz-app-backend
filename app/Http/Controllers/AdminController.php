@@ -29,6 +29,7 @@ class AdminController extends Controller
         $studentCount = Student::count();
         $teacherCount = User::where('role', 'teacher')->count();
         $accountBalance = ChartOfAccounts::all();
+        $latestCustomers = User::where('role', 'parent')->latest()->limit(6)->get();
         $organization_revenue = $accountBalance[0]->account_balance;
 
         $totalWalletBalance = 0;
@@ -39,7 +40,7 @@ class AdminController extends Controller
             $totalWalletBalance += $student->debit;
             $totalCentyBalance += $student->centy_balance;
         }
-        return view('admin.dashboard', compact('customerCount', 'studentCount', 'teacherCount', 'organization_revenue', 'totalWalletBalance', 'totalCentyBalance'));
+        return view('admin.dashboard', compact('latestCustomers', 'customerCount', 'studentCount', 'teacherCount', 'organization_revenue', 'totalWalletBalance', 'totalCentyBalance'));
     }
 
 
