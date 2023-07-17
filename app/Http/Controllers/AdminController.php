@@ -114,9 +114,10 @@ class AdminController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function parent_details(string $id)
     {
-        //
+        $student = Student::find($id);
+        return view('admin.view_parent_details', compact('student'));
     }
 
     /**

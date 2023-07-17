@@ -64,6 +64,8 @@ Route::prefix('/admin')->middleware(['isAdmin'])->group(function(){
 
     // Subscriptions Plan Routes
     Route::resource('subscriptions', SubscriptionPlanController::class);
+
+    Route::get('/view-parent/{id}', [AdminController::class,'parent_details'])->name('view_parent_details');
 });
 
 Route::prefix('parent')->middleware(['isParent'])->group(function(){
