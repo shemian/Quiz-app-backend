@@ -67,9 +67,9 @@ class User extends Authenticatable
 
         self::creating(function ($user) {
             if ($user->role === 'parent') {
-                $user->centy_plus_id = 'CNT' . self::generateParentSequence($user->phone_number) . '-' . $user->phone_number;
-            } elseif ($user->role === 'student' || $user->role === 'teacher') {
-                $user->centy_plus_id = 'CNT-' . self::generateStudentTeacherSequence();
+                $user->centy_plus_id = 'CNT' . self::generateParentSequence() . '-' . $user->phone_number;
+            } elseif ($user->role === 'teacher') {
+                $user->centy_plus_id = 'CNT-' . self::generateTeacherSequence();
             }
         });
     }
@@ -80,10 +80,10 @@ class User extends Authenticatable
         return $parentSequence + 1;
     }
 
-    protected static function generateStudentTeacherSequence()
+    protected static function generateTeacherSequence()
     {
         // Retrieve the last student/teacher
-        $lastUser = static::whereIn('role', ['student', 'teacher'])->latest('centy_plus_id')->first();
+        $lastUser = static::where('role', 'teacher')->latest('centy_plus_id')->first();
 
         if ($lastUser) {
             $sequence = intval(substr($lastUser->centy_plus_id, -7)) + 1; // Extract sequence and increment
@@ -92,6 +92,15 @@ class User extends Authenticatable
         }
 
         return str_pad($sequence, 7, '0', STR_PAD_LEFT);
+    }
+
+    protected static function generateStudentSequence($guardian_id, $guardian_phone_number)
+    {
+        //Get count of all students that belong to parent.
+        $students_count = Student::where('guardian_id', $guardian_id)->count();
+
+        return 'CNT'.$students_count.'-'.$guardian_phone_number;
+
     }
 
     public function needsOTPVerification(){

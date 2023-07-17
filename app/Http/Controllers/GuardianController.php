@@ -78,9 +78,13 @@ class GuardianController extends Controller
             'education_level_id' => 'required',
         ]);
 
+        //Auth user (Guardian)
+        $auth_user = auth()->user()->id;
+
         // Create a new user
         $user = new User();
         $user->name = $request->name;
+        $user->centy_plus_id  = User::generateStudentSequence($auth_user->id, $auth_user->phone_number);
         $password = strval(mt_rand(1000, 9999));
         $user->password = Hash::make($password);
         $user->role = 'student';
@@ -90,11 +94,11 @@ class GuardianController extends Controller
         $student = new Student();
         $student->date_of_birth = $request->date_of_birth;
         $student->school_name = $request->school_name;
-        $student->guardian_id = auth()->user()->id;
+        $student->guardian_id = $auth_user->id;
         $student->education_system_id = $request->education_system_id;
         $student->education_level_id = $request->education_level_id;
 
-        $guardian = Guardian::where('user_id', auth()->user()->id)->first();
+        $guardian = Guardian::where('user_id', $auth_user->id)->first();
         if ($guardian) {
             $student->guardian_id = $guardian->id;
             $user->student()->save($student);
