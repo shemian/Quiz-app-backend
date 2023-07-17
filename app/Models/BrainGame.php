@@ -16,4 +16,9 @@ class BrainGame extends Model
         'no_ans',
         'result_json',
     ];
+
+    public function student()
+    {
+        return $this->belongsTo(Student::class, 'student_id');
+    }
 }

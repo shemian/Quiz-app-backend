@@ -235,57 +235,19 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>
-                                        <h5 class="font-15 mb-1 fw-normal">Jeremy Young</h5>
-                                        <span class="text-muted font-13">Grade 2, St Martin's School</span>
-                                    </td>
-                                    <td>187</td>
-                                    <td class="table-action">
-                                        <a href="javascript: void(0);" class="action-icon"> <i class="mdi mdi-eye"></i></a>
-                                    </td>
-                                </tr>
+                            @foreach($topStudensts as $topStudenst)
                                 <tr>
                                     <td>
                                         <span class="badge badge-success-lighten float-end">Won lead</span>
-                                        <h5 class="mt-0 mb-1">Bryan J. Luellen</h5>
-                                        <span class="text-muted font-13">Grade 4, St Martin's School</span>
+                                        <h5 class="mt-0 mb-1">{{ $topStudenst->name }}</h5>
+                                        <span class="text-muted font-13">Grade 2, St Martin's School</span>
                                     </td>
-                                    <td>235</td>
+                                    <td></td>
                                     <td class="table-action">
                                         <a href="javascript: void(0);" class="action-icon"> <i class="mdi mdi-eye"></i></a>
                                     </td>
                                 </tr>
-                                <tr>
-                                    <td>
-                                        <h5 class="font-15 mb-1 fw-normal">Pete Burdine</h5>
-                                        <span class="text-muted font-13">Form 1, Lenana School</span>
-                                    </td>
-                                    <td>365</td>
-                                    <td class="table-action">
-                                        <a href="javascript: void(0);" class="action-icon"> <i class="mdi mdi-eye"></i></a>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <h5 class="font-15 mb-1 fw-normal">Mary Nelson</h5>
-                                        <span class="text-muted font-13">Grade 3, Lenana School</span>
-                                    </td>
-                                    <td>753</td>
-                                    <td class="table-action">
-                                        <a href="javascript: void(0);" class="action-icon"> <i class="mdi mdi-eye"></i></a>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <h5 class="font-15 mb-1 fw-normal">Kevin Grove</h5>
-                                        <span class="text-muted font-13">Grade 12, BareBurn School</span>
-                                    </td>
-                                    <td>458</td>
-                                    <td class="table-action">
-                                        <a href="javascript: void(0);" class="action-icon"> <i class="mdi mdi-eye"></i></a>
-                                    </td>
-                                </tr>
+                                @endforeach
                             </tbody>
                         </table>
                     </div> <!-- end table-responsive-->

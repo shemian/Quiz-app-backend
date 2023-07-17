@@ -59,4 +59,10 @@ class Student extends Model
     return $this->belongsTo(User::class);
     }
 
+
+    public function brainGames(): HasMany
+    {
+        return $this->hasMany(BrainGame::class);
+    }
+
 }

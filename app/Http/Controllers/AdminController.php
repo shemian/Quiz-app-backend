@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\BrainGame;
 use App\Models\ChartOfAccounts;
 use App\Models\MpesaTransaction;
 use App\Models\Sms;
@@ -40,7 +41,14 @@ class AdminController extends Controller
             $totalWalletBalance += $student->debit;
             $totalCentyBalance += $student->centy_balance;
         }
-        return view('admin.dashboard', compact('latestCustomers', 'customerCount', 'studentCount', 'teacherCount', 'organization_revenue', 'totalWalletBalance', 'totalCentyBalance'));
+
+        //Get top students in the brain game
+        $topStudensts = BrainGame::with('student')
+            ->orderByDesc('yes_ans')
+            ->take(6)
+            ->get();
+        dd($topStudensts);
+        return view('admin.dashboard', compact('latestCustomers', 'customerCount', 'studentCount', 'teacherCount', 'organization_revenue', 'totalWalletBalance', 'totalCentyBalance', 'topStudensts'));
     }
 
 
@@ -48,6 +56,8 @@ class AdminController extends Controller
         $messages = Sms::all();
         return view('admin.sms', compact('messages'));
     }
+
+
 
     //Display Transaction Details
     public function get_transactions(){
@@ -111,6 +121,11 @@ class AdminController extends Controller
     {
         //
     }
+
+    /**
+     * Display top 6 students for the brain Game
+     */
+
 
     /**
      * Display the specified resource.
