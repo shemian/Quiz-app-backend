@@ -27,7 +27,7 @@ class OTPVerificationController extends Controller
         session(['otp_user_id' => '']);
 
         if ($user->isOTPValid($request->centy_plus_otp)){
-            Auth::guard('web')->loginUsingId($request->session()->get('otp_user_id'), $remember = true);
+            Auth::guard('web')->login($user);
             
             $user->centy_plus_otp = null;
             $user->centy_plus_otp_verified = CentyOtpVerified::INACTIVE;

@@ -18,7 +18,7 @@ class AdminSeeder extends Seeder
             'name' => 'admin',
             'email' => 'admin@admin.com',
             'password' => bcrypt('0000'),
-            'phone_number' => '0798898678',
+            'phone_number' => '0713398529',
             'role' => 'admin',
             'first_login' => false
         ]);
@@ -27,7 +27,7 @@ class AdminSeeder extends Seeder
             'name' => 'Teacher admin',
             'email' => 'teacher@admin.com',
             'password' => bcrypt('0011'),
-            'phone_number' => '0798898678',
+            'phone_number' => '0713398529',
             'role' => 'teacher',
             'first_login' => false
         ]);
@@ -36,7 +36,6 @@ class AdminSeeder extends Seeder
             'user_id' => $user->id,
             'phone_number' => '0798898678',
         ]);
-
 
     }
 }

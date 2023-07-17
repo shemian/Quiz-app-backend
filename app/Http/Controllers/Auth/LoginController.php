@@ -66,7 +66,7 @@ class LoginController extends Controller
             session(['otp_user_id' => $user->id]);
             app('redirect')->setIntendedUrl(route($user->role . '.dashboard'));
             
-            auth()->logout();
+            Auth::guard('web')->logout();
 
             return redirect()->route('otp.enter');
         } elseif (isset($user->role)) {
