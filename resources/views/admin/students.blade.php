@@ -60,6 +60,7 @@
                                     <tr>
                                         <th>Name</th>
                                         <th>Guardian</th>
+                                        <th>Guardian Phone No</th>
                                         <th>Account Number</th>
                                         <th>School Name</th>
                                         <th>Centiis</th>
@@ -71,7 +72,8 @@
                                 @foreach ($students as $student)
                                 <tr>
                                     <td>{{ $student->user->name }}</td>
-                                    <td>{{ $student->Guardian}}</td>
+                                    <td>{{ $student->guardian->user->name}}</td>
+                                    <td>{{ $student->guardian->user->phone_number}}</td>
                                     <td>{{ $student->user->centy_plus_id }}</td>
                                     <td>{{ $student->school_name }}</td>
                                     <td>{{ $student->credit }}</td>
