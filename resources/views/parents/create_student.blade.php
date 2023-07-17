@@ -274,7 +274,7 @@
                                             @endif
 
                                             <td>
-                                                <a href="" title="View"><i class="mdi mdi-eye"></i></a>
+                                                <a href="{{ route('view_student_details', $student->id) }}" title="View"><i class="mdi mdi-eye"></i></a>
                                                 <a href="#" data-bs-toggle="modal" data-bs-target="#editModal_{{ $student->id }}" title="Edit"><i class="mdi mdi-book-edit-outline"></i></a>
 
                                                 <a href="#"  title="Delete" onclick="event.preventDefault(); deleteStudent('{{ route('delete_student', $student->id) }}');">
