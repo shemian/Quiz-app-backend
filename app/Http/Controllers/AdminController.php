@@ -31,15 +31,15 @@ class AdminController extends Controller
         $accountBalance = ChartOfAccounts::all();
         $organization_revenue = $accountBalance[0]->account_balance;
 
-        $totalCredit = 0;
+        $totalWalletBalance = 0;
         $totalCentyBalance = 0;
 
         $students = Student::all();
         foreach ($students as $student) {
-            $totalCredit += $student->credit;
+            $totalCredit += $student->debit;
             $totalCentyBalance += $student->centy_balance;
         }
-        return view('admin.dashboard', compact('customerCount', 'studentCount', 'teacherCount', 'organization_revenue', 'totalCredit', 'totalCentyBalance'));
+        return view('admin.dashboard', compact('customerCount', 'studentCount', 'teacherCount', 'organization_revenue', 'totalWalletBalance', 'totalCentyBalance'));
     }
 
 
