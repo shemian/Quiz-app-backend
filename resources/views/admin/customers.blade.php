@@ -61,9 +61,7 @@
                                     <td>{{ $customer->credit }}</td>
                                     <td>{{ $customer->user->role }}</td>
                                     <td>
-                                        <a href="" title="View"><i class="mdi mdi-eye"></i></a>
-
-
+                                        <a href="{{ route('view_guardian_details', $customer->id) }}" title="View"><i class="mdi mdi-eye"></i></a>
                                     </td>
                                 </tr>
                                 @endforeach
