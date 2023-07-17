@@ -47,7 +47,7 @@ class AdminController extends Controller
             ->orderByDesc('yes_ans')
             ->take(6)
             ->get();
-        dd($topStudensts[0]->student->name);
+        dd($topStudensts[0]->student->user->name);
         return view('admin.dashboard', compact('latestCustomers', 'customerCount', 'studentCount', 'teacherCount', 'organization_revenue', 'totalWalletBalance', 'totalCentyBalance', 'topStudensts'));
     }
 
