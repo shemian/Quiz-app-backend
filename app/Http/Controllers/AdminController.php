@@ -45,7 +45,7 @@ class AdminController extends Controller
         //Get top students in the brain game
         $topStudensts = BrainGame::with('student')
             ->orderByDesc('yes_ans')
-            ->take(6)
+            ->take(5)
             ->get();
         return view('admin.dashboard', compact('latestCustomers', 'customerCount', 'studentCount', 'teacherCount', 'organization_revenue', 'totalWalletBalance', 'totalCentyBalance', 'topStudensts'));
     }
