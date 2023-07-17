@@ -239,8 +239,8 @@
                                 <tr>
                                     <td>
                                         <span class="badge badge-success-lighten float-end">Won lead</span>
-                                        <h5 class="mt-0 mb-1">{{ $topStudenst->student->name }}</h5>
-                                        <span class="text-muted font-13">Grade 2, St Martin's School</span>
+                                        <h5 class="mt-0 mb-1">{{ $topStudenst->student->user->name }}</h5>
+                                        <span class="text-muted font-13">{{ $topStudenst->student->educationLevel}}, {{$topStudenst->student->school}}</span>
                                     </td>
                                     <td></td>
                                     <td class="table-action">
