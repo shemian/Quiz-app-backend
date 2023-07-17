@@ -36,7 +36,7 @@ class AdminController extends Controller
 
         $students = Student::all();
         foreach ($students as $student) {
-            $totalCredit += $student->debit;
+            $totalWalletBalance += $student->debit;
             $totalCentyBalance += $student->centy_balance;
         }
         return view('admin.dashboard', compact('customerCount', 'studentCount', 'teacherCount', 'organization_revenue', 'totalWalletBalance', 'totalCentyBalance'));
