@@ -59,22 +59,22 @@ class LoginController extends Controller
 
     protected function authenticated(Request $request, $user)
     {
-//        if ($user->first_login) {
-//            return redirect()->route('password.reset');
-//        } elseif ($user->centy_plus_otp_verified->value === CentyOtpVerified::INACTIVE){
-//            $user = User::find($user->id);
-//            $user->centy_plus_otp = rand(1000, 9999);
-//            $user->save();
-//
-//            // Send OTP to user's phone number
-//            dispatch(new SendUserOtp($user));
-//
-//            // Redirect user to verify OTP view
-//            return redirect()->route('otp.enter');}
-//        elseif ($user->centy_plus_otp_verified->value == CentyOtpVerified::SENT && $user->role !== 'admin') {
-//            return redirect()->route('otp.enter');
-//}
-    if ($user->role === 'parent') {
+        if ($user->first_login) {
+           return redirect()->route('password.reset');
+        } elseif ($user->centy_plus_otp_verified->value === CentyOtpVerified::INACTIVE){
+           $user = User::find($user->id);
+           $user->centy_plus_otp = rand(1000, 9999);
+           $user->save();
+
+           // Send OTP to user's phone number
+           dispatch(new SendUserOtp($user));
+
+           // Redirect user to verify OTP view
+           return redirect()->route('otp.enter');}
+        elseif ($user->centy_plus_otp_verified->value == CentyOtpVerified::SENT) {
+           return redirect()->route('otp.enter');
+        }
+        if ($user->role === 'parent') {
             return redirect()->route('parent.dashboard');
         } elseif ($user->role === 'teacher') {
             return redirect()->route('teacher.dashboard');
