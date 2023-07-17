@@ -60,18 +60,17 @@ class LoginController extends Controller
 
     protected function authenticated(Request $request, $user)
     {
-//        if ($user->first_login) {
-//           return redirect()->route('password.reset');
-//        }
-//        if ($user->needsOTPVerification()){
-//            session(['otp_user_id' => $user->id]);
-//            app('redirect')->setIntendedUrl(route($user->role . '.dashboard'));
-//
-//            Auth::guard('web')->logout();
-//
-//            return redirect()->route('otp.enter');
-//        }
-        if (isset($user->role)) {
+        if ($user->first_login) {
+           return redirect()->route('password.reset');
+        }
+        elseif ($user->needsOTPVerification()){
+            session(['otp_user_id' => $user->id]);
+            app('redirect')->setIntendedUrl(route($user->role . '.dashboard'));
+
+            Auth::guard('web')->logout();
+
+            return redirect()->route('otp.enter');
+        } elseif (isset($user->role)) {
             return redirect()->route($user->role . '.dashboard');
         } else {
             return redirect()->route('login')->with("message", "Your user type is not recognized");
