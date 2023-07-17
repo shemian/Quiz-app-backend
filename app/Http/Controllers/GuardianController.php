@@ -79,7 +79,7 @@ class GuardianController extends Controller
         ]);
 
         //Auth user (Guardian)
-        $auth_user = auth()->user()->id;
+        $auth_user = auth()->user();
 
         // Create a new user
         $user = new User();
