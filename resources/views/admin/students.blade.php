@@ -72,7 +72,7 @@
                                 @foreach ($students as $student)
                                 <tr>
                                     <td>{{ $student->user->name }}</td>
-                                    <a href="{{ route('view_parent_details', $student->guardian_id) }}"  title=""><td>jjj</td></a>
+                                    <a href="{{ route('view_parent_details', $student->guardian_id) }}"  title=""><td>{{ $student->guardian->user->name}}</td></a>
                                     <td>{{ $student->guardian->user->phone_number}}</td>
                                     <td>{{ $student->user->centy_plus_id }}</td>
                                     <td>{{ $student->school_name }}</td>
