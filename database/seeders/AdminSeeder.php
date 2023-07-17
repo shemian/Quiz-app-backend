@@ -18,7 +18,7 @@ class AdminSeeder extends Seeder
             'name' => 'admin',
             'email' => 'admin@admin.com',
             'password' => bcrypt('0000'),
-            'phone_number' => '0798898678',
+            'phone_number' => '0711637755',
             'role' => 'admin',
             'first_login' => false
         ]);
