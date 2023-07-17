@@ -9,6 +9,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use App\Enums\CentyOtpVerified;
+use App\Jobs\SendUserOtp;
 
 class User extends Authenticatable
 {
@@ -91,5 +92,25 @@ class User extends Authenticatable
         }
 
         return str_pad($sequence, 7, '0', STR_PAD_LEFT);
+    }
+
+    public function needsOTPVerification(){
+        if ($this->centy_plus_otp_verified->value === CentyOtpVerified::INACTIVE){
+           $this->centy_plus_otp = rand(1000, 9999);
+           $this->save();
+
+           // Send OTP to user's phone number
+           dispatch(new SendUserOtp($this));
+
+           return true;
+        } elseif ($this->centy_plus_otp_verified->value === CentyOtpVerified::SENT) {
+            return true;
+        }
+
+        return false;
+    }
+
+    public function isOTPValid($otp){
+        return $this->centy_plus_otp === $otp && $this->centy_plus_otp_verified->value === CentyOtpVerified::SENT;
     }
 }

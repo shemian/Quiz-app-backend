@@ -1,6 +1,7 @@
 <?php
 
-use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\Auth\OTPVerificationController;
 use App\Http\Controllers\ExamController;
 use App\Http\Controllers\SubscriptionPlanController;
 use App\Http\Controllers\SubTopicSubStrandController;
@@ -34,8 +35,9 @@ Route::get('/', function () {
 
 Auth::routes();
 
-
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/home', [HomeController::class, 'index'])->name('home');
+Route::get('/otp/enter', [OTPVerificationController::class, 'enterOTP'])->name('otp.enter');
+Route::post('/otp/validate', [OTPVerificationController::class, 'validateOTP'])->name('otp.validate');
 
 Route::prefix('/admin')->middleware(['isAdmin'])->group(function(){
     Route::get('/', [AdminController::class, 'index'])->name('admin.dashboard');

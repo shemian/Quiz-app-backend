@@ -23,9 +23,9 @@
                                     <div class="input-group">
                                         <span class="input-group-text">CNT-</span>
                                         <input id="centy_plus_otp" type="text" class="form-control @error('centy_plus_otp') is-invalid @enderror" name="centy_plus_otp" value="{{ old('centy_plus_otp') }}" required autocomplete="centy_plus_otp" autofocus>
-                                        @error('centy_plus_otp')
+                                        @isset($error)
                                         <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
+                                            <strong>{{ $error }}</strong>
                                         </span>
                                         @enderror
                                     </div>
