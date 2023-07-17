@@ -320,8 +320,8 @@
                     <div class="d-flex align-items-start">
                         <img class="me-3 rounded-circle" src="{{ asset('assets/images/users/avatar-2.jpg') }}" width="40" alt="Generic placeholder image">
                         <div class="w-100 overflow-hidden">
-                            <h5 class="mt-0 mb-1">{{ $customer->user->name }}</h5>
-                            <span class="font-13">{{ $customer->user->email }}</span>
+                            <h5 class="mt-0 mb-1">{{ $customer->name }}</h5>
+                            <span class="font-13">{{ $customer->email }}</span>
                         </div>
                     </div>
                     @endforeach
