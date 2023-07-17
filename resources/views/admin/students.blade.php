@@ -59,7 +59,7 @@
                                 <thead>
                                     <tr>
                                         <th>Name</th>
-                                        <th>Guardian</th>
+                                        <th>Guardian Name</th>
                                         <th>Guardian Phone No</th>
                                         <th>Account Number</th>
                                         <th>School Name</th>
