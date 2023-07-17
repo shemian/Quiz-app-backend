@@ -80,26 +80,26 @@ class GuardianController extends Controller
 
         //Auth user (Guardian)
         $auth_user = auth()->user();
-
-        // Create a new user
-        $user = new User();
-        $user->name = $request->name;
-        $user->centy_plus_id  = User::generateStudentSequence($auth_user->id, $auth_user->phone_number);
-        $password = strval(mt_rand(1000, 9999));
-        $user->password = Hash::make($password);
-        $user->role = 'student';
-        $user->save();
-
-        // Create a new student
-        $student = new Student();
-        $student->date_of_birth = $request->date_of_birth;
-        $student->school_name = $request->school_name;
-        $student->guardian_id = $auth_user->id;
-        $student->education_system_id = $request->education_system_id;
-        $student->education_level_id = $request->education_level_id;
-
         $guardian = Guardian::where('user_id', $auth_user->id)->first();
+
         if ($guardian) {
+
+            // Create a new user
+            $user = new User();
+            $user->name = $request->name;
+            $user->centy_plus_id  = User::generateStudentSequence($guardian->id, $auth_user->phone_number);
+            $password = strval(mt_rand(1000, 9999));
+            $user->password = Hash::make($password);
+            $user->role = 'student';
+            $user->save();
+
+            // Create a new student
+            $student = new Student();
+            $student->date_of_birth = $request->date_of_birth;
+            $student->school_name = $request->school_name;
+            $student->education_system_id = $request->education_system_id;
+            $student->education_level_id = $request->education_level_id;
+
             $student->guardian_id = $guardian->id;
             $user->student()->save($student);
         }
