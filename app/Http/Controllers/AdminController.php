@@ -64,12 +64,20 @@ class AdminController extends Controller
         $customers = Guardian::with('user')->get();
         return view('admin.customers', compact('customers'));
     }
+    public function get_students()
+    {
+        $students = Student::with('user', 'guardian')->get();
 
-    public function get_students(){
-        $students = Student::with('user')->get();
-        dd($students->guardian->name);
+        foreach ($students as $student) {
+            $guardianName = $student->guardian->name;
+            $guardianPhoneNumber = $student->guardian->phone_number;
+        }
+
+        dd($guardianName);
+
         return view('admin.students', compact('students'));
     }
+
 
     //store teachers details
     public function store_teachers(CreateTeacherRequest $request){
