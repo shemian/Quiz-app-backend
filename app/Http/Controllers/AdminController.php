@@ -30,8 +30,18 @@ class AdminController extends Controller
         $teacherCount = User::where('role', 'teacher')->count();
         $accountBalance = ChartOfAccounts::all();
         $organization_revenue = $accountBalance[0]->account_balance;
-        return view ('admin.dashboard', compact('customerCount','studentCount','teacherCount', 'organization_revenue'));
+
+        $totalCredit = 0;
+        $totalCentyBalance = 0;
+
+        $students = Student::all();
+        foreach ($students as $student) {
+            $totalCredit += $student->credit;
+            $totalCentyBalance += $student->centy_balance;
+        }
+        return view('admin.dashboard', compact('customerCount', 'studentCount', 'teacherCount', 'organization_revenue', 'totalCredit', 'totalCentyBalance'));
     }
+
 
     public function get_sms(){
         $messages = Sms::all();

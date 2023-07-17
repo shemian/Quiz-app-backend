@@ -182,13 +182,13 @@
                             <div class="col-md-6">
                                 <p class="text-muted mb-0 mt-3">Escrow Balance</p>
                                 <h2 class="fw-normal mb-3">
-                                    <span>Ksh 42,025</span>
+                                    <span>{{ $totalCentyBalance }}</span>
                                 </h2>
                             </div>
                             <div class="col-md-6">
                                 <p class="text-muted mb-0 mt-3">Student's Balance</p>
                                 <h2 class="fw-normal mb-3">
-                                    <span>Ksh 74,651</span>
+                                    <span>{{ $totalCredit }}</span>
                                 </h2>
                             </div>
                         </div>
