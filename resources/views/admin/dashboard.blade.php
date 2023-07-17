@@ -231,7 +231,6 @@
                                 <tr>
                                     <th>Students</th>
                                     <th>Centys</th>
-                                    <th>Tasks</th>
                                     <th></th>
                                 </tr>
                             </thead>
@@ -242,7 +241,6 @@
                                         <span class="text-muted font-13">Grade 2, St Martin's School</span>
                                     </td>
                                     <td>187</td>
-                                    <td>49</td>
                                     <td class="table-action">
                                         <a href="javascript: void(0);" class="action-icon"> <i class="mdi mdi-eye"></i></a>
                                     </td>
@@ -254,7 +252,6 @@
                                         <span class="text-muted font-13">Grade 4, St Martin's School</span>
                                     </td>
                                     <td>235</td>
-                                    <td>83</td>
                                     <td class="table-action">
                                         <a href="javascript: void(0);" class="action-icon"> <i class="mdi mdi-eye"></i></a>
                                     </td>
@@ -265,7 +262,6 @@
                                         <span class="text-muted font-13">Form 1, Lenana School</span>
                                     </td>
                                     <td>365</td>
-                                    <td>62</td>
                                     <td class="table-action">
                                         <a href="javascript: void(0);" class="action-icon"> <i class="mdi mdi-eye"></i></a>
                                     </td>
@@ -276,7 +272,6 @@
                                         <span class="text-muted font-13">Grade 3, Lenana School</span>
                                     </td>
                                     <td>753</td>
-                                    <td>258</td>
                                     <td class="table-action">
                                         <a href="javascript: void(0);" class="action-icon"> <i class="mdi mdi-eye"></i></a>
                                     </td>
@@ -287,7 +282,6 @@
                                         <span class="text-muted font-13">Grade 12, BareBurn School</span>
                                     </td>
                                     <td>458</td>
-                                    <td>73</td>
                                     <td class="table-action">
                                         <a href="javascript: void(0);" class="action-icon"> <i class="mdi mdi-eye"></i></a>
                                     </td>
@@ -326,42 +320,6 @@
                     </div>
                     @endforeach
 
-
-                    <div class="d-flex align-items-start mt-3">
-                        <img class="me-3 rounded-circle" src="{{ asset('assets/images/users/avatar-4.jpg') }}" width="40" alt="Generic placeholder image">
-                        <div class="w-100 overflow-hidden">
-                            <span class="badge badge-success-lighten float-end">Won lead</span>
-                            <h5 class="mt-0 mb-1">Bryan J. Luellen</h5>
-                            <span class="font-13">bryuellen@dayrep.com</span>
-                        </div>
-                    </div>
-
-                    <div class="d-flex align-items-start mt-3">
-                        <img class="me-3 rounded-circle" src="{{ asset('assets/images/users/avatar-5.jpg') }}" width="40" alt="Generic placeholder image">
-                        <div class="w-100 overflow-hidden">
-                            <span class="badge badge-warning-lighten float-end">Cold lead</span>
-                            <h5 class="mt-0 mb-1">Kathryn S. Collier</h5>
-                            <span class="font-13">collier@jourrapide.com</span>
-                        </div>
-                    </div>
-
-                    <div class="d-flex align-items-start mt-3">
-                        <img class="me-3 rounded-circle" src="{{ asset('assets/images/users/avatar-1.jpg') }}" width="40" alt="Generic placeholder image">
-                        <div class="w-100 overflow-hidden">
-                            <span class="badge badge-warning-lighten float-end">Cold lead</span>
-                            <h5 class="mt-0 mb-1">Timothy Kauper</h5>
-                            <span class="font-13">thykauper@rhyta.com</span>
-                        </div>
-                    </div>
-
-                    <div class="d-flex align-items-start mt-3">
-                        <img class="me-3 rounded-circle" src="{{ asset('assets/images/users/avatar-6.jpg') }}" width="40" alt="Generic placeholder image">
-                        <div class="w-100 overflow-hidden">
-                            <span class="badge badge-success-lighten float-end">Won lead</span>
-                            <h5 class="mt-0 mb-1">Zara Raws</h5>
-                            <span class="font-13">austin@dayrep.com</span>
-                        </div>
-                    </div>
 
                 </div>
                 <!-- end card-body -->
