@@ -12,7 +12,7 @@
     @if ($questions->isEmpty())
         <p>No questions available for this exam.</p>
     @else
-        <div class="start_btn"><button>Start Quiz</button></div>
+        <div class="start_btn"><button>Start Exam</button></div>
         <!-- Info Box -->
         <div class="info_box">
             <div class="info-title"><span>Some Rules of this Quiz</span></div>
@@ -24,7 +24,7 @@
                 <div class="info">5. You'll get points on the basis of your correct answers.</div>
             </div>
             <div class="buttons">
-                <button class="quit">Exit Quiz</button>
+                <button class="quit">Exit Exam</button>
                 <button class="restart">Continue</button>
             </div>
         </div>
