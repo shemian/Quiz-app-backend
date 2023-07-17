@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\ChartOfAccounts;
 use App\Models\MpesaTransaction;
 use App\Models\Sms;
 use Illuminate\Http\Request;
@@ -27,7 +28,8 @@ class AdminController extends Controller
         $customerCount = Guardian::count();
         $studentCount = Student::count();
         $teacherCount = User::where('role', 'teacher')->count();
-        return view ('admin.dashboard', compact('customerCount','studentCount','teacherCount'));
+        $organization_revenue = ChartOfAccounts::all();
+        return view ('admin.dashboard', compact('customerCount','studentCount','teacherCount', 'organization_revenue'));
     }
 
     public function get_sms(){

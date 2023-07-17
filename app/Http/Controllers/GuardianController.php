@@ -111,11 +111,12 @@ class GuardianController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * Display the student details  resource.
      */
-    public function show(string $id)
+    public function student_details(string $id)
     {
-        //
+        $student = Student::find($id);
+        return view('parents.view_student_details', compact('student'));
     }
 
     /**

@@ -85,7 +85,7 @@
                     <div class="row align-items-center">
                         <div class="col-6">
                             <h5 class="text-muted fw-normal mt-0 text-truncate" title="Booked Revenue">Revenue</h5>
-                            <h3 class="my-2 py-1">Ksh 0.0</h3>
+                            <h3 class="my-2 py-1">{{ $organization_revenue->account_balance }}</h3>
                             <p class="mb-0 text-muted">
                                 <span class="text-success me-2"><i class="mdi mdi-arrow-up-bold"></i> 11.7%</span>
                             </p>
@@ -180,13 +180,13 @@
                     <div class="chart-content-bg">
                         <div class="row text-center">
                             <div class="col-md-6">
-                                <p class="text-muted mb-0 mt-3">Current Month</p>
+                                <p class="text-muted mb-0 mt-3">Escrow Balance</p>
                                 <h2 class="fw-normal mb-3">
                                     <span>Ksh 42,025</span>
                                 </h2>
                             </div>
                             <div class="col-md-6">
-                                <p class="text-muted mb-0 mt-3">Previous Month</p>
+                                <p class="text-muted mb-0 mt-3">Student's Balance</p>
                                 <h2 class="fw-normal mb-3">
                                     <span>Ksh 74,651</span>
                                 </h2>
@@ -314,7 +314,7 @@
                             <a href="javascript:void(0);" class="dropdown-item">Action</a>
                         </div>
                     </div>
-                    <h4 class="header-title mb-4">Recent Leads</h4>
+                    <h4 class="header-title mb-4">Recent Clients</h4>
 
                     <div class="d-flex align-items-start">
                         <img class="me-3 rounded-circle" src="{{ asset('assets/images/users/avatar-2.jpg') }}" width="40" alt="Generic placeholder image">
