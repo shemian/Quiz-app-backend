@@ -69,7 +69,7 @@ class AdminController extends Controller
         $students = Student::with('user', 'guardian')->get();
 
         foreach ($students as $student) {
-            $guardianName = $student->guardian->name;
+            $guardianName = $student->guardian->user->name;
             $guardianPhoneNumber = $student->guardian->phone_number;
         }
 
