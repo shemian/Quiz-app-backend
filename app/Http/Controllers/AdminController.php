@@ -28,8 +28,9 @@ class AdminController extends Controller
         $customerCount = Guardian::count();
         $studentCount = Student::count();
         $teacherCount = User::where('role', 'teacher')->count();
-        $organization_revenue = ChartOfAccounts::all();
-        dd($organization_revenue->account_balance);
+        $accountBalance = ChartOfAccounts::with('account_balance')->get();
+
+        dd($accountBalance);
         return view ('admin.dashboard', compact('customerCount','studentCount','teacherCount', 'organization_revenue'));
     }
 
