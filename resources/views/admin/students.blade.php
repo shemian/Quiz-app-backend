@@ -61,7 +61,7 @@
                                         <th>Name</th>
                                         <th>Account Number</th>
                                         <th>School Name</th>
-                                        <th>Credit</th>
+                                        <th>Centiis</th>
                                         <th>Active Subscription</th>
                                         <th>Account Status</th>
                                         <th>Action</th>

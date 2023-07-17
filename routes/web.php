@@ -75,6 +75,8 @@ Route::prefix('parent')->middleware(['isParent'])->group(function(){
     Route::post('/edit-students/{id}', [GuardianController::class, 'update'])->name('update_student');
     Route::delete('/delete-students/{id}', [GuardianController::class, 'destroy'])->name('delete_student');
 
+    Route::get('/view-students/{id}', [GuardianController::class,'student_details'])->name('view_student_details');
+
 });
 
 Route::prefix('teacher')->middleware([ 'isTeacher'])->group(function(){
