@@ -250,7 +250,7 @@
                                 <tr>
                                     <td>
                                         <span class="badge badge-success-lighten float-end">Won lead</span>
-                                        <h5 class="font-15 mb-1 fw-normal">Thomas Krueger</h5>
+                                        <h5 class="mt-0 mb-1">Bryan J. Luellen</h5>
                                         <span class="text-muted font-13">Grade 4, St Martin's School</span>
                                     </td>
                                     <td>235</td>
