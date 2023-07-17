@@ -122,7 +122,7 @@
                         </div>
                     </div>
 
-                    <h4 class="header-title mb-1">Campaigns</h4>
+                    <h4 class="header-title mb-1">SMS</h4>
 
                     <div id="dash-campaigns-chart" class="apex-charts" data-colors="#ffbc00,#727cf5,#0acf97"></div>
 
@@ -139,14 +139,14 @@
                             <h3 class="fw-normal mt-3">
                                 <span>3,487</span>
                             </h3>
-                            <p class="text-muted mb-0 mb-2"><i class="mdi mdi-checkbox-blank-circle text-primary"></i> Reached</p>
+                            <p class="text-muted mb-0 mb-2"><i class="mdi mdi-checkbox-blank-circle text-primary"></i> Delivered</p>
                         </div>
                         <div class="col-md-4">
                             <i class="mdi mdi-email-open widget-icon rounded-circle bg-light-lighten text-muted"></i>
                             <h3 class="fw-normal mt-3">
                                 <span>1,568</span>
                             </h3>
-                            <p class="text-muted mb-0 mb-2"><i class="mdi mdi-checkbox-blank-circle text-success"></i> Opened</p>
+                            <p class="text-muted mb-0 mb-2"><i class="mdi mdi-checkbox-blank-circle text-success"></i> Pending</p>
                         </div>
                     </div>
                 </div>
