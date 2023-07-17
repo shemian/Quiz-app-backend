@@ -48,12 +48,6 @@
                 </a>
             </li>
 
-            <li class="side-nav-item">
-                <a href="#" class="side-nav-link">
-                    <i class="uil-book-open"></i>
-                    <span> Lessons </span>
-                </a>
-            </li>
 
             <li class="side-nav-item">
                 <a href="{{ route('get_sms') }}"class="side-nav-link">
