@@ -60,12 +60,13 @@ class LoginController extends Controller
 
     protected function authenticated(Request $request, $user)
     {
-        if ($user->first_login) {
-           return redirect()->route('password.reset');
-        } elseif ($user->needsOTPVerification()){
+//        if ($user->first_login) {
+//           return redirect()->route('password.reset');
+//        }
+        if ($user->needsOTPVerification()){
             session(['otp_user_id' => $user->id]);
             app('redirect')->setIntendedUrl(route($user->role . '.dashboard'));
-            
+
             Auth::guard('web')->logout();
 
             return redirect()->route('otp.enter');
