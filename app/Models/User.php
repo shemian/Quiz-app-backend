@@ -67,18 +67,13 @@ class User extends Authenticatable
 
         self::creating(function ($user) {
             if ($user->role === 'parent') {
-                $user->centy_plus_id = 'CNT' . self::generateParentSequence() . '-' . $user->phone_number;
+                $user->centy_plus_id = 'CNT' . '-' . $user->phone_number;
             } elseif ($user->role === 'teacher') {
                 $user->centy_plus_id = 'CNT-' . self::generateTeacherSequence();
             }
         });
     }
 
-    public static function generateParentSequence()
-    {
-        $parentSequence = static::where('role', 'parent')->count();
-        return $parentSequence + 1;
-    }
 
     protected static function generateTeacherSequence()
     {
@@ -98,7 +93,6 @@ class User extends Authenticatable
     {
         //Get count of all students that belong to parent.
         $students_count = Student::where('guardian_id', $guardian_id)->count();
-
         return 'CNT'.$students_count.'-'.$guardian_phone_number;
 
     }
