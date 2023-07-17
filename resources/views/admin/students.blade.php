@@ -71,7 +71,7 @@
                                 @foreach ($students as $student)
                                 <tr>
                                     <td>{{ $student->user->name }}</td>
-                                    <td>{{ $student->Guardian->name}}</td>
+                                    <td>{{ $student->Guardian}}</td>
                                     <td>{{ $student->user->centy_plus_id }}</td>
                                     <td>{{ $student->school_name }}</td>
                                     <td>{{ $student->credit }}</td>

@@ -67,6 +67,7 @@ class AdminController extends Controller
 
     public function get_students(){
         $students = Student::with('user')->get();
+        dd($students);
         return view('admin.students', compact('students'));
     }
 
