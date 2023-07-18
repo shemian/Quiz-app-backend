@@ -131,8 +131,9 @@ class AdminController extends Controller
      */
     public function parent_details(string $id)
     {
-        $customer = Guardian::find($id);
-        return view('admin.view_parent_details', compact('customer'));
+        $guardian = Guardian::find($id);
+        $students = $guardian->students;
+        return view('admin.view_parent_details', compact('guardian', 'students'));
     }
 
     /**
