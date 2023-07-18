@@ -72,7 +72,6 @@
                         </ul>
                         <div class="tab-content">
                             <div class="tab-pane show active" id="aboutme">
-                                <h5 class="mb-3 mt-4 text-uppercase"><i class="mdi mdi-cards-variant me-1"></i>Students</h5>
                                 <div class="table-responsive">
                                     <table class="table table-borderless table-nowrap mb-0">
                                         <thead class="table-light">
