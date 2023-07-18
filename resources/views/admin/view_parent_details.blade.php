@@ -28,6 +28,7 @@
                     <div class="card-body">
                         <img>
                         <h4 class="mb-0 mt-2">{{ $customer->user->name }}</h4>
+                        <p class="text-muted font-14">{{ $customer->user->role }}</p>
 
 
                         <div class="text-start mt-3">
