@@ -141,39 +141,6 @@
                                         </div> <!-- end col -->
                                     </div> <!-- end row -->
 
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <div class="mb-3">
-                                                <label for="useremail" class="form-label">Email Address</label>
-                                                <input type="email" class="form-control" id="useremail" placeholder="Enter email">
-                                                <span class="form-text text-muted"><small>If you want to change email please <a href="javascript: void(0);">click</a> here.</small></span>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="mb-3">
-                                                <label for="userpassword" class="form-label">Password</label>
-                                                <input type="password" class="form-control" id="userpassword" placeholder="Enter password">
-                                                <span class="form-text text-muted"><small>If you want to change password please <a href="javascript: void(0);">click</a> here.</small></span>
-                                            </div>
-                                        </div> <!-- end col -->
-                                    </div> <!-- end row -->
-
-                                    <h5 class="mb-3 text-uppercase bg-light p-2"><i class="mdi mdi-office-building me-1"></i> Company Info</h5>
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <div class="mb-3">
-                                                <label for="companyname" class="form-label">Company Name</label>
-                                                <input type="text" class="form-control" id="companyname" placeholder="Enter company name">
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="mb-3">
-                                                <label for="cwebsite" class="form-label">Website</label>
-                                                <input type="text" class="form-control" id="cwebsite" placeholder="Enter website url">
-                                            </div>
-                                        </div> <!-- end col -->
-                                    </div> <!-- end row -->
-
                                     <h5 class="mb-3 text-uppercase bg-light p-2"><i class="mdi mdi-earth me-1"></i> Social</h5>
                                     <div class="row">
                                         <div class="col-md-6">
