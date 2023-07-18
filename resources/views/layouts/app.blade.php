@@ -13,7 +13,7 @@
 
 
     <link rel="stylesheet" href="{{ asset('assets/css/icons.min.css') }}" type="text/css">
-    <link href="assets/css/app.min.css" rel="stylesheet" type="text/css" id="light-style" />
+    <link href="{{ asset('assets/css/app.min.css') }}" rel="stylesheet" type="text/css" id="light-style" />
 
 
 </head>
