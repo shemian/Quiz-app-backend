@@ -79,8 +79,8 @@
                                         <tr>
                                             <th>Student Name</th>
                                             <th>Centy ID</th>
-                                            <th>Start Date</th>
-                                            <th>Due Date</th>
+                                            <th>School Name</th>
+                                            <th>Education Level</th>
                                             <th>Account Status</th>
                                         </tr>
                                         </thead>
@@ -89,8 +89,8 @@
                                         <tr>
                                             <td>{{ $student->user->name }}</td>
                                             <td>{{ $student->user->centy_plus_id }}</td>
-                                            <td>Test </td>
-                                            <td>Test </td>
+                                            <td>{{ $student->school_name }} </td>
+                                            <td>{{ $student->educationLevel->name }} </td>
                                             @if($student->account_status == 0)
                                             <td><span class="badge badge-danger-lighten">Inactive</span></td>
                                             @elseif($student->account_status == 1)
