@@ -83,7 +83,7 @@
                                             <th>Centy ID</th>
                                             <th>Start Date</th>
                                             <th>Due Date</th>
-                                            <th>Status</th>
+                                            <th>Account Status</th>
                                         </tr>
                                         </thead>
                                         <tbody>
@@ -94,7 +94,16 @@
                                             <td>{{ $student->user->centy_plus_id }}</td>
                                             <td>Test </td>
                                             <td>Test </td>
-                                            <td><span class="badge badge-info-lighten">Work in Progress</span></td>
+                                            @if($student->account_status == 0){
+                                            <td><span class="badge badge-danger-lighten">Inactive</span></td>
+                                            }@elseif($student->account_status == 1){
+                                            td><span class="badge badge-success-lighten">Active</span></td>
+                                            @elseif($student->account_status == 2){
+                                            <td><span class="badge badge-warning-lighten">Pending</span></td>
+                                            @elseif($student->account_status == 3){
+                                            <td><span class="badge badge-info-lighten">Suspended</span></td>
+                                                }
+                                            @endif
                                         </tr>
                                         @endforeach
                                         <tr>
@@ -104,30 +113,6 @@
                                             <td>21/07/2016</td>
                                             <td>12/05/2018</td>
                                             <td><span class="badge badge-danger-lighten">Pending</span></td>
-                                        </tr>
-                                        <tr>
-                                            <td>3</td>
-                                            <td><img src="assets/images/users/avatar-4.jpg" alt="table-user" class="me-2 rounded-circle" height="24"> Lucas Sabourin</td>
-                                            <td>Poster illustation design</td>
-                                            <td>18/03/2018</td>
-                                            <td>28/09/2018</td>
-                                            <td><span class="badge badge-success-lighten">Done</span></td>
-                                        </tr>
-                                        <tr>
-                                            <td>4</td>
-                                            <td><img src="assets/images/users/avatar-6.jpg" alt="table-user" class="me-2 rounded-circle" height="24"> Donatien Brunelle</td>
-                                            <td>Drinking bottle graphics</td>
-                                            <td>02/10/2017</td>
-                                            <td>07/05/2018</td>
-                                            <td><span class="badge badge-info-lighten">Work in Progress</span></td>
-                                        </tr>
-                                        <tr>
-                                            <td>5</td>
-                                            <td><img src="assets/images/users/avatar-5.jpg" alt="table-user" class="me-2 rounded-circle" height="24"> Karel Auberjo</td>
-                                            <td>Landing page design - Home</td>
-                                            <td>17/01/2017</td>
-                                            <td>25/05/2021</td>
-                                            <td><span class="badge badge-warning-lighten">Coming soon</span></td>
                                         </tr>
 
                                         </tbody>
