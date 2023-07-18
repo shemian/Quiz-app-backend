@@ -27,17 +27,20 @@
                 <div class="card text-center">
                     <div class="card-body">
                         <img>
-                        <h4 class="mb-0 mt-2">{{ $customer->user->name }}</h4>
-                        <p class="text-muted font-14">{{ $customer->user->role }}</p>
+                        <h4 class="mb-0 mt-2">{{ $guardian->user->name }}</h4>
+                        <p class="text-muted font-14">{{ $guardian->user->role }}</p>
 
 
                         <div class="text-start mt-3">
 
                             <p class="text-muted mb-2 font-13"><strong>Full Name :</strong> <span class="ms-2">
-                                                   {{ $customer->user->name }}</span></p>
+                                                   {{ $guardian->user->name }}</span></p>
 
                             <p class="text-muted mb-2 font-13"><strong>CentyPlus ID :</strong><span class="ms-2">
-                                                    {{ $customer->user->centy_plus_id  }}</span></p>
+                                                    {{ $guardian->user->centy_plus_id  }}</span></p>
+
+                            <p class="text-muted mb-2 font-13"><strong>Phone Number :</strong><span class="ms-2">
+                                                    {{ $guardian->user->phone_number  }}</span></p>
                         </div>
 
                     </div> <!-- end card-body -->
