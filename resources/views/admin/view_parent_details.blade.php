@@ -94,27 +94,17 @@
                                             <td>{{ $student->user->centy_plus_id }}</td>
                                             <td>Test </td>
                                             <td>Test </td>
-                                            @if($student->account_status == 0){
+                                            @if($student->account_status == 0)
                                             <td><span class="badge badge-danger-lighten">Inactive</span></td>
-                                            }@elseif($student->account_status == 1){
-                                            td><span class="badge badge-success-lighten">Active</span></td>
-                                            @elseif($student->account_status == 2){
+                                            @elseif($student->account_status == 1)
+                                            <td><span class="badge badge-success-lighten">Active</span></td>
+                                            @elseif($student->account_status == 2)
                                             <td><span class="badge badge-warning-lighten">Pending</span></td>
-                                            @elseif($student->account_status == 3){
+                                            @elseif($student->account_status == 3)
                                             <td><span class="badge badge-info-lighten">Suspended</span></td>
-                                                }
                                             @endif
                                         </tr>
                                         @endforeach
-                                        <tr>
-                                            <td>2</td>
-                                            <td><img src="assets/images/users/avatar-3.jpg" alt="table-user" class="me-2 rounded-circle" height="24"> Durandana Jolicoeur</td>
-                                            <td>Coffee detail page - Main Page</td>
-                                            <td>21/07/2016</td>
-                                            <td>12/05/2018</td>
-                                            <td><span class="badge badge-danger-lighten">Pending</span></td>
-                                        </tr>
-
                                         </tbody>
                                     </table>
                                 </div>
