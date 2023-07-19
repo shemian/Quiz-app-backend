@@ -31,13 +31,15 @@ class TeacherController extends Controller
             ->get();
 
         $topics_subtopics_counts = [];
+        $questionCount = 0;
+
         foreach ($exams as $exam) {
             $topicStrands = $exam->questions()->distinct('topic_strand_id')->count('topic_strand_id');
             $subTopicStrands = $exam->questions()->distinct('sub_topic_sub_strand_id')->count('sub_topic_sub_strand_id');
             $topics_subtopics_counts[$exam->id] = ['topicStrands' => $topicStrands, 'subTopicStrands' => $subTopicStrands];
+            $questionCount += $exam->questions_count;
         }
-
-
+        dd($questionCount);
     return view('teachers.dashboard', compact('education_systems', 'exams', 'topics_subtopics_counts', 'subject_count', 'exam_count', 'questionCount'));
     }
 
