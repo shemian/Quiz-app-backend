@@ -4,9 +4,11 @@ namespace App\Helpers;
 
 class GeneralHelper
 {
-    public static function phoneNumberToInternational(string $phoneNumber): string
+    public static function phoneNumberToInternational(?string $phoneNumber): string
     {
-        if(empty($phoneNumber)) return '';
+        if ($phoneNumber === null || empty($phoneNumber)) {
+            return '';
+        }
 
         $phoneNumber = preg_replace('/[^0-9]/', '', $phoneNumber);
 
@@ -16,4 +18,5 @@ class GeneralHelper
 
         return $phoneNumber;
     }
+
 }
