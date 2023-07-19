@@ -38,12 +38,6 @@ class TeacherController extends Controller
             $questionCount = $exam->questions_count;
         }
 
-        $topics_subtopics_counts[$exam->id] = [
-            'topicStrands' => $topicStrands,
-            'subTopicStrands' => $subTopicStrands,
-            'questionCount' => $questionCount, // Include the question count in the array
-        ];
-        dd($topics_subtopics_counts);
 
     return view('teachers.dashboard', compact('education_systems', 'exams', 'topics_subtopics_counts', 'subject_count', 'exam_count', 'questionCount'));
     }
