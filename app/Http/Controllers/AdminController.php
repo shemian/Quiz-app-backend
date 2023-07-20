@@ -87,6 +87,7 @@ class AdminController extends Controller
         $newUser = new User();
         $newUser->name=$data['name'];
         $newUser->email= $data['email'];
+        $newUser->phone_number = $data['phone_number'];
         $newUser->role = 'teacher';
         $password = strval(mt_rand(1000, 9999));
         $newUser->password = $password;

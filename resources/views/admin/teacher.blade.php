@@ -35,8 +35,8 @@
                 @endif
             </div>
         </div>
-    </div>     
-    <!-- end page title --> 
+    </div>
+    <!-- end page title -->
 
     <!-- Scrollable modal -->
 
@@ -49,7 +49,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                
+
                     <form method="POST" action="">
                         @csrf
 
@@ -82,6 +82,20 @@
                             </div>
                         </div>
 
+                        <div class="row mb-3">
+                            <label for="phone_number" class="col-md-4 col-form-label text-md-end">{{ __('Teacher Phone Number') }}</label>
+
+                            <div class="col-md-6">
+                                <input id="phone_number" type="text" class="form-control @error('student_phone_number') is-invalid @enderror" name="phone_number" >
+
+                                @error('phone_number')
+                                <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
+
 
 
                         <div class="row mb-0">
@@ -96,14 +110,14 @@
             </div>
         </div>
     </div>
-    
+
     <div class="row">
         <div class="col-12">
             <div class="card">
                 <div class="card-body">
 
                     <h4 class="header-title">Manage Teachers</h4>
-                   
+
 
                     <ul class="nav nav-tabs nav-bordered mb-3">
                         <li class="nav-item">
@@ -111,7 +125,7 @@
                                 Preview
                             </a>
                         </li>
-                        
+
                     </ul> <!-- end nav-->
                     <div class="tab-content">
                         <div class="tab-pane show active" id="buttons-table-preview">
@@ -121,7 +135,7 @@
                                         <th>Name</th>
                                         <th>Email</th>
                                         <th>Role</th>
-                                    
+
                                     </tr>
                                 </thead>
                                 @foreach ($teachers as $teacher)
@@ -131,20 +145,20 @@
                                     <td>{{ $teacher->role }}</td>
                                 </tr>
                                 @endforeach
-                            
+
                                 <tbody>
-                                    
-                                    
+
+
                                 </tbody>
-                            </table>                                           
+                            </table>
                         </div> <!-- end preview-->
-                        
+
                     </div> <!-- end tab-content-->
-                    
+
                 </div> <!-- end card body-->
             </div> <!-- end card -->
         </div><!-- end col-->
-    </div>  
+    </div>
     <!-- end row-->
 </div> <!-- container -->
 
