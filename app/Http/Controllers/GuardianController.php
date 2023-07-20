@@ -76,6 +76,7 @@ class GuardianController extends Controller
             'school_name' => 'required',
             'education_system_id' => 'required',
             'education_level_id' => 'required',
+            'phone_number' => 'required',
         ]);
 
         //Auth user (Guardian)
@@ -87,6 +88,7 @@ class GuardianController extends Controller
             // Create a new user
             $user = new User();
             $user->name = $request->name;
+            $user->phone_number = $request->phone_number;
             $user->centy_plus_id  = User::generateStudentSequence($guardian->id, $auth_user->phone_number);
             $password = strval(mt_rand(1000, 9999));
             $user->password = Hash::make($password);
