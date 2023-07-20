@@ -44,7 +44,7 @@ class SendUserOtp implements ShouldQueue
         $sms = new Sms();
         $sms->external_ref = Str::uuid();
         $sms->recipient = $formattedPhoneNumber;
-        $sms->text = "<#> Verification code CNT-" . intval($this->user->centy_plus_otp) . "\nDo not share with anyone. Thank you for using Centy Plus";
+        $sms->text = "<#> Verification code" . intval($this->user->centy_plus_otp) . "\nDo not share with anyone. Thank you for using Centy Plus";
         $sms->short_code = config('app.sms.celcom.short_code');
         $sms->save();
 
