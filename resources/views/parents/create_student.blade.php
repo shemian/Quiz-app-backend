@@ -133,12 +133,12 @@
                             </div>
 
                             <div class="row mb-3">
-                                <label for="student_phone_number" class="col-md-4 col-form-label text-md-end">{{ __('Student Phone Number') }}</label>
+                                <label for="phone_number" class="col-md-4 col-form-label text-md-end">{{ __('Student Phone Number') }}</label>
 
                                 <div class="col-md-6">
-                                    <input id="student_phone_number" type="text" class="form-control @error('student_phone_number') is-invalid @enderror" name="student_phone_number" placeholder="Optional">
+                                    <input id="phone_number" type="text" class="form-control @error('student_phone_number') is-invalid @enderror" name="phone_number" >
 
-                                    @error('county')
+                                    @error('phone_number')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
