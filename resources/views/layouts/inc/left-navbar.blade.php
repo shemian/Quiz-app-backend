@@ -1,10 +1,14 @@
 <div class="leftside-menu">
 
     <!-- LOGO -->
-    <a href="" class="logo text-center logo-light" style="font-size: 29px; font-weight: bold;">
-        Centy<span>Plus</span>
+    <a href="index.html" class="logo text-center logo-light">
+        <span class="logo-lg">
+            <img src="{{ asset('assets/images/centyplus logo.png') }}" alt="" height="16">
+        </span>
+        <span class="logo-sm">
+            <img src="{{ asset('assets/images/centyplus logo.png') }}" alt="" height="16">
+        </span>
     </a>
-
 
     <!-- LOGO -->
     <a href="" class="logo text-center logo-dark">
