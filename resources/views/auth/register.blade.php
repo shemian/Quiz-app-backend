@@ -9,8 +9,8 @@
                 <div class="card">
                     <!-- Logo-->
                     <div class="card-header pt-4 pb-4 text-center bg-primary">
-                        <a href="index.html">
-                            <span><img src="assets/images/logo.png" alt="" height="18"></span>
+                        <a href="{{ route('register') }}">
+                            <span><img src="{{ asset('assets/images/centyplus logo.png') }}" alt="" height="40"></span>
                         </a>
                     </div>
 

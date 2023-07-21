@@ -1,12 +1,12 @@
 <div class="leftside-menu">
 
     <!-- LOGO -->
-    <a href="index.html" class="logo text-center logo-light">
+    <a href="" class="logo text-center logo-light">
         <span class="logo-lg">
-            <img src="{{ asset('assets/images/centyplus logo.png') }}" alt="" height="16">
+            <img src="{{ asset('assets/images/centyplus logo.png') }}" alt="" height="60">
         </span>
         <span class="logo-sm">
-            <img src="{{ asset('assets/images/centyplus logo.png') }}" alt="" height="16">
+            <img src="{{ asset('assets/images/centyplus logo.png') }}" alt="" height="60">
         </span>
     </a>
 
