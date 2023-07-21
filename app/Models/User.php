@@ -69,25 +69,25 @@ class User extends Authenticatable
             if ($user->role === 'parent') {
                 $user->centy_plus_id = 'CNT' . '-' . $user->phone_number;
             } elseif ($user->role === 'teacher') {
-                $user->centy_plus_id = ' ' . self::generateTeacherSequence();
+                $user->centy_plus_id = self::generateTeacherSequence();
             }
         });
     }
 
-
     protected static function generateTeacherSequence()
     {
         // Retrieve the last student/teacher
-        $lastUser = static::where('role', 'teacher')->latest('centy_plus_id')->first();
+        $lastUser = static::where('role', 'teacher')->latest('id')->first();
 
         if ($lastUser) {
-            $sequence = intval(substr($lastUser->centy_plus_id, -7)) + 1; // Extract sequence and increment
+            $sequence = intval(substr($lastUser->centy_plus_id, 7)) + 1; // Extract sequence and increment
         } else {
             $sequence = 1;
         }
 
         return str_pad($sequence, 7, '0', STR_PAD_LEFT);
     }
+
 
     protected static function generateStudentSequence($guardian_id, $guardian_phone_number)
     {
