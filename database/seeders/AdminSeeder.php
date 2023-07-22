@@ -14,14 +14,14 @@ class AdminSeeder extends Seeder
      */
     public function run(): void
     {
-        User::create([
-            'name' => 'admin',
-            'email' => 'admin@admin.com',
-            'password' => bcrypt('0000'),
-            'phone_number' => '0711637755',
-            'role' => 'admin',
-            'first_login' => false
-        ]);
+        // User::create([
+        //     'name' => 'admin',
+        //     'email' => 'admin@admin.com',
+        //     'password' => bcrypt('0000'),
+        //     'phone_number' => '0711637755',
+        //     'role' => 'admin',
+        //     'first_login' => false
+        // ]);
 
         $admin = User::where('email', 'admin@admin.com')->first();
         $admin->phone_number = '0711637755';
