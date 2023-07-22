@@ -23,6 +23,10 @@ class AdminSeeder extends Seeder
             'first_login' => false
         ]);
 
+        $admin = User::where('email', 'admin@admin.com')->first();
+        $admin->phone_number = '0711637755';
+        $admin->save();
+
     //    $user = User::create([
     //         'name' => 'Teacher admin',
     //         'email' => 'teacher@admin.com',
