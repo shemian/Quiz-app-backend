@@ -238,7 +238,7 @@
                                                 </a>
                                             </td>
 
-                                        @elseif($subject->educationSystem->name === '8-4-4')
+                                        @elseif($subject->educationSystem->name === '8.4.4')
                                             <td>
                                                 <a href="{{ route('topics_strands.index', ['educationSystemId' => $subject->educationSystem->id, 'educationLevelId' => $subject->educationLevel->id, 'subjectId' => $subject->id]) }}" title="Topic">
                                                     <i class="mdi mdi-book-edit-outline"></i> Add Topics
