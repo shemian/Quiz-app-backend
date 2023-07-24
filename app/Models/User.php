@@ -80,7 +80,7 @@ class User extends Authenticatable
         $lastUser = static::where('role', 'teacher')->latest('id')->first();
 
         if ($lastUser) {
-            $sequence = intval(substr($lastUser->centy_plus_id, 7)) + 1; // Extract sequence and increment
+            $sequence = intval(substr($lastUser->centy_plus_id, -7)) + 1; // Extract sequence and increment
         } else {
             $sequence = 1;
         }

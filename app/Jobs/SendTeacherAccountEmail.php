@@ -2,6 +2,8 @@
 
 namespace App\Jobs;
 
+
+use App\Mail\TeacherCreated;
 use App\Models\User;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldBeUnique;
@@ -10,23 +12,22 @@ use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\Mail;
-use App\Mail\StudentAccountCreated;
 
-class SendStudentAccountEmail implements ShouldQueue
+
+class SendTeacherAccountEmail implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
-    public $user;
-    public $guardian_email;
+
+    public $teacher;
     public $password;
 
     /**
      * Create a new job instance.
      */
-    public function __construct(User $user, string $guardian_email, string $password)
+    public function __construct(User $teacher, $password)
     {
-        $this->user = $user;
-        $this->guardian_email = $guardian_email;
+        $this->teacher = $teacher;
         $this->password = $password;
     }
 
@@ -37,7 +38,8 @@ class SendStudentAccountEmail implements ShouldQueue
     public function handle()
     {
         // Send the email
-        Mail::to($this->guardian_email)->send(new StudentAccountCreated($this->teacher, $this->password));
+        Mail::to($this->teacher->email)->send(new TeacherCreated($this->teacher, $this->password));
     }
+
 
 }

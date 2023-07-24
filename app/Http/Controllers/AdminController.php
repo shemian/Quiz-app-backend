@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Jobs\SendTeacherAccountEmail;
+use App\Jobs\SendTeacherAccountSms;
 use App\Models\BrainGame;
 use App\Models\ChartOfAccounts;
 use App\Models\MpesaTransaction;
@@ -29,9 +31,9 @@ class AdminController extends Controller
         $customerCount = Guardian::count();
         $studentCount = Student::count();
         $teacherCount = User::where('role', 'teacher')->count();
-        $accountBalance = ChartOfAccounts::all();
+//        $accountBalance = ChartOfAccounts::all();
         $latestCustomers = User::where('role', 'parent')->latest()->limit(6)->get();
-        $organization_revenue = $accountBalance[0]->account_balance;
+//        $organization_revenue = $accountBalance[0]->account_balance;
 
         $totalWalletBalance = 0;
         $totalCentyBalance = 0;
@@ -47,7 +49,7 @@ class AdminController extends Controller
             ->orderByDesc('yes_ans')
             ->take(5)
             ->get();
-        return view('admin.dashboard', compact('latestCustomers', 'customerCount', 'studentCount', 'teacherCount', 'organization_revenue', 'totalWalletBalance', 'totalCentyBalance', 'topStudensts'));
+        return view('admin.dashboard', compact('latestCustomers', 'customerCount', 'studentCount', 'teacherCount', 'totalWalletBalance', 'totalCentyBalance', 'topStudensts'));
     }
 
 
@@ -95,12 +97,15 @@ class AdminController extends Controller
 
         // Create a new teacher
 
-        $newTeacher = new Teacher();
-        $newTeacher->user_id = $newUser->id;
-        $newTeacher->save();
+        $teacher = new Teacher();
+        $teacher->user_id = $newUser->id;
+        $teacher->save();
 
         // Send email with password
-        Mail::to($newTeacher->email)->queue(new TeacherCreated($newUser, $password));
+        dispatch(new SendTeacherAccountEmail($newUser, $password));
+
+        // Send sms to the teacher with their credentials
+        dispatch(new SendTeacherAccountSms($teacher, $password));
 
         // Clear form data
 
