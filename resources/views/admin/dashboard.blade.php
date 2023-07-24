@@ -85,7 +85,7 @@
                     <div class="row align-items-center">
                         <div class="col-6">
                             <h5 class="text-muted fw-normal mt-0 text-truncate" title="Booked Revenue">Revenue</h5>
-{{--                            <h3 class="my-2 py-1">ksh {{ $organization_revenue }}</h3>--}}
+                            <h3 class="my-2 py-1">ksh {{ $organization_revenue }}</h3>
                             <p class="mb-0 text-muted">
                                 <span class="text-success me-2"><i class="mdi mdi-arrow-up-bold"></i> 11.7%</span>
                             </p>
