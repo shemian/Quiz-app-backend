@@ -49,7 +49,7 @@
                             </li>
                         </ul> <!-- end nav-->
 
-                        <form method="POST" action="{{route('store_questions')}}">
+                        <form method="POST" action="{{route('store_questions')}}" enctype="multipart/form-data">
                             @csrf
                             <input type="hidden" name="exam_id" value="{{ ($exam->id) }}">
 
@@ -84,11 +84,10 @@
             let selectedQuestion = 0;
 
             $.ajax({
-                url: '/teacher/get-topics',
+                url: `/teacher/get-topics/${exam.subject_id}`,
                 type: 'GET',
-                data: {subjectId: exam.subject_id},
                 success: function (data) {
-                    topicList = data.topics;
+                    topicList = data.topicStrands;
                 }
             });
 
@@ -314,7 +313,7 @@
                 <label for="image" class="col-md-4 col-form-label text-md-end">{{ __('Image') }}</label>
           <div class="col-md-6">
 
-            <input id="image_${questionCount}" type="file" class="form-control-file" name="image">
+            <input id="image_${questionCount}" type="file" class="form-control-file" name="image_${questionCount}">
 
           </div>
         </div>
