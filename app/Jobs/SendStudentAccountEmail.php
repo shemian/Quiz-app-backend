@@ -37,7 +37,7 @@ class SendStudentAccountEmail implements ShouldQueue
     public function handle()
     {
         // Send the email
-        Mail::to($this->guardian_email)->send(new StudentAccountCreated($this->teacher, $this->password));
+        Mail::to($this->guardian_email)->send(new StudentAccountCreated($this->user, $this->password));
     }
 
 }
