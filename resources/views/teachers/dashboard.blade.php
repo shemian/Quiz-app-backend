@@ -20,9 +20,9 @@
                         <div class="col-6">
                             <h5 class="text-muted fw-normal mt-0 text-truncate" title="Campaign Sent">Exams</h5>
                             <h3 class="my-2 py-1">{{ $exam_count }}</h3>
-                            <p class="mb-0 text-muted">
-                                <span class="text-success me-2"><i class="mdi mdi-arrow-up-bold"></i> 3.27%</span>
-                            </p>
+{{--                            <p class="mb-0 text-muted">--}}
+{{--                                <span class="text-success me-2"><i class="mdi mdi-arrow-up-bold"></i> 3.27%</span>--}}
+{{--                            </p>--}}
                         </div>
                         <div class="col-6">
                             <div class="text-end">
@@ -41,9 +41,9 @@
                         <div class="col-6">
                             <h5 class="text-muted fw-normal mt-0 text-truncate" title="New Leads">Subjects</h5>
                             <h3 class="my-2 py-1">{{ $subject_count }}</h3>
-                            <p class="mb-0 text-muted">
-                                <span class="text-danger me-2"><i class="mdi mdi-arrow-down-bold"></i> 5.38%</span>
-                            </p>
+{{--                            <p class="mb-0 text-muted">--}}
+{{--                                <span class="text-danger me-2"><i class="mdi mdi-arrow-down-bold"></i> 5.38%</span>--}}
+{{--                            </p>--}}
                         </div>
                         <div class="col-6">
                             <div class="text-end">
@@ -64,9 +64,9 @@
                         <div class="col-6">
                             <h5 class="text-muted fw-normal mt-0 text-truncate" title="Booked Revenue">Questions</h5>
                             <h3 class="my-2 py-1">{{  $questionCount  }}</h3>
-                            <p class="mb-0 text-muted">
-                                <span class="text-success me-2"><i class="mdi mdi-arrow-up-bold"></i> 3.27%</span>
-                            </p>
+{{--                            <p class="mb-0 text-muted">--}}
+{{--                                <span class="text-success me-2"><i class="mdi mdi-arrow-up-bold"></i> 3.27%</span>--}}
+{{--                            </p>--}}
                         </div>
                         <div class="col-6">
                             <div class="text-end">
