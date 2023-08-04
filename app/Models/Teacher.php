@@ -13,8 +13,13 @@ class Teacher extends Model
 
     protected $fillable = [
         'user_id',
-        'phone_number',
     ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
 
     public function exams() : HasMany
     {
@@ -29,11 +34,6 @@ class Teacher extends Model
     public function questions() : HasMany
     {
         return $this->hasMany(Exam::class);
-    }
-
-    public function user()
-    {
-        return $this->belongsTo(User::class);
     }
 
 

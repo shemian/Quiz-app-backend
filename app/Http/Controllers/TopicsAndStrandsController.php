@@ -2,22 +2,36 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\EducationLevel;
+use App\Models\EducationSystem;
 use App\Models\Subject;
+use App\Models\SubTopicSubStrand;
 use App\Models\TopicStrand;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 
 class TopicsAndStrandsController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index(string $educationSystemId, string $educationLevelId, string $subjectId)
-    {
-        $topicStrands = TopicStrand::with('subject.educationSystem', 'subject.educationLevel')->get();
-        return view('teachers.create_topics_strands', compact('topicStrands', 'educationSystemId', 'educationLevelId', 'subjectId'));
-    }
 
+    public function index()
+    {
+        // Retrieve the EducationLevel, EducationSystem, and subjectId from session variables
+        $educationSystemId = session('educationSystemId');
+        $educationLevelId = session('educationLevelId');
+        $subjectId = session('subjectId');
+        $education_systems = EducationSystem::all();
+
+        // Fetch the TopicStrands with the associated subject, education system, and education level
+        $topicStrands = TopicStrand::with('subject.educationSystem', 'subject.educationLevel')->get();
+
+        // Fetch the EducationLevel, EducationSystem, and subject based on the retrieved IDs
+        $educationLevelId = EducationLevel::find($educationLevelId);
+        $educationSystemId = EducationSystem::find($educationSystemId);
+        $subjectId = Subject::find($subjectId); // Assuming you have a model named 'Subject'
+
+        // Pass the data to the Blade view
+        return view('teachers.create_topics_strands', compact('topicStrands', 'educationSystemId', 'educationLevelId', 'subjectId', 'education_systems'));
+    }
 
     /**
      * Store a newly created resource in storage.

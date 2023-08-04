@@ -78,6 +78,7 @@ Route::prefix('parent')->middleware(['isParent'])->group(function(){
     Route::delete('/delete-students/{id}', [GuardianController::class, 'destroy'])->name('delete_student');
 
     Route::get('/view-students/{id}', [GuardianController::class,'student_details'])->name('view_student_details');
+    Route::get('/profile', [GuardianController::class, 'parent_profile'])->name('parent_profile');
 
 });
 
@@ -92,23 +93,26 @@ Route::prefix('teacher')->middleware([ 'isTeacher'])->group(function(){
 
     Route::get('/get-education-levels', [QuestionController::class, 'getEducationLevels']);
     Route::get('/get-subjects', [QuestionController::class, 'getSubjects']);
-    Route::get('/get-topics', [QuestionController::class, 'getTopics']);
+    Route::get('/get-topics/{subjectId}', [QuestionController::class, 'getTopics']);
     Route::get('/get-subtopics', [QuestionController::class, 'getSubtopics']);
 
     Route::get('/create_question/{examId}', [QuestionController::class, 'create_question'])->name('create_question');
 
 
-    Route::get('/create_topics_and_strands/{educationSystemId}/{educationLevelId}/{subjectId}', [TopicsAndStrandsController::class, 'index'])->name('topics_strands.index');
+    Route::get('/create_topics_and_strands/', [TopicsAndStrandsController::class, 'index'])->name('topics_strands.index');
     Route::post('/create_topics_and_strands', [TopicsAndStrandsController::class, 'store'])->name('store_topics_and_strands');
 
-    Route::get('/create_subtopics/{topicStrand}', [SubTopicSubStrandController::class, 'index'])->name('createSubtopicSubStrand');
-    Route::post('/create_subtopics/{topicStrand}', [SubTopicSubStrandController::class, 'store'])->name('storeSubtopicSubStrand');
+    Route::get('/create_subtopics', [SubTopicSubStrandController::class, 'index'])->name('createSubtopicSubStrand');
+    Route::post('/create_subtopics', [SubTopicSubStrandController::class, 'store'])->name('storeSubtopicSubStrand');
 
     Route::post('/questions', [QuestionController::class, 'store'])->name('store_questions');
     Route::post('/display_education_level', [EduacationSystemsController::class, 'getEducationLevels'])->name('getEducationLevels');
 
     Route::get('/exams', [ExamController::class, 'index'])->name('get_exams');
     Route::post('/exams', [ExamController::class, 'store'])->name('store_exams');
+    Route::post('/edit-exams/{id}', [ExamController::class, 'update'])->name('update_exams');
+    Route::delete('/delete-exams/{id}', [ExamController::class, 'destroy'])->name('delete_exams');
+
 });
 
 Route::prefix('student')->middleware(['auth', 'isStudent'])->group(function(){
