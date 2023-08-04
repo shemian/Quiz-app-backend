@@ -12,10 +12,6 @@
                         <li class="breadcrumb-item"><a href="javascript: void(0);">Questions</a></li>
                     </ol>
                 </div>
-                <br>
-                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-                    Add Questions
-                </button>
 
                 @if(session('success'))
                     <div class="alert alert-success">
@@ -61,7 +57,6 @@
                                         <th>Education System</th>
                                         <th>Question</th>
                                         <th>Answer</th>
-                                        <th>Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -73,10 +68,6 @@
                                         <td>{{ $question->exam->subject->educationSystem->name }}</td>
                                         <td>{{ $question->question }}</td>
                                         <td>{{ $question->answer }}</td>
-                                        <td>
-                                            <a href="" title="Edit"><i class="mdi mdi-book-edit-outline"></i></a>
-                                            <a href="" title="Delete"><i class="mdi mdi-book-edit-outline"></i></a>
-                                        </td>
 
                                     </tr>
                                 @endforeach
