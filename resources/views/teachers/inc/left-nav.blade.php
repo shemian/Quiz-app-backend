@@ -37,21 +37,21 @@
                         <li class="side-nav-item">
                             <a href="{{ route('get_subjects') }}"  class="side-nav-link">
                                 <i class="uil-books"></i>
-                                <span> Create Subjects </span>
+                                <span> Subjects </span>
                             </a>
                         </li>
 
                         <li class="side-nav-item">
-                            <a href="{{ isset($educationSystemId) ? route('topics_strands.index', ['educationSystemId' => $educationSystemId, 'educationLevelId' => $educationLevelId, 'subjectId' => $subjectId]) : '#' }}" class="side-nav-link">
+                            <a href="{{ route('topics_strands.index') }}" class="side-nav-link">
                                 <i class="uil-notebooks"></i>
-                                <span> Create Topics/Strands </span>
+                                <span> Topics/Strands </span>
                             </a>
                         </li>
 
                         <li class="side-nav-item">
-                            <a href="#" class="side-nav-link">
+                            <a href="{{ route('createSubtopicSubStrand') }}" class="side-nav-link">
                                 <i class="uil-chart-line"></i>
-                                <span> Create SubTopics/SubStrands </span>
+                                <span> SubTopics/SubStrands </span>
                             </a>
                         </li>
 
