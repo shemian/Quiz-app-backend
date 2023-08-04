@@ -107,7 +107,7 @@
                 </div>
 
                 <!-- item-->
-                <a href="javascript:void(0);" class="dropdown-item notify-item">
+                <a href="{{ route('parent_profile') }}" class="dropdown-item notify-item">
                     <i class="mdi mdi-account-circle me-1"></i>
                     <span>My Account</span>
                 </a>
@@ -118,23 +118,13 @@
                     <span>Settings</span>
                 </a>
 
-                <!-- item-->
-                <a href="javascript:void(0);" class="dropdown-item notify-item">
-                    <i class="mdi mdi-lifebuoy me-1"></i>
-                    <span>Support</span>
-                </a>
 
-                <!-- item-->
-                <a href="javascript:void(0);" class="dropdown-item notify-item">
-                    <i class="mdi mdi-lock-outline me-1"></i>
-                    <span>Lock Screen</span>
-                </a>
 
                 <!-- item-->
                 <a class="dropdown-item notify-item" href="{{ route('logout') }}"
                    onclick="event.preventDefault();
                                     document.getElementById('logout-form').submit();">
-                    {{ __('Logout') }}
+                    <i class="mdi mdi-logout me-1"></i> {{ __('Logout') }}
                 </a>
 
                 <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
