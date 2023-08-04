@@ -64,7 +64,6 @@ class QuestionController extends Controller
             'option4.*' => 'required',
             'answer' => 'required|array',
             'answer.*' => 'required',
-            'image' => 'nullable',
         ]);
 
         $createdQuestions = [];
@@ -102,12 +101,14 @@ class QuestionController extends Controller
                 $newQuestionData['education_level_id'] = $validatedData['education_level_id'][$index];
             }
 
-            if ($request->hasFile('image')) {
-                $image = $request->file('image');
-                $imageName = time() . '.' . $image->getClientOriginalExtension();
+            if ($request->hasFile('image_' . $index + 1)) { // Use 'image_' . $index to get the correct file for each question
+                $image = $request->file('image_' . $index + 1);
+                $imageName = time() . '_' .  $index + 1 . '.' . $image->getClientOriginalExtension();
                 $image->storeAs('uploads', $imageName);
                 $newQuestionData['image'] = 'uploads/' . $imageName;
             }
+
+
 
             $newQuestion = Question::create($newQuestionData);
             $createdQuestions[] = $newQuestion;
@@ -134,17 +135,18 @@ class QuestionController extends Controller
         return response()->json(['subjects' => $subjects]);
     }
 
-    public function getTopics(Request $request)
+    public function getTopics(Request $request, $subjectId )
     {
-        $subjectId = $request->input('subjectId');
+
         $subject = Subject::with('topicStrands')->find($subjectId);
         $topicStrands = $subject->topicStrands;
 
-        return response()->json(['topics' => $topicStrands]);
+        return response()->json(['topicStrands' => $topicStrands]);
     }
 
     public function getSubtopics(Request $request)
     {
+
         $topicId = $request->input('topicId');
         $topicStrands = TopicStrand::with('subTopicSubStrands')->find($topicId);
         $subTopicSubStrands = $topicStrands->subTopicSubStrands;
