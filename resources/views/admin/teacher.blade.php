@@ -134,14 +134,15 @@
                                     <tr>
                                         <th>Name</th>
                                         <th>Email</th>
+                                        <th>Phone Number</th>
                                         <th>Role</th>
-
                                     </tr>
                                 </thead>
                                 @foreach ($teachers as $teacher)
                                 <tr>
                                     <td>{{ $teacher->name }}</td>
                                     <td>{{ $teacher->email }}</td>
+                                    <td>{{ $teacher->phone_number }}</td>
                                     <td>{{ $teacher->role }}</td>
                                 </tr>
                                 @endforeach
