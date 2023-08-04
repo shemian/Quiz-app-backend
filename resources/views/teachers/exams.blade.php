@@ -132,11 +132,11 @@
                                             <td>
                                                 <a href="#" data-bs-toggle="modal" data-bs-target="#editModal_{{ $exam->id }}" title="Edit"><i class="mdi mdi-book-edit-outline"></i></a>
 
-                                                <a href="#"  title="Delete" onclick="event.preventDefault(); deleteStudent('{{ route('delete_subjects', $exam->id) }}');">
+                                                <a href="#"  title="Delete" onclick="event.preventDefault(); deleteStudent('{{ route('delete_exams', $exam->id) }}');">
                                                     <i class="mdi mdi-trash-can-outline"></i>
                                                 </a>
 
-                                                <form id="delete-form" method="POST" action="{{ route('delete_subjects', $exam->id) }}" style="display: none;">
+                                                <form id="delete-form" method="POST" action="{{ route('delete_exams', $exam->id) }}" style="display: none;">
                                                     @csrf
                                                     @method('DELETE')
                                                 </form>
@@ -147,7 +147,7 @@
                                                 <div class="modal-dialog modal-dialog-centered">
                                                     <div class="modal-content">
                                                         <div class="modal-header">
-                                                            <h5 class="modal-title" id="editModalLabel">Edit Student</h5>
+                                                            <h5 class="modal-title" id="editModalLabel">Edit Exams</h5>
                                                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                         </div>
                                                         <div class="modal-body">
@@ -172,36 +172,14 @@
                                                                 </div>
 
                                                                 <div class="row mb-3">
-                                                                    <label for="education_system" class="col-md-4 col-form-label text-md-end">Education System</label>
-                                                                    <div class="col-md-6">
-                                                                        <select id="education_system" name="education_system_id" class="form-control">
-                                                                            <option value="">Select Education System</option>
-                                                                            @foreach($education_systems as $education_system)
-                                                                                <option value="{{ $education_system->id }}">{{ $education_system->name }}</option>
-                                                                            @endforeach
-                                                                        </select>
-                                                                    </div>
-                                                                </div>
-
-                                                                <div class="row mb-3">
-                                                                    <label for="education_level" class="col-md-4 col-form-label text-md-end">Education Level</label>
-                                                                    <div class="col-md-6">
-                                                                        <select id="education_level" name="education_level_id" class="form-control">
-                                                                            <option value="{{ $exam->subject->educationSystem->name }}">Select Education Level</option>
-                                                                        </select>
-                                                                    </div>
-                                                                </div>
-
-                                                                <div class="row mb-3">
                                                                     <label for="subject" class="col-md-4 col-form-label text-md-end">Subject</label>
                                                                     <div class="col-md-6">
                                                                         <select id="subject" name="subject_id" class="form-control">
-                                                                            <option value="{{ $exam->subject->name }}">Select Subject</option>
+                                                                            <option value="">Select Subject</option>
 
                                                                         </select>
                                                                     </div>
                                                                 </div>
-
 
                                                                 <div class="row mb-0">
                                                                     <div class="col-md-6 offset-md-4">
