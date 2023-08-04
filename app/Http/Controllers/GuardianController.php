@@ -12,8 +12,6 @@ use App\Models\Student;
 use App\Models\Guardian;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Str;
 use Datatables;
 use App\Jobs\SendStudentAccountEmail;
 use App\Jobs\SendStudentAccountSms;
@@ -28,7 +26,7 @@ class GuardianController extends Controller
     }
 
     /**
-     * Display a listing of the resource.
+     * create Students blade file.
      */
     public function createStudent()
     {
@@ -39,6 +37,9 @@ class GuardianController extends Controller
         return view('parents.create_student', compact('education_systems', 'students', 'subscription_plans'));
     }
 
+    /**
+     * Activate Students Account .
+     */
     public function activateStudent(Request $request)
     {
         $request->validate([
@@ -66,7 +67,7 @@ class GuardianController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Store a newly students resource in storage.
      */
     public function store(Request $request)
     {
@@ -161,5 +162,17 @@ class GuardianController extends Controller
 
         return redirect()->route('get_students')
             ->with('success', 'Student account deleted successfully.');
+    }
+
+    /**
+     * Display the parent's Personal info .
+     */
+
+    public function parent_profile(){
+        //Auth user (Guardian)
+        $auth_user = auth()->user();
+        $guardian = Guardian::where('user_id', $auth_user->id)->first();
+
+        return view('parents.profile', compact( 'guardian'));
     }
 }
