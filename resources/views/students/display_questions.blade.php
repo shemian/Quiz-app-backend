@@ -44,6 +44,7 @@
                 <section>
                     <div class="que_text">
                         <!-- Here I've inserted question from JavaScript -->
+                        <img src="" alt="Question Image" class="que_image">
                     </div>
                     <div class="option_list">
                         <!-- Here I've inserted options from JavaScript -->
