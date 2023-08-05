@@ -170,24 +170,24 @@
             que_text.innerHTML = que_tag; //adding new span tag inside que_tag
             option_list.innerHTML = option_tag; //adding new div tag inside option_tag
 
+            // Check if the question has an image
+            if (test_questions[index].image) {
+                // If the question has an image, display it in the que_image element
+                que_image.innerHTML = '<img src="' + test_questions[index].image + '" alt="Question Image">';
+            } else {
+                // If the question doesn't have an image, remove the image from the que_image element
+                que_image.innerHTML = '';
+            }
+
             // // Check if the question has an image URL
             // if (test_questions[index].image) {
-            //     // If the question has an image, display it in the que_image element
-            //     que_image.innerHTML = '<img src="' + test_questions[index].image + '" alt="Question Image">';
+            //     // If the question has an image, set the image source
+            //     que_image.setAttribute("src", test_questions[index].image);
+            //     que_image.style.display = "block"; // Show the image
             // } else {
-            //     // If the question doesn't have an image, remove the image from the que_image element
-            //     que_image.innerHTML = '';
+            //     // If the question doesn't have an image, hide the image
+            //     que_image.style.display = "none";
             // }
-
-            // Check if the question has an image URL
-            if (test_questions[index].image) {
-                // If the question has an image, set the image source
-                que_image.setAttribute("src", test_questions[index].image);
-                que_image.style.display = "block"; // Show the image
-            } else {
-                // If the question doesn't have an image, hide the image
-                que_image.style.display = "none";
-            }
 
             const option = option_list.querySelectorAll(".option");
 
