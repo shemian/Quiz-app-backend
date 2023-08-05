@@ -120,7 +120,8 @@ class StudentController extends Controller
                     $question['option2'],
                     $question['option3'],
                     $question['option4']
-                ]
+                ],
+                'image' => $question['image'],
             ];
 
             $formatedQuestions[] = $question;

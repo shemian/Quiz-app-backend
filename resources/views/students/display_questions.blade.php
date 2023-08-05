@@ -44,6 +44,7 @@
                 <section>
                     <div class="que_text">
                         <!-- Here I've inserted question from JavaScript -->
+                        <img src="" alt="Question Image" class="que_image">
                     </div>
                     <div class="option_list">
                         <!-- Here I've inserted options from JavaScript -->
@@ -158,6 +159,7 @@
         // getting testq and options from array
         function showQuetions(index){
             const que_text = document.querySelector(".que_text");
+            const que_image = document.querySelector(".que_image");
 
             //creating a new span and div tag for question and option and passing the value using array index
             let que_tag = '<span>'+ test_questions[index].numb + ". " + test_questions[index].question +'</span>';
@@ -167,6 +169,15 @@
                 + '<div class="option"><span>'+ test_questions[index].options[3] +'</span></div>';
             que_text.innerHTML = que_tag; //adding new span tag inside que_tag
             option_list.innerHTML = option_tag; //adding new div tag inside option_tag
+
+            // Check if the question has an image URL
+            if (test_questions[index].image) {
+                // If the question has an image, display it in the que_image element
+                que_image.innerHTML = '<img src="' + test_questions[index].image + '" alt="Question Image">';
+            } else {
+                // If the question doesn't have an image, remove the image from the que_image element
+                que_image.innerHTML = '';
+            }
 
             const option = option_list.querySelectorAll(".option");
 
