@@ -126,7 +126,7 @@ class StudentController extends Controller
 
             $formatedQuestions[] = $question;
         }
-        Log::info($formatedQuestions);
+        dd($formatedQuestions);
         return view('students.display_questions', compact('exam', 'formatedQuestions', 'questions', 'student'));
     }
 
