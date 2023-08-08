@@ -104,11 +104,9 @@ class QuestionController extends Controller
             if ($request->hasFile('image_' . $index + 1)) { // Use 'image_' . $index to get the correct file for each question
                 $image = $request->file('image_' . $index + 1);
                 $imageName = time() . '_' .  $index + 1 . '.' . $image->getClientOriginalExtension();
-                $image->storeAs('assets/images/exam_images/', $imageName);
+                $image->storeAs('assets/images/exam_images', $imageName);
                 $newQuestionData['image'] = 'assets/images/exam_images/' . $imageName;
             }
-
-
 
             $newQuestion = Question::create($newQuestionData);
             $createdQuestions[] = $newQuestion;
