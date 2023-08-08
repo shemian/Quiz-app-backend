@@ -176,7 +176,7 @@
             // Check if the question has an image
             if (test_questions[index].image) {
                 // If the question has an image, display it in the que_image element
-                que_image.innerHTML = '<img src="{{ asset("storage/assets/images/exam_images/") }}/' + test_questions[index].image + '" alt="Question Image">';
+                que_image.innerHTML = '<img src="{{ asset("storage/app/assets/images/exam_images/") }}/' + test_questions[index].image + '" alt="Question Image">';
             } else {
                 // If the question doesn't have an image, remove the image from the que_image element
                 que_image.innerHTML = '';
