@@ -48,6 +48,7 @@ class StudentController extends Controller
         $account_balance = $student->debit;
         $centiisObtained = $student->centiisObtained;
         return view('students.dashboard', compact('centy_balance', 'account_balance', 'centiisObtained', 'questions_count', 'exams_count', 'exams', 'results'));
+
     }
 
     public function getSubjects()
