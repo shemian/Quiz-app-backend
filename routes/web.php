@@ -90,13 +90,15 @@ Route::prefix('teacher')->middleware([ 'isTeacher'])->group(function(){
     Route::delete('/delete-subjects/{id}', [SubjectController::class, 'destroy'])->name('delete_subjects');
 
     Route::get('/questions', [QuestionController::class, 'index'])->name('get_questions');
+    Route::put('/edit-questions/{id}', [QuestionController::class, 'update'])->name('update_questions');
+    Route::get('/create_question/{examId}', [QuestionController::class, 'create_question'])->name('create_question');
+    Route::delete('/delete-question/{id}', [QuestionController::class, 'destroy'])->name('delete_question');
+
 
     Route::get('/get-education-levels', [QuestionController::class, 'getEducationLevels']);
     Route::get('/get-subjects', [QuestionController::class, 'getSubjects']);
     Route::get('/get-topics/{subjectId}', [QuestionController::class, 'getTopics']);
     Route::get('/get-subtopics', [QuestionController::class, 'getSubtopics']);
-
-    Route::get('/create_question/{examId}', [QuestionController::class, 'create_question'])->name('create_question');
 
 
     Route::get('/create_topics_and_strands/', [TopicsAndStrandsController::class, 'index'])->name('topics_strands.index');
@@ -112,7 +114,7 @@ Route::prefix('teacher')->middleware([ 'isTeacher'])->group(function(){
     Route::post('/exams', [ExamController::class, 'store'])->name('store_exams');
     Route::post('/edit-exams/{id}', [ExamController::class, 'update'])->name('update_exams');
     Route::delete('/delete-exams/{id}', [ExamController::class, 'destroy'])->name('delete_exams');
-
+    Route::get('/view-questions/{id}', [ExamController::class, 'viewQuestion'])->name('view_exam_questions');
 });
 
 Route::prefix('student')->middleware(['auth', 'isStudent'])->group(function(){
