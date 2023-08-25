@@ -130,6 +130,7 @@
                                             <td><a href="{{ route('create_question', ['examId' => $exam->id]) }}" title="Add Question"><i class="mdi mdi-file-question-outline"></i></a></td>
 
                                             <td>
+                                                <a href="{{ route('view_exam_questions', $exam->id) }}" title="View"><i class="mdi mdi-file-eye-outline"></i></a>
                                                 <a href="#" data-bs-toggle="modal" data-bs-target="#editModal_{{ $exam->id }}" title="Edit"><i class="mdi mdi-book-edit-outline"></i></a>
 
                                                 <a href="#"  title="Delete" onclick="event.preventDefault(); deleteStudent('{{ route('delete_exams', $exam->id) }}');">
