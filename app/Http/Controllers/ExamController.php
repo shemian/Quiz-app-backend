@@ -112,4 +112,12 @@ class ExamController extends Controller
         return redirect()->route('get_exams')->with('success', 'Exam deleted successfully!');
     }
 
+    public  function viewQuestion(string $id){
+        $exam = Exam::find($id);
+
+        $questions = Question::where('exam_id', $id)->get();
+
+        return view('teachers.view_exam_questions', compact('exam', 'questions'));
+    }
+
 }
