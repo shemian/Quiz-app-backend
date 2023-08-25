@@ -14,6 +14,8 @@ use App\Models\Question;
 use App\Models\EducationSystem;
 use App\Models\EducationLevel;
 
+use Exception;
+
 use Illuminate\Support\Facades\Log;
 
 class QuestionController extends Controller
@@ -112,7 +114,7 @@ class QuestionController extends Controller
             $createdQuestions[] = $newQuestion;
         }
 
-        return redirect()->route('get_questions')->with('success', 'Questions created successfully.');
+        return redirect()->route('get_exams')->with('success', 'Questions created successfully!');
     }
 
 
@@ -121,8 +123,6 @@ class QuestionController extends Controller
         $educationSystemId = $request->input('educationSystemId');
         $educationSystem = EducationSystem::with('educationLevels')->find($educationSystemId);
         $educationLevels = $educationSystem->educationLevels;
-
-        Log::info($educationLevels);
 
         return response()->json(['educationLevels' => $educationLevels]);
     }
@@ -133,12 +133,10 @@ class QuestionController extends Controller
         return response()->json(['subjects' => $subjects]);
     }
 
-    public function getTopics(Request $request, $subjectId )
+    public function getTopics($subjectId )
     {
-
         $subject = Subject::with('topicStrands')->find($subjectId);
         $topicStrands = $subject->topicStrands;
-
         return response()->json(['topicStrands' => $topicStrands]);
     }
 
@@ -153,9 +151,6 @@ class QuestionController extends Controller
     }
 
 
-
-
-
     /**
      * Display the specified resource.
      */
@@ -167,9 +162,77 @@ class QuestionController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, $id)
     {
-        //
+        try {
+            // Validate the incoming data
+            $validatedData = $request->validate([
+                'exam_id' => 'required',
+                'education_level_id' => 'required',
+                'subtopic_id' => 'required',
+                'topic_id' => 'required',
+                'question' => 'required',
+                'option1' => 'required|array',
+                'option1.*' => 'required',
+                'option2' => 'required|array',
+                'option2.*' => 'required',
+                'option3' => 'required|array',
+                'option3.*' => 'required',
+                'option4' => 'required|array',
+                'option4.*' => 'required',
+                'answer' => 'required|array',
+                'answer.*' => 'required',
+            ]);
+
+            // Find the question by ID
+            $question = Question::find($id);
+
+            if (!$question) {
+                return redirect()->back()->with('error', 'Question not found');
+            }
+
+            // Update the question data
+            $question->exam_id = $validatedData['exam_id'];
+            $question->sub_topic_sub_strand_id = $validatedData['subtopic_id'];
+            $question->topic_strand_id = $validatedData['topic_id'];
+            $question->question = $validatedData['question'];
+            $question->option1 = $validatedData['option1'][0];
+            $question->option2 = $validatedData['option2'][0];
+            $question->option3 = $validatedData['option3'][0];
+            $question->option4 = $validatedData['option4'][0];
+            $question->education_level_id = $validatedData['education_level_id'];
+
+            // Set the answer based on the selected option
+            $answer = $validatedData['answer'][0];
+            switch ($answer) {
+                case 'option1':
+                    $question->answer = $validatedData['option1'][0];
+                    break;
+                case 'option2':
+                    $question->answer = $validatedData['option2'][0];
+                    break;
+                case 'option3':
+                    $question->answer = $validatedData['option3'][0];
+                    break;
+                case 'option4':
+                    $question->answer = $validatedData['option4'][0];
+                    break;
+            }
+
+            if ($request->hasFile('image')) {
+                $image = $request->file('image');
+                $imageName = time() . '_updated.' . $image->getClientOriginalExtension();
+                $image->storeAs('assets/images/exam_images', $imageName);
+                $question->image = 'assets/images/exam_images/' . $imageName;
+            }
+
+            $question->save();
+
+            return redirect()->route('view_exam_questions', ['id' => $question->exam_id])->with('success', 'Question updated successfully!');
+        } catch (Exception $e) {
+            Log::error($e->getMessage());
+            return redirect()->back()->with('error', 'An error occurred during the update.');
+        }
     }
 
     /**
@@ -177,6 +240,16 @@ class QuestionController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $question = Question::find($id);
+
+        if (!$question) {
+            return redirect()->back()->with('error', 'Question not Found.');
+        }
+
+        $examId = $question->exam_id;
+
+        $question->delete();
+
+        return redirect()->route('view_exam_questions', ['id' => $examId])->with('success', 'Exam deleted successfully!');
     }
 }
