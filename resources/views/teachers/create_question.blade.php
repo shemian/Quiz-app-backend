@@ -119,6 +119,8 @@
                 });
             }
 
+
+
             // Populate subjects based on education system and education level selection
             $('#education_level').on('change', function () {
                 var educationSystemId = $('#education_system').val();
