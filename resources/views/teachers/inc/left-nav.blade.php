@@ -25,7 +25,6 @@
                 </a>
             </li>
 
-
             <li class="side-nav-item">
                 <a data-bs-toggle="collapse" href="#sidebarEmail" aria-expanded="false" aria-controls="sidebarEmail" class="side-nav-link">
                     <i class="uil-books"></i>
@@ -60,40 +59,39 @@
             </li>
 
             <li class="side-nav-item">
+                <a data-bs-toggle="collapse" href="#sidebarClass" aria-expanded="false" aria-controls="sidebarClass" class="side-nav-link">
+                    <i class="uil-book-open"></i>
+                    <span> Classes </span>
+                    <span class="menu-arrow"></span>
+                </a>
+                <div class="collapse" id="sidebarClass">
+                    <ul class="side-nav-second-level">
+                        <li class="side-nav-item">
+                            <a href="#"  class="side-nav-link">
+                                <i class="uil-books"></i>
+                                <span> Create Classes </span>
+                            </a>
+                        </li>
+
+                        <li class="side-nav-item">
+                            <a href="#" class="side-nav-link">
+                                <i class="uil-notebooks"></i>
+                                <span> My Classes </span>
+                            </a>
+                        </li>
+
+
+                    </ul>
+                </div>
+            </li>
+
+            <li class="side-nav-item">
                 <a href="{{ route('get_exams') }}" class="side-nav-link">
                     <i class="uil-notes"></i>
                     <span> Exams </span>
                 </a>
             </li>
 
-
-
-            <li class="side-nav-item">
-                <a data-bs-toggle="collapse" href="#sidebarSubtopics" aria-expanded="false" aria-controls="sidebarSubtopics" class="side-nav-link">
-                    <i class="uil-file-question"></i>
-                    <span> Questions </span>
-                    <span class="menu-arrow"></span>
-                </a>
-                <div class="collapse" id="sidebarSubtopics">
-                    <ul class="side-nav-second-level">
-                        <li class="side-nav-item">
-                            <a href="{{ route('get_questions') }} "  class="side-nav-link">
-                                <i class="uil-book"></i>
-                                <span> View Questions </span>
-                            </a>
-                        </li>
-
-{{--                        <li class="side-nav-item">--}}
-{{--                            <a href="{{ route('create_question') }}" class="side-nav-link">--}}
-{{--                                <i class="uil-book-alt"></i>--}}
-{{--                                <span> Create Questions </span>--}}
-{{--                            </a>--}}
-{{--                        </li>--}}
-
-
-                    </ul>
-                </div>
-            </li>
 
             <li class="side-nav-item">
                 <a href="#" class="side-nav-link">
