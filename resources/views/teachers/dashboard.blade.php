@@ -13,7 +13,7 @@
     </div>     <!-- end page title -->
 
     <div class="row">
-        <div class="col-lg-6 col-xl-4">
+        <div class="col-lg-6 col-xl-3">
             <div class="card">
                 <div class="card-body">
                     <div class="row align-items-center">
@@ -34,7 +34,7 @@
             </div> <!-- end card -->
         </div> <!-- end col -->
 
-        <div class="col-lg-6 col-xl-4">
+        <div class="col-lg-6 col-xl-3">
             <div class="card">
                 <div class="card-body">
                     <div class="row align-items-center">
@@ -55,9 +55,7 @@
             </div> <!-- end card -->
         </div> <!-- end col -->
 
-
-
-        <div class="col-lg-6 col-xl-4">
+        <div class="col-lg-6 col-xl-3">
             <div class="card">
                 <div class="card-body">
                     <div class="row align-items-center">
@@ -71,6 +69,27 @@
                         <div class="col-6">
                             <div class="text-end">
                                 <div id="booked-revenue-chart" data-colors="#0acf97"></div>
+                            </div>
+                        </div>
+                    </div> <!-- end row-->
+                </div> <!-- end card-body -->
+            </div> <!-- end card -->
+        </div> <!-- end col -->
+
+        <div class="col-lg-6 col-xl-3">
+            <div class="card">
+                <div class="card-body">
+                    <div class="row align-items-center">
+                        <div class="col-6">
+                            <h5 class="text-muted fw-normal mt-0 text-truncate" title="New Leads">My Classes</h5>
+                            <h3 class="my-2 py-1">0</h3>
+                            {{--                            <p class="mb-0 text-muted">--}}
+                            {{--                                <span class="text-danger me-2"><i class="mdi mdi-arrow-down-bold"></i> 5.38%</span>--}}
+                            {{--                            </p>--}}
+                        </div>
+                        <div class="col-6">
+                            <div class="text-end">
+                                <div id="new-leads-chart" data-colors="#0acf97"></div>
                             </div>
                         </div>
                     </div> <!-- end row-->
